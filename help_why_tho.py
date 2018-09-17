@@ -52,6 +52,17 @@ def vex_plot_data(table):
     ax2.legend(loc=1)
     #show plot
     plt.show()
-    
+
+
 table = vex_load_data('MAG_20071004_DOY277_D001_V1.TAB', disp=True)
+
+import pytplot
+times = []
+for t in table.index.tolist():
+    times.append(pytplot.tplot_utilities.str_to_int(t))
+data = table[["Bx", "By", "Bz"]]
+pytplot.store_data("testing", data={'x':times, 'y':data})
+pytplot.tplot(0)
+print("hello")
+
 vex_plot_data(table)
