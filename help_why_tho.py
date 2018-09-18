@@ -58,18 +58,18 @@ def vex_plot_data(table):
 
 table = vex_load_data('MAG_20071004_DOY277_D001_V1.TAB', disp=True)
 
-import pytplot
+#import pytplot
 #times = []
 #for t in table.index.tolist():
 #    times.append(pytplot.tplot_utilities.str_to_int(t))
-data = table[["Bx", "By", "Bz"]]
-pytplot.store_data("testing", data={'x':table.index.tolist(), 'y':data})
-pytplot.tplot('testing')
-print("hello")
+#data = table[["Bx", "By", "Bz"]]
+#pytplot.store_data("testing", data={'x':table.index.tolist(), 'y':data})
+#pytplot.tplot('testing')
+#print("hello")
 
-#vex_plot_data(table)
+vex_plot_data(table)
 
 # Start Qt event loop unless running in interactive mode or using pyside.
-if __name__ == '__main__':
-    if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
-        app.exec_()  # Start QApplication event loop ***
+#if __name__ == '__main__':
+#    if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
+#        app.exec_()  # Start QApplication event loop ***
