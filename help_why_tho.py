@@ -3,6 +3,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
+from PyQt5 import QtGui
 
 def vex_load_data(filename,disp=False):
     #remove column wrapping output
@@ -57,12 +59,17 @@ def vex_plot_data(table):
 table = vex_load_data('MAG_20071004_DOY277_D001_V1.TAB', disp=True)
 
 import pytplot
-times = []
-for t in table.index.tolist():
-    times.append(pytplot.tplot_utilities.str_to_int(t))
+#times = []
+#for t in table.index.tolist():
+#    times.append(pytplot.tplot_utilities.str_to_int(t))
 data = table[["Bx", "By", "Bz"]]
-pytplot.store_data("testing", data={'x':times, 'y':data})
-pytplot.tplot(0)
+pytplot.store_data("testing", data={'x':table.index.tolist(), 'y':data})
+pytplot.tplot('testing')
 print("hello")
 
-vex_plot_data(table)
+#vex_plot_data(table)
+
+# Start Qt event loop unless running in interactive mode or using pyside.
+if __name__ == '__main__':
+    if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
+        app.exec_()  # Start QApplication event loop ***
