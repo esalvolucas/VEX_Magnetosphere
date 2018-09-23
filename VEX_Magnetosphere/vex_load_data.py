@@ -16,5 +16,5 @@ def vex_load_data(filename,disp=False):
     #set UTC column to datetimeindex
     table = table.set_index(pd.DatetimeIndex(table.index))
     if disp==True:
-        print(table)
+        print(table.iloc[0])
     return table
