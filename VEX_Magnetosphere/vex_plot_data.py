@@ -20,7 +20,7 @@ def vex_plot_data(table):
     ax1.get_xaxis().set_visible(False)
     #plot |B| on subplot
     table[['|B|']].plot(ax=ax2,subplots=True,style=['k'],linewidth=0.25)
-    ax2.set(xlabel='UTC', ylabel='|B| field (nT)', ylim=[0,50])
+    ax2.set(xlabel='UTC', ylabel='|B| field (nT)')
     ax2.legend(loc=1)
     #show plot
     
@@ -45,7 +45,7 @@ def vex_plot_data(table):
     ax1.set(xlabel='VSO X', ylabel='VSO Y')
 
     ax2.plot(table['XSC'],table['ZSC'], color = 'y')
-    ax2.set(xlabel='VSO X', ylabel='VSO Z', title = "VEX Trajectory")
+    ax2.set(xlabel='VSO X', ylabel='VSO Z', title = "VEX Trajectory: " + str(np.array(table.index.values[0], dtype='datetime64[s]')) + ' to ' + str(np.array(table.index.values[-1], dtype='datetime64[s]')))
 
     ax3.plot(table['YSC'],table['ZSC'], color = 'm')
     ax3.set(xlabel='VSO Y', ylabel='VSO Z')
@@ -56,7 +56,7 @@ def vex_plot_data(table):
     ax1.plot(table['XSC'],np.sqrt((table['YSC'])**2 + (table['ZSC'])**2),color='c')
     ax1.set(xlabel = 'VSO X', ylabel = r'VSO $\sqrt{Y^2 + Z^2}$')
     ax2.plot(table['YSC'],np.sqrt((table['XSC'])**2 + (table['ZSC'])**2),color='y')
-    ax2.set(xlabel = 'VSO Y', ylabel = r'VSO $\sqrt{X^2 + Z^2}$',title='VEX Trajectory')
+    ax2.set(xlabel = 'VSO Y', ylabel = r'VSO $\sqrt{X^2 + Z^2}$',title='VEX Trajectory: ' + str(np.array(table.index.values[0], dtype='datetime64[s]')) + ' to ' + str(np.array(table.index.values[-1], dtype='datetime64[s]')))
     ax3.plot(table['ZSC'],np.sqrt((table['XSC'])**2 + (table['YSC'])**2),color='m')
     ax3.set(xlabel = 'VSO Z', ylabel = r'VSO $\sqrt{X^2 + Y^2}$')
 

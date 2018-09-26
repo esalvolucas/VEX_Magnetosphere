@@ -4,6 +4,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from VEX_Magnetosphere import *
+
 
 def vex_load_data(filename,disp=False):
     #remove column wrapping output
@@ -16,5 +18,5 @@ def vex_load_data(filename,disp=False):
     #set UTC column to datetimeindex
     table = table.set_index(pd.DatetimeIndex(table.index))
     if disp==True:
-        print(table.iloc[0])
+        print(table)
     return table
