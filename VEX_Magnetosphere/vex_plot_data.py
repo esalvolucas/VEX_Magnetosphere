@@ -61,3 +61,4 @@ def vex_plot_data(table):
     ax3.set(xlabel = 'VSO Z', ylabel = r'VSO $\sqrt{X^2 + Y^2}$')
 
     plt.show()
+    

@@ -12,7 +12,7 @@ def vex_load_data(filename,disp=False):
     pd.set_option('display.width', None)
     #open file, read into pandas dataframe
     with open(filename) as f:
-        table = pd.read_csv(f,delim_whitespace=True,index_col=0,header=None,names = ['UTC','Bx','By','Bz','|B|','XSC','YSC','ZSC','RSC'],skiprows=177)
+        table = pd.read_csv(f,delim_whitespace=True,index_col=0,header=None,names = ['UTC','Bx','By','Bz','|B|','XSC','YSC','ZSC','RSC'])
     #clip outliers
     table[(table>=99999)|(table<=-99999)] = np.nan
     #set UTC column to datetimeindex
