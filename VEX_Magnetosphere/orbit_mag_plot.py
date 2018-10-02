@@ -19,7 +19,7 @@ def orbit_mag_plot(table):
     for i in mag_line_i:
         print(table['Bx'][i], table['By'][i])
         #if positive direction, red
-        if table['Bx'][i]*table['By'][i] > 0:
+        if table['Bz'][i] > 0:
             c = 'r'
         #if negative direction, blue
         else:

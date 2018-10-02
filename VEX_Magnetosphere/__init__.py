@@ -8,3 +8,4 @@ from .vex_plot_data import vex_plot_data
 from .mag_concat import mag_concat
 from .date_vetting import date_vetting
 from .orbit_mag_plot import orbit_mag_plot
+from .plot_3D import plot_3D
