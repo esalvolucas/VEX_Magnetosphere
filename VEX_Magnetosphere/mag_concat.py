@@ -33,7 +33,28 @@ def mag_concat(start_date,end_date):
                 fout = open(catfilename, "a")
                 fout.writelines(data_list[227:])
                 fout.close()
-                
+        if os.path.isfile(catfilename):
+            print('OS: Windows')
+        else:
+            dir_path = "/Volumes/Venus_Express/calibrated_level_3/**/DATA/**/*.TAB"
+            for filename in glob.iglob(dir_path,recursive=True):
+                #remove hyphens
+                reg_start = start_day.replace('-','')
+                reg_end = end_day.replace('-','')
+                filedate = (os.path.basename(filename))[4:12]
+                #find files in between start/stop times
+                if (filedate >= reg_start) and (filedate <= reg_end):
+                    #print(filename)
+                    
+                    #read in data from file
+                    fin = open(filename, "r", encoding='iso-8859-1' )
+                    data_list = fin.readlines()
+                    fin.close()
+                    #remove header, append to new file
+                    fout = open(catfilename, "a")
+                    fout.writelines(data_list[227:])
+                    fout.close()
+            print('OS: Mac')
         #replace any instances of HH:MM:60.000 with HH:MM:59.999
         with open(catfilename) as f:
             newText=f.read().replace(':60.000', ':59.999')

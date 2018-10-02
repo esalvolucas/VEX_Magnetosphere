@@ -32,11 +32,11 @@ def plot_3D(table):
 #         #if negative direction, blue
 #         else:
 #             c = 'b'
-        ax.plot([table['XSC'][i],table['XSC'][i]+scale*table['Bx'][i]],
-                [table['YSC'][i],table['YSC'][i]+scale*table['By'][i]],
-                [table['ZSC'][i],table['ZSC'][i]+scale*table['By'][i]],
-                color='k')
-
+        Bplot = ax.plot([table['XSC'][i],table['XSC'][i]+scale*table['Bx'][i]],
+                        [table['YSC'][i],table['YSC'][i]+scale*table['By'][i]],
+                        [table['ZSC'][i],table['ZSC'][i]+scale*table['Bz'][i]],
+                        color='r')
+        #fig.colorbar(Bplot)
     ax.plot(table['XSC'],table['YSC'],table['ZSC'])
     add_venus_3D(ax)
     ax.auto_scale_xyz([-35000, 35000], [-35000, 35000], [-65000, 5000])

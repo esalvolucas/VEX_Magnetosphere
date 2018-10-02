@@ -9,7 +9,7 @@ def code_test(start_time,end_time):
     #load data into Pandas DataFrame
     table = VEX_Magnetosphere.vex_load_data(dates_file,disp=False)
     
-    print(table)
+    #print(table)
     #trim data to HH:MM:SS time range
     #table = VEX_Magnetosphere.date_vetting(table,start_time,end_time)
     
