@@ -10,6 +10,8 @@ def code_test(start_time,end_time):
     #trim data to HH:MM:SS time range
     #table = VEX_Magnetosphere.date_vetting(table,start_time,end_time)
     
+    print(max(table['|B|']))
+    print(min(table['|B|']))
     #make raw mag/location plots
     #VEX_Magnetosphere.vex_plot_data(table)
     

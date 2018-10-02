@@ -53,7 +53,7 @@ def plot_3D(table):
     ax.set_zlabel('VSO Z')
     
     #add sun vector
-    ax.quiver(0,0,0,35000,0,0,length=1.0,arrow_length_ratio=0.1,color='y')
+    ax.quiver(0,0,0,35000,0,0,length=1.0,arrow_length_ratio=0.1,color=(1,1,0))
 
     #plot title
     plt.title('VEX Orbit MAG Data: '+time_range_str)
