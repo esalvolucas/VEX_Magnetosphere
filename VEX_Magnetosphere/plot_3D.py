@@ -1,13 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import proj3d
+import matplotlib.colors
+import matplotlib.colorbar
+from colormap import rgb2hex
+
 
 def plot_3D(table):
         
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
-    
-    #grab table range for plot title
+    # ax = fig.gca(projection='3d')
+    ax = fig.add_subplot(111, projection='3d')
+    # grab table range for plot title
     table_start = str(np.array(table.index.values[0], dtype='datetime64[s]'))
     table_end = str(np.array(table.index.values[-1], dtype='datetime64[s]'))
     time_range_str = table_start + ' TO ' + table_end
@@ -15,35 +19,50 @@ def plot_3D(table):
     num_ti = len(time)-1
     mag_line_i = []
     
-    scale = 300 #km/T
-    n = 100 #vectors
+    scale = 300  # km/T
+    n = 100  # vectors
     
-    #plot VEX orbut
-    ax.plot(table['XSC'],table['YSC'],table['ZSC'])
+    # plot VEX orbit
+    ax.plot(table['XSC'], table['YSC'], table['ZSC'])
     
-    #linspace the # of vectors wanted
+    # linspace the # of vectors wanted
     for i in np.linspace(0, num_ti, num=n):
         mag_line_i = mag_line_i + [int(round(i))]
 
-    #plot each MAG 3D vector individually
+    # Get a list of the overall magnetic field magnitudes for the desired times
+    # Values from table
+    overall_mag = table['|B|'].values
+    # Now get a list
+    o_mags = list()
     for i in mag_line_i:
-        Bplot = ax.plot([table['XSC'][i],table['XSC'][i]+scale*table['Bx'][i]],
-                        [table['YSC'][i],table['YSC'][i]+scale*table['By'][i]],
-                        [table['ZSC'][i],table['ZSC'][i]+scale*table['Bz'][i]],
-                        color='r')
-        #print(Bplot)
-        #fig.colorbar(Bplot)
-#     print(len(table['ZSC'].values))
-#     print(len(table['ZSC'].values+scale*table['Bx'].values))
-#     Bplot = ax.plot([table['XSC'].values,table['XSC'].values+scale*table['Bx'].values],
-#                         [table['YSC'].values,table['YSC'].values+scale*table['By'].values],
-#                         [table['ZSC'].values,table['ZSC'].values+scale*table['Bz'].values])
-        #fig.colorbar(Bplot)
-#     plt.set_cmap('plasma')
+        o_mags.append(overall_mag[i])
+
+    # define the colormap
+    cmap = plt.get_cmap('viridis')
+    # define the bins and normalize
+    bounds = np.linspace(np.nanmin(o_mags), np.nanmax(o_mags), 60)
+    norm = matplotlib.colors.BoundaryNorm(bounds, cmap.N)
+
+    # plot each MAG 3D vector individually
+    for i, item in enumerate(mag_line_i):
+        # Getting the color for the vector line
+        r = cmap(norm(o_mags[i]), bytes=True)[0]
+        g = cmap(norm(o_mags[i]), bytes=True)[1]
+        b = cmap(norm(o_mags[i]), bytes=True)[2]
+        color = rgb2hex(r, g, b)
+        # Plot the thing
+        bplot = ax.plot([table['XSC'][item], table['XSC'][item]+scale*table['Bx'][item]],
+                        [table['YSC'][item], table['YSC'][item]+scale*table['By'][item]],
+                        [table['ZSC'][item], table['ZSC'][item]+scale*table['Bz'][item]],
+                        color=color)
+    # This does not work and I do not know why...doesn't matter where you put it, or if you pass it bplot, fig, ax...
+    # it just keeps throwing errors. You'll have to look into it.
+    # cb = matplotlib.colorbar.ColorbarBase(bplot, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
+    # cb.set_label('Some Units')
     
     #add venus to plot
-    add_venus_3D(ax)
-    
+    #add_venus_3D(ax)
+    color_hemisphere(ax)
     #scale axes to mostly square
     ax.auto_scale_xyz([-35000, 35000], [-35000, 35000], [-65000, 5000])
     
@@ -55,6 +74,11 @@ def plot_3D(table):
     #add sun vector
     ax.quiver(0,0,0,35000,0,0,length=1.0,arrow_length_ratio=0.1,color=(1,1,0))
 
+    #ax.set_facecolor('xkcd:slate grey')
+    ax.w_xaxis.set_pane_color((112/255,128/255,144/255))
+    ax.w_yaxis.set_pane_color((112/255,128/255,144/255))
+    ax.w_zaxis.set_pane_color((112/255,128/255,144/255))
+    
     #plot title
     plt.title('VEX Orbit MAG Data: '+time_range_str)
     plt.show()
@@ -68,4 +92,26 @@ def add_venus_3D(ax):
     
     r = 6051.8 #km (venus radius)
     #plot orange wireframe sphere
-    ax.plot_wireframe(r*x, r*y, r*z, color=(1,165/255,0))
+    ax.plot_wireframe(r*x, r*y, r*z, color=(1,165/255,0),alpha=0.5)
+    
+def color_hemisphere(ax):
+    # Create a sphere
+    r = 6051.8
+    pi = np.pi
+    cos = np.cos
+    sin = np.sin
+    phi, theta = np.mgrid[0.0:0.5*pi:90j, 0.0:2.0*pi:360j] # phi = alti, theta = azi
+    #plot nightside
+    z = -r*sin(phi)*cos(theta)
+    y = r*sin(phi)*sin(theta)
+    x = -r*cos(phi)    
+    ax.plot_surface(
+        x, y, z,  rstride=4, cstride=4, color='b', alpha=0.1, linewidth=0)    
+    ax.plot_wireframe(x, y, z, color="k")
+    #plot dayside
+    z = r*sin(phi)*cos(theta)
+    y = r*sin(phi)*sin(theta)                    
+    x = r*cos(phi) 
+    ax.plot_surface(
+        x, y, z,  rstride=4, cstride=4, color='w', alpha=0.1, linewidth=0)    
+    ax.plot_wireframe(x, y, z, color="w")
