@@ -35,6 +35,7 @@ def mag_concat(start_date,end_date):
                 fout.close()
         if os.path.isfile(catfilename):
             print('OS: Windows')
+            flag = 1
         else:
             dir_path = "/Volumes/Venus_Express/calibrated_level_3/**/DATA/**/*.TAB"
             for filename in glob.iglob(dir_path,recursive=True):
@@ -54,7 +55,14 @@ def mag_concat(start_date,end_date):
                     fout = open(catfilename, "a")
                     fout.writelines(data_list[227:])
                     fout.close()
-            print('OS: Mac')
+        if os.path.isfile(catfilename):
+            if flag == 1:
+                pass
+            else: 
+                print('OS: Mac')
+        else:
+            print('Please attach external hard drive.')
+            exit
         #replace any instances of HH:MM:60.000 with HH:MM:59.999
         with open(catfilename) as f:
             newText=f.read().replace(':60.000', ':59.999')

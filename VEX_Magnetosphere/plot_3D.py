@@ -72,7 +72,7 @@ def plot_3D(table):
     ax.set_zlabel('VSO Z')
     
     #add sun vector
-    ax.quiver(0,0,0,35000,0,0,length=1.0,arrow_length_ratio=0.1,color=(1,1,0))
+    #ax.quiver(0,0,0,35000,0,0,length=1.0,arrow_length_ratio=0.1,color=(1,1,0))
 
     #ax.set_facecolor('xkcd:slate grey')
     ax.w_xaxis.set_pane_color((112/255,128/255,144/255))

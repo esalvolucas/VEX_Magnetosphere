@@ -1,5 +1,5 @@
 import VEX_Magnetosphere
-import matplotlib.pyplot as plt
+
 def code_test(start_time,end_time):
     #grab any relevant files in date range
     dates_file = VEX_Magnetosphere.mag_concat(start_time,end_time)
@@ -9,21 +9,19 @@ def code_test(start_time,end_time):
     
     #trim data to HH:MM:SS time range
     #table = VEX_Magnetosphere.date_vetting(table,start_time,end_time)
-    
-    #print(max(table['Bz']))
-    #print(min(table['Bz']))
+
     #make raw mag/location plots
     #VEX_Magnetosphere.vex_plot_data(table)
     
     #make mag data vs orbit plot data
-    #VEX_Magnetosphere.orbit_mag_plot_xy(table)    
-    
     VEX_Magnetosphere.VSO_xyz_mag(table)
+
+    #VEX_Magnetosphere.orbit_mag_plot_xy(table)    
     #VEX_Magnetosphere.orbit_mag_plot_xz(table)
-    VEX_Magnetosphere.orbit_mag_plot_yz(table)
+    #VEX_Magnetosphere.orbit_mag_plot_yz(table)
 
     #make 3D orbit plot
-    #VEX_Magnetosphere.plot_3D(table)
+    VEX_Magnetosphere.plot_3D(table)
     
     
 code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')
