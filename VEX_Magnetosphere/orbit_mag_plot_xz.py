@@ -12,7 +12,7 @@ from matplotlib.patches import Wedge
 
 
 
-def orbit_mag_plot(table):
+def orbit_mag_plot_xz(table):
     #grab table range for plot title
     table_start = str(np.array(table.index.values[0], dtype='datetime64[s]'))
     table_end = str(np.array(table.index.values[-1], dtype='datetime64[s]'))
@@ -29,13 +29,12 @@ def orbit_mag_plot(table):
         mag_line_i = mag_line_i + [int(round(i))]
     #plot data
     fig, ax = plt.subplots(nrows=1, ncols=1)
-    ax.plot(table['XSC'],table['YSC'], color = 'c')
-    ax.set(xlabel='VSO X', ylabel='VSO Y')
-    
+    ax.plot(table['XSC'],table['ZSC'], color = 'c')
+    ax.set(xlabel='VSO X', ylabel='VSO Z')
     
     # Get a list of the overall magnetic field magnitudes for the desired times
     # Values from table
-    overall_mag = table['Bz'].values
+    overall_mag = table['By'].values
     # Now get a list
     o_mags = list()
     for i in mag_line_i:
@@ -56,35 +55,19 @@ def orbit_mag_plot(table):
         color = rgb2hex(r, g, b)
         # Plot the thing
         bplot = ax.plot([table['XSC'][item], table['XSC'][item]+scale*table['Bx'][item]],
-                        [table['YSC'][item], table['YSC'][item]+scale*table['By'][item]],
+                        [table['ZSC'][item], table['ZSC'][item]+scale*table['Bz'][item]],
                         color=color)
-        
-        #print(table['Bz'].values[i])
-#     for i in mag_line_i:
-# 
-#         Bplot = ax.plot([table['XSC'][i],table['XSC'][i]+100*table['Bx'][i]],
-#                         [table['YSC'][i],table['YSC'][i]+100*table['By'][i]],
-#                         color=c)
-    #cbar = fig.colorbar(Bplot, ticks=[min(table['Bz'].values), np.median(table['Bz'].values), max(table['Bz'].values)])
-    #cbar.ax.set_yticklabels(['?', '?', '?'])
-    
-    
+
     #add circle to represent venus
     #add_venus(ax)
-    #plt.grid(b=True, which='major', axis='both')
-
     dual_half_circle((0, 0), radius=6051.8, angle=90, ax=ax)
-
 
     #square axes
     ax.axis('equal')
-    
     ax.set_facecolor('xkcd:slate grey')
-
     ax.set(title='VEX Orbit MAG Data: '+time_range_str)
     
-    return fig,ax
-    #plt.show()
+    plt.show()
     
 # def add_venus(ax):
 #     #make venus orange circle w/ accepted venus radius, 6051.8 km
