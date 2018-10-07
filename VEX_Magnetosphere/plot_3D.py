@@ -19,7 +19,7 @@ def plot_3D(table):
     num_ti = len(time)-1
     mag_line_i = []
     
-    scale = 300  # km/T
+    scale = 300  # km/nT
     n = 100  # vectors
     
     # plot VEX orbit

@@ -28,16 +28,16 @@ def vex_plot_data(table):
     
 #     #LOCATION PLOTTING
 #     #initialize subplotting
-#     fig, (ax1,ax2) = plt.subplots(nrows=2, ncols=1,sharex=True, sharey=True)
-#     #plot B x/y/z on same plot, remove xaxis labels, add plot title
-#     table[['XSC','YSC','ZSC']].plot(ax=ax1,style=['m','y','c'],linewidth=1)
-#     ax1.set(title=plot_title, xlabel='UTC', ylabel='SC Location (km)')
-#     ax1.legend(loc=1)
-#     ax1.get_xaxis().set_visible(False)
-#     #plot |B| on subplot
-#     table['RSC'].plot(ax=ax2,subplots=True,style=['k'],linewidth=1)
-#     ax2.set(xlabel='UTC', ylabel='SC Radius (km)')
-#     ax2.legend(loc=1)
+    fig, (ax1,ax2) = plt.subplots(nrows=2, ncols=1,sharex=True, sharey=True)
+    #plot B x/y/z on same plot, remove xaxis labels, add plot title
+    table[['XSC','YSC','ZSC']].plot(ax=ax1,style=['m','y','c'],linewidth=1)
+    ax1.set(title=plot_title, xlabel='UTC', ylabel='SC Location (km)')
+    ax1.legend(loc=1)
+    ax1.get_xaxis().set_visible(False)
+    #plot |B| on subplot
+    table['RSC'].plot(ax=ax2,subplots=True,style=['k'],linewidth=1)
+    ax2.set(xlabel='UTC', ylabel='SC Radius (km)')
+    ax2.legend(loc=1)
 #     #show plot
 #     plt.show()
     fig, (ax1,ax2,ax3) = plt.subplots(nrows=1, ncols=3, sharex=True, sharey=True)

@@ -11,17 +11,18 @@ def code_test(start_time,end_time):
     #table = VEX_Magnetosphere.date_vetting(table,start_time,end_time)
 
     #make raw mag/location plots
-    #VEX_Magnetosphere.vex_plot_data(table)
+    VEX_Magnetosphere.vex_plot_data(table)
     
     #make mag data vs orbit plot data
-    VEX_Magnetosphere.VSO_xyz_mag(table)
+    #VEX_Magnetosphere.VSO_xyz_mag(table)
 
     #VEX_Magnetosphere.orbit_mag_plot_xy(table)    
     #VEX_Magnetosphere.orbit_mag_plot_xz(table)
     #VEX_Magnetosphere.orbit_mag_plot_yz(table)
 
     #make 3D orbit plot
-    VEX_Magnetosphere.plot_3D(table)
+    #VEX_Magnetosphere.plot_3D(table)
     
     
+#code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')
 code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')
