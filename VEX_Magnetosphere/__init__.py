@@ -22,3 +22,6 @@ from .VSO_3D_avg import VSO_3D_avg
 
 from .add_venus_2D import add_venus_2D
 from .add_venus_3D import add_venus_3D
+
+from .clock_cone_angle import clock_cone_angle
+from .magnetosphere import magnetosphere

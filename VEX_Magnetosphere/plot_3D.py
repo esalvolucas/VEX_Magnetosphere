@@ -4,13 +4,20 @@ from mpl_toolkits.mplot3d import proj3d
 import matplotlib.colors
 import matplotlib.colorbar
 from colormap import rgb2hex
+from matplotlib import ticker
 
 
 def plot_3D(table):
         
     fig = plt.figure()
     # ax = fig.gca(projection='3d')
+    ###########
     ax = fig.add_subplot(111, projection='3d')
+    cax = plt.axes([0.85, 0.1, 0.035, 0.8])
+    plt.subplots_adjust(bottom=0.1, right=0.8, top=0.9)
+    
+    #cax = fig.add_subplot(122)
+    ###############
     # grab table range for plot title
     table_start = str(np.array(table.index.values[0], dtype='datetime64[s]'))
     table_end = str(np.array(table.index.values[-1], dtype='datetime64[s]'))
@@ -57,14 +64,18 @@ def plot_3D(table):
                         color=color)
     # This does not work and I do not know why...doesn't matter where you put it, or if you pass it bplot, fig, ax...
     # it just keeps throwing errors. You'll have to look into it.
-    # cb = matplotlib.colorbar.ColorbarBase(bplot, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
-    # cb.set_label('Some Units')
+    cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
+    cb.set_label('|B| Strength (nT)')
+    tick_locator = ticker.MaxNLocator(nbins=10)
+    cb.locator = tick_locator
+    cb.update_ticks()
     
     #add venus to plot
     #add_venus_3D(ax)
     color_hemisphere(ax)
     #scale axes to mostly square
     ax.auto_scale_xyz([-35000, 35000], [-35000, 35000], [-65000, 5000])
+    
     
     #set labels
     ax.set_xlabel('VSO X')
@@ -80,7 +91,8 @@ def plot_3D(table):
     ax.w_zaxis.set_pane_color((112/255,128/255,144/255))
     
     #plot title
-    plt.title('VEX Orbit MAG Data: '+time_range_str)
+    ax.set_title('VEX Orbit MAG Data: '+time_range_str)
+    #plt.title('VEX Orbit MAG Data: '+time_range_str)
     plt.show()
     
 def add_venus_3D(ax):

@@ -5,6 +5,7 @@ import matplotlib.colors
 import matplotlib.colorbar
 from colormap import rgb2hex
 from VEX_Magnetosphere.add_venus_3D import add_venus_3D
+from matplotlib import ticker
 
 
 def VSO_3D_avg(table):
@@ -19,7 +20,6 @@ def VSO_3D_avg(table):
     num_ti = len(time)-1
     mag_line_i = []
     
-    n = 100  # vectors
     r = 6051.8
     scale = 300/r  # venus radii/T
     
@@ -31,9 +31,11 @@ def VSO_3D_avg(table):
     # plot VEX orbit
     ax.plot(table['XSC'], table['YSC'], table['ZSC'], color = (139/255,0,0))
     
+    cax = plt.axes([0.85, 0.1, 0.035, 0.8])
+    plt.subplots_adjust(bottom=0.1, right=0.8, top=0.9)
+    
     #resample table to minute cadence
     table = table.resample('T').mean()
-    print(table)
     
     time = table.index.values
     num_ti = len(time)-1
@@ -72,6 +74,11 @@ def VSO_3D_avg(table):
     # it just keeps throwing errors. You'll have to look into it.
     # cb = matplotlib.colorbar.ColorbarBase(bplot, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
     # cb.set_label('Some Units')
+    cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
+    cb.set_label('|B| Strength (nT)')
+    tick_locator = ticker.MaxNLocator(nbins=11)
+    cb.locator = tick_locator
+    cb.update_ticks()
     
     #add venus to plot
     add_venus_3D(ax)
@@ -106,6 +113,6 @@ def VSO_3D_avg(table):
 
     
     #plot title
-    plt.title('VEX Orbit MAG Data: '+time_range_str)
+    ax.set_title('VEX Orbit MAG Data: '+time_range_str)
     
     plt.show()

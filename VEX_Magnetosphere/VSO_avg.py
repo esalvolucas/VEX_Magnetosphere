@@ -9,6 +9,7 @@ from cv2 import ellipse
 import matplotlib.patches
 from matplotlib.patches import Arc
 from VEX_Magnetosphere.add_venus_2D import add_venus_2D
+from matplotlib import ticker
 
 
 
@@ -25,7 +26,7 @@ def VSO_avg(table):
     
     n = 100  # vectors
     r = 6051.8
-    scale = 300/r  # venus radii/T
+    scale = 300/r  # venus radii/nT
     
     #scale location data by venus radius
     table['XSC'] = table['XSC']/r
@@ -44,9 +45,16 @@ def VSO_avg(table):
     ax2.set(xlabel='VSO X', ylabel='VSO Z')
     ax3.set(xlabel='VSO Y', ylabel='VSO Z')
 
+
+
+    cax = plt.axes([0.85, 0.1, 0.035, 0.8])
+    plt.subplots_adjust(bottom=0.1, right=0.8, top=0.9)
+    
+    
+    
+    
     #downsample table to minute cadence
     table = table.resample('T').mean()
-    print(table)
     
     time = table.index.values
     num_ti = len(time)-1
@@ -62,23 +70,27 @@ def VSO_avg(table):
 
     # define the colormap
     cmap = plt.get_cmap('viridis')
-    #cmap = 'viridis'
     # define the bins and normalize
-    bounds1 = np.linspace(np.nanmin(o_mags_1), np.nanmax(o_mags_1), 60)
-    norm1 = matplotlib.colors.BoundaryNorm(bounds1, cmap.N)
-
-    bounds2 = np.linspace(np.nanmin(o_mags_2), np.nanmax(o_mags_2), 60)
-    norm2 = matplotlib.colors.BoundaryNorm(bounds2, cmap.N)
+#     bounds1 = np.linspace(np.nanmin(o_mags_1), np.nanmax(o_mags_1), 60)
+#     norm1 = matplotlib.colors.BoundaryNorm(bounds1, cmap.N)
+# 
+#     bounds2 = np.linspace(np.nanmin(o_mags_2), np.nanmax(o_mags_2), 60)
+#     norm2 = matplotlib.colors.BoundaryNorm(bounds2, cmap.N)
+#     
+#     bounds3 = np.linspace(np.nanmin(o_mags_3), np.nanmax(o_mags_3), 60)
+#     norm3 = matplotlib.colors.BoundaryNorm(bounds3, cmap.N)
     
-    bounds3 = np.linspace(np.nanmin(o_mags_3), np.nanmax(o_mags_3), 60)
-    norm3 = matplotlib.colors.BoundaryNorm(bounds3, cmap.N)
+    o_mags = list(o_mags_1) + list(o_mags_2) + list(o_mags_3)
+    bounds = np.linspace(np.nanmin(o_mags), np.nanmax(o_mags), 60)
+    norm = matplotlib.colors.BoundaryNorm(bounds, cmap.N)
+    
     
     # plot each MAG 3D vector individually
     for i, item in enumerate(mag_line_i):
         # Getting the color for the Bz line
-        r = cmap(norm1(o_mags_1[i]), bytes=True)[0]
-        g = cmap(norm1(o_mags_1[i]), bytes=True)[1]
-        b = cmap(norm1(o_mags_1[i]), bytes=True)[2]
+        r = cmap(norm(o_mags_1[i]), bytes=True)[0]
+        g = cmap(norm(o_mags_1[i]), bytes=True)[1]
+        b = cmap(norm(o_mags_1[i]), bytes=True)[2]
         color1 = rgb2hex(r, g, b)
         # Plot
         bplot_1 = ax1.plot([table['XSC'][item], table['XSC'][item]+scale*table['Bx'][item]],
@@ -86,9 +98,9 @@ def VSO_avg(table):
                         color=color1)
 
         # Getting the color for the By line
-        r = cmap(norm2(o_mags_2[i]), bytes=True)[0]
-        g = cmap(norm2(o_mags_2[i]), bytes=True)[1]
-        b = cmap(norm2(o_mags_2[i]), bytes=True)[2]
+        r = cmap(norm(o_mags_2[i]), bytes=True)[0]
+        g = cmap(norm(o_mags_2[i]), bytes=True)[1]
+        b = cmap(norm(o_mags_2[i]), bytes=True)[2]
         color2 = rgb2hex(r, g, b)
         # Plot
         bplot_2 = ax2.plot([table['XSC'][item], table['XSC'][item]+scale*table['Bx'][item]],
@@ -96,14 +108,22 @@ def VSO_avg(table):
                         color=color2)
         
         # Getting the color for the Bx line
-        r = cmap(norm3(o_mags_3[i]), bytes=True)[0]
-        g = cmap(norm3(o_mags_3[i]), bytes=True)[1]
-        b = cmap(norm3(o_mags_3[i]), bytes=True)[2]
+        r = cmap(norm(o_mags_3[i]), bytes=True)[0]
+        g = cmap(norm(o_mags_3[i]), bytes=True)[1]
+        b = cmap(norm(o_mags_3[i]), bytes=True)[2]
         color3 = rgb2hex(r, g, b)
         # Plot
         bplot_3 = ax3.plot([table['YSC'][item], table['YSC'][item]+scale*table['By'][item]],
                         [table['ZSC'][item], table['ZSC'][item]+scale*table['Bz'][item]],
                         color=color3)
+        
+        
+    cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
+    cb.set_label(r'$B_{\perp}$ Strength (nT)')
+    tick_locator = ticker.MaxNLocator(nbins=11)
+    cb.locator = tick_locator
+    cb.update_ticks()
+    
     #add circle to represent venus
     add_venus_2D((0,0), radius=1, angle=90, ax=ax1, colors=('k','w'))
     add_venus_2D((0,0), radius=1, angle=90, ax=ax2, colors=('k','w'))
