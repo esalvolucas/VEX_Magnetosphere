@@ -24,7 +24,7 @@ def date_vetting(table,start_time,end_time):
         #if start > table index or stop < table index, note index
         if (float(table_i) < float(start_comp)) or (float(table_i) > float(end_comp)):
             drop_i = drop_i + [val]
-    
+    print(drop_i)
     #drop extraneous data from table
     table = table.drop(drop_i)
     print(table)

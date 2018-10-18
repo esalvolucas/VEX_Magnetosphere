@@ -17,11 +17,10 @@ def VSO_3D_avg(table):
     table_end = str(np.array(table.index.values[-1], dtype='datetime64[s]'))
     time_range_str = table_start + ' TO ' + table_end
     time = table.index.values
-    num_ti = len(time)-1
     mag_line_i = []
     
     r = 6051.8
-    scale = 300/r  # venus radii/T
+    scale = 500/r  # venus radii/T
     
     table['XSC'] = table['XSC']/r
     table['YSC'] = table['YSC']/r
@@ -31,8 +30,8 @@ def VSO_3D_avg(table):
     # plot VEX orbit
     ax.plot(table['XSC'], table['YSC'], table['ZSC'], color = (139/255,0,0))
     
-    cax = plt.axes([0.85, 0.1, 0.035, 0.8])
-    plt.subplots_adjust(bottom=0.1, right=0.8, top=0.9)
+    cax = plt.axes([0.93, 0.1, 0.020, 0.8])
+    plt.subplots_adjust(bottom=0.1, left=0.03, right=0.91, top=0.9)
     
     #resample table to minute cadence
     table = table.resample('T').mean()

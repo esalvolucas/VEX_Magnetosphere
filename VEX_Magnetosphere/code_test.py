@@ -1,13 +1,15 @@
 from VEX_Magnetosphere import *
-
+import pandas as pd
 def code_test(start_time,end_time):
     #GRAB RELEVANT FILES IN DATE RANGE
     dates_file = mag_concat(start_time,end_time)
     
     #LOAD DATA INTO PANDAS DATAFRAME
     table = vex_load_data(dates_file,disp=False)
+    table = table.resample('T').mean()
     table = clock_cone_angle(table)
-    magnetosphere(table)
+    
+    CA_select_in,CA_select_out = magnetosphere(table)
     #TRIM DATA TO THE SPECIFIED HH:MM:SS RANGE
     #table = date_vetting(table,start_time,end_time)
 

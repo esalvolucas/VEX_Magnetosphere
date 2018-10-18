@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 def clock_cone_angle(table):
     #calculate clock and cone angle
