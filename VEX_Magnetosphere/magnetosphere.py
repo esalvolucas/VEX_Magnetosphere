@@ -18,7 +18,7 @@ def magnetosphere(table):
     
     a = BS - rho
     minInd = argrelextrema(abs(a), np.less)
-    print(minInd)
+    #print(minInd)
     #print(np.where((BS - rho)==a))
     #print(table.iloc[11653])
     
@@ -28,26 +28,25 @@ def magnetosphere(table):
         if a[i+1] <= 0:
             dir = 'out'
             CA_select_out = table.iloc[i:i+60]
-            plt.plot(x[i:i+60],rho[i:i+60],'*')
+            #plt.plot(x[i:i+60],rho[i:i+60],'*')
         else:
             dir = 'in'
             CA_select_in = table.iloc[i-60:i]
-            plt.plot(x[i-60:i],rho[i-60:i],'*')
-        print(dir)
+            #plt.plot(x[i-60:i],rho[i-60:i],'*')
+        #print(dir)
        
     #print(table.iloc[11653])
  
-    print(CA_select_in)
+    #print(CA_select_in)
     
-    print(CA_select_in['Clock'].mean())
     #plt.plot(x[minInd],BS[minInd],'*')
     #plt.plot(x[minInd],rho[minInd],'*')
-    plt.plot(x,BS)
-    plt.plot(x,-BS)
-    plt.plot(x,rho)
-    add_venus_2D((0,0), radius=1, angle=90, ax=ax, colors=('k','w'))
-    ax.set_facecolor('xkcd:slate grey')
-    plt.axis('equal')
-    plt.show()
+#     plt.plot(x,BS)
+#     plt.plot(x,-BS)
+#     plt.plot(x,rho)
+#     add_venus_2D((0,0), radius=1, angle=90, ax=ax, colors=('k','w'))
+#     ax.set_facecolor('xkcd:slate grey')
+#     plt.axis('equal')
+#     plt.show()
     
     return CA_select_in, CA_select_out

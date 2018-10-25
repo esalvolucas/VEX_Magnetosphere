@@ -3,6 +3,8 @@
 # This software was developed at the University of Colorado - Boulder.
 # Verify current version before use at: https://github.com/esalvolucas/VEX_Magnetosphere
 
+#from .main_multiorbit import main_multiorbit
+
 from .mag_concat import mag_concat
 
 from .vex_load_data import vex_load_data
@@ -25,3 +27,4 @@ from .add_venus_3D import add_venus_3D
 
 from .clock_cone_angle import clock_cone_angle
 from .magnetosphere import magnetosphere
+from .VSO_to_VSE import VSO_to_VSE
