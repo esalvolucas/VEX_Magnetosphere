@@ -6,11 +6,11 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     
     z_mean = np.nanmean(CA_select_in['Bz'].values)
     y_mean = np.nanmean(CA_select_in['By'].values)
-    clk_in = np.arctan(z_mean/y_mean)
+    clk_in = -np.arctan2(z_mean,y_mean)
     
     z_mean = np.nanmean(CA_select_out['Bz'].values)
     y_mean = np.nanmean(CA_select_out['By'].values)
-    clk_out = np.arctan(z_mean/y_mean)
+    clk_out = -np.arctan2(z_mean,y_mean)
     
     BS_in_t = CA_select_in.index[0]
     BS_out_t = CA_select_out.index[-1]
@@ -20,11 +20,10 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     
     
     for time in table.index:        
-        if time > BS_in_t and time < BS_out_t:
-            if time < avg_BS:
-                table['Clock'][time] = clk_in
-            else:
-                table['Clock'][time] = clk_out
+        if time < avg_BS:
+            table['Clock'][time] = clk_in
+        else:
+            table['Clock'][time] = clk_out
     
     #print(table['Clock'])
     #print((BS_in_t + BS_out_t)/2)
@@ -34,7 +33,9 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
         theta = table['Clock'][time]
         
         c,s = np.cos(theta), np.sin(theta)
-        rot_VSE = np.array(((1,0,0),(0,c,-s),(0,s,c)))
+        rot_VSE = np.array(((1,0,0),
+                            (0,c,-s),
+                            (0,s,c)))
         
         
         Bx = table['Bx'][time]

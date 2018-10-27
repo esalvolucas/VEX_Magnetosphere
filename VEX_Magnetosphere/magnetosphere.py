@@ -22,7 +22,7 @@ def magnetosphere(table):
     #print(np.where((BS - rho)==a))
     #print(table.iloc[11653])
     
-    fig,ax = plt.subplots(nrows=1, ncols=1)
+    #fig,ax = plt.subplots(nrows=1, ncols=1)
     
     for i in minInd[0]:
         if a[i+1] <= 0:
