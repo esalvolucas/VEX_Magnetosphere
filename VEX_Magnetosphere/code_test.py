@@ -17,10 +17,9 @@ def code_test(start_time,end_time):
     #vex_plot_data(table)
     
     
+    #CA_select_in,CA_select_out = magnetosphere(table)
     
-    CA_select_in,CA_select_out = magnetosphere(table)
-    
-    VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
+    #VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
     
 #     plt.plot(table.index,table['Clock'])
 #     plt.plot(CA_select_in.index,CA_select_in['Clock'])
@@ -45,14 +44,13 @@ def code_test(start_time,end_time):
     #plot_3D(table)
     
     #PLOT 1-MINUTE CADENCE VSO DATA (2D)
-    #VSO_avg(table)
-    #VSO_avg(VSE_table)
+    VSO_avg(table)
     #PLOT 1-MINUTE CADENC VSO DATA (3D)
     #VSO_3D_avg(table)
 
     #print(VSE_table['XSC'])
     #vex_plot_data(VSE_table)
-    plt.scatter(VSE_table['Bx'],VSE_table['By'],c=VSE_table['Bz'],cmap='jet')
+    #plt.scatter(VSE_table['Bx'],VSE_table['By'],c=VSE_table['Bz'],cmap='jet')
     #plt.show()
-code_test('2013-05-21 00:00:00','2013-05-21 00:00:00')
-#code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')
+#code_test('2013-05-21 00:00:00','2013-05-21 00:00:00')
+code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')
