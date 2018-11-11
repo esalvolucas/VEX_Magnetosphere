@@ -12,7 +12,7 @@ def code_test(start_time,end_time):
     table = table.resample('T').mean()
     table = clock_cone_angle(table)
     
-    
+    #print(table)
     
     #vex_plot_data(table)
     
@@ -52,5 +52,5 @@ def code_test(start_time,end_time):
     #vex_plot_data(VSE_table)
     #plt.scatter(VSE_table['Bx'],VSE_table['By'],c=VSE_table['Bz'],cmap='jet')
     #plt.show()
-#code_test('2013-05-21 00:00:00','2013-05-21 00:00:00')
-code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')
+code_test('2013-05-21 00:00:00','2013-05-21 00:00:00')
+#code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')

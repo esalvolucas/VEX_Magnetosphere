@@ -154,7 +154,41 @@ def VSO_avg(table):
     #ax2.set_ylim([-12,2.5])   
     #ax3.set_xlim([-5.5,3.5])
     #ax3.set_ylim([-12,2.5])
+    #model bow shock
     
+    L = 1.303
+    epsilon = 1.056
+    x0 = 0.788
+    x = table['XSC'].values + [1.2]
+    y = table['YSC'].values
+    #print(table.iloc[11653])
+
+    rho = np.sqrt((table['YSC'].values)**2 + (table['ZSC'].values)**2)
+    BS = np.sqrt(L**2 - 2*epsilon*(x-x0)*L - (epsilon**2 - 1)*(x-x0)**2)
+    BS_yz = np.sqrt(L**2 - 2*epsilon*(0-x0)*L - (epsilon**2 - 1)*(0-x0)**2)
+    ax1.plot(x,BS,'r')
+    ax1.plot(x,-BS,'r')
+    ax2.plot(x,BS,'r')
+    ax2.plot(x,-BS,'r')
+    BSplt = plt.Circle((0,0),BS_yz*1.2,color='r',fill=False)
+    ax3.add_artist(BSplt)
     
+    #ax1.axis('equal')
+    #ax2.axis('equal')
+#     X = table['XSC']
+#     Y = table['YSC']
+#     Z = table['ZSC']
+#         
+#     max_range = np.array([X.max()-X.min(), Y.max()-Y.min(), Z.max()-Z.min()]).max() / 2.0
+#     
+#     mid_x = (X.max()+X.min()) * 0.5
+#     mid_y = (Y.max()+Y.min()) * 0.5
+#     mid_z = (Z.max()+Z.min()) * 0.5
+#     ax1.set_xlim(mid_x - max_range, mid_x + max_range)
+#     ax1.set_ylim(mid_y - max_range, mid_y + max_range)
+#     ax1.set_zlim(mid_z - max_range, mid_z + max_range)
+#     ax2.set_xlim(mid_x - max_range, mid_x + max_range)
+#     ax2.set_ylim(mid_y - max_range, mid_y + max_range)
+#     ax2.set_zlim(mid_z - max_range, mid_z + max_range)
     plt.show()
     
