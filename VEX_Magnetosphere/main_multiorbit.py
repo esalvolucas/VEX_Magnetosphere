@@ -19,8 +19,12 @@ def main_multiorbit(start_time,end_time,
     if catorbit==None:
         orbits = orbit_delta_list(start_time, end_time)
         fig,(ax1,ax2) = plt.subplots(nrows=1, ncols=2)
-        add_venus_2D((0,0), 1, angle=0, ax=ax1, colors=('k','k'))
-        add_venus_2D((0,0), 1, angle=0, ax=ax2, colors=('k','k'))
+        #add_venus_2D((0,0), 1, angle=0, ax=ax1, colors=('k','k'))
+        #add_venus_2D((0,0), 1, angle=0, ax=ax2, colors=('k','k'))
+        venus1=plt.Circle((0,0),1,color='k',fill=False)
+        venus2=plt.Circle((0,0),1,color='k',fill=False)
+        ax1.add_artist(venus1)
+        ax2.add_artist(venus2)
         cax = plt.axes([0.93, 0.1, 0.020, 0.8])
         plt.subplots_adjust(bottom=0.1, left=0.07, right=0.91, top=0.9)
         for orbit in orbits:
@@ -36,9 +40,10 @@ def main_multiorbit(start_time,end_time,
             table['YSC'] = table['YSC']/6051.8
             table['ZSC'] = table['ZSC']/6051.8
             table['RSC'] = table['RSC']/6051.8
-
             #table = table.where((table['XSC']<-1)&(table['XSC']>-2))
-            ax1.scatter(table['YSC'],table['ZSC'],c=table['Bx'],cmap='seismic')
+
+            table1 = table.where((table['XSC']<-1)&(table['XSC']>-2))
+            ax1.scatter(table1['YSC'],table1['ZSC'],c=table1['Bx'],cmap='seismic',vmin=-20,vmax=20)
             
             try:
                 CA_select_in,CA_select_out = magnetosphere_mmo(table)
@@ -46,29 +51,31 @@ def main_multiorbit(start_time,end_time,
                 continue
                 #CA_select_in,CA_select_out = magnetosphere(table)
 
-
-            VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
-            VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
-            #print(VSE_table.loc[(VSE_table['XSC'] > -2) & VSE_table['XSC'] < -1])
-            #print(VSE_table.where(VSE_table['XSC'].values<=-1 and VSE_table['XSC'].values>-2))
-            ax2.scatter(VSE_table['YSC'],VSE_table['ZSC'],c=VSE_table['Bx'],cmap='seismic')
-            ax1.set_xlabel('YSC')
-            ax1.set_ylabel('ZSC')
-            ax1.set_title('VSO')
-            ax2.set_xlabel('YSC')
-            ax2.set_ylabel('ZSC')
-            ax2.set_title('VSE')
+            try:
+                VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
+                VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
+                #print(VSE_tab                                                                         le.loc[(VSE_table['XSC'] > -2) & VSE_table['XSC'] < -1])
+                #print(VSE_table.where(VSE_table['XSC'].values<=-1 and VSE_table['XSC'].values>-2))
+                ax2.scatter(VSE_table['YSC'],VSE_table['ZSC'],c=VSE_table['Bx'],cmap='seismic',vmin=-20,vmax=20)
+                ax1.set_xlabel('YSC')
+                ax1.set_ylabel('ZSC')
+                ax1.set_title('VSO')
+                ax2.set_xlabel('YSC')
+                ax2.set_ylabel('ZSC')
+                ax2.set_title('VSE')
+            except:
+                continue
 
         cmap = plt.get_cmap('seismic')
-        o_mags = VSE_table['Bx'].values
-        bounds = np.linspace(np.nanmin(o_mags), np.nanmax(o_mags), 60)
+        #o_mags = VSE_table['Bx'].values
+        bounds = np.linspace(-20, 20, 60)
         norm = matplotlib.colors.BoundaryNorm(bounds, cmap.N)
         cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
         cb.set_label(r'$B_{x}$ Strength (nT)')
         tick_locator = ticker.MaxNLocator(nbins=11)
         cb.locator = tick_locator
         cb.update_ticks()
-        
+         
         ax1.set_xlim(-2,2)
         ax2.set_xlim(-2,2)
         ax1.set_ylim(-2,2)
@@ -90,4 +97,4 @@ def orbit_delta_list(start_time,end_time):
         
     return orbits
 
-main_multiorbit('2013-05-07 00:00:00','2014-05-07 00:00:00')
+main_multiorbit('2006-04-24 00:00:00','2014-11-25 00:00:00')

@@ -11,7 +11,7 @@ def code_test(start_time,end_time):
     table = vex_load_data(dates_file,disp=False)
     table = table.resample('T').mean()
     table = clock_cone_angle(table)
-    
+    #table = table.where((table['XSC']<-1)&(table['XSC']>-2))
     #print(table)
     
     #vex_plot_data(table)
@@ -44,9 +44,10 @@ def code_test(start_time,end_time):
     #plot_3D(table)
     
     #PLOT 1-MINUTE CADENCE VSO DATA (2D)
-    VSO_avg(table)
+    #VSO_avg(table)
+    #VSO_avg(VSE_table,VSE=True)
     #PLOT 1-MINUTE CADENC VSO DATA (3D)
-    #VSO_3D_avg(table)
+    VSO_3D_avg(table)
 
     #print(VSE_table['XSC'])
     #vex_plot_data(VSE_table)

@@ -13,7 +13,7 @@ from matplotlib import ticker
 
 
 
-def VSO_avg(table):
+def VSO_avg(table,VSE=False):
 
     #grab table range for plot title
     table_start = str(np.array(table.index.values[0], dtype='datetime64[s]'))
@@ -45,7 +45,10 @@ def VSO_avg(table):
     ax2.set(xlabel='VSO X', ylabel='VSO Z')
     ax3.set(xlabel='VSO Y', ylabel='VSO Z')
 
-
+    if VSE==True:
+        ax1.set(xlabel='VSE X', ylabel='VSE Y')
+        ax2.set(xlabel='VSE X', ylabel='VSE Z')
+        ax3.set(xlabel='VSE Y', ylabel='VSE Z')
 
     cax = plt.axes([0.93, 0.1, 0.020, 0.8])
     plt.subplots_adjust(bottom=0.1, left=0.07, right=0.91, top=0.9)
