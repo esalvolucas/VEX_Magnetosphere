@@ -28,3 +28,5 @@ from .add_venus_3D import add_venus_3D
 from .clock_cone_angle import clock_cone_angle
 from .magnetosphere import magnetosphere,magnetosphere_mmo
 from .VSO_to_VSE import VSO_to_VSE
+
+from .bin_3d import bin_3d
