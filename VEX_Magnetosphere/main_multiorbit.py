@@ -18,6 +18,7 @@ def main_multiorbit(start_time,end_time,
     #if orbit-by-orbit (not concat)
     if catorbit==None:
         orbits = orbit_delta_list(start_time, end_time)
+        print(orbits)
         fig,(ax1,ax2) = plt.subplots(nrows=1, ncols=2)
         #add_venus_2D((0,0), 1, angle=0, ax=ax1, colors=('k','k'))
         #add_venus_2D((0,0), 1, angle=0, ax=ax2, colors=('k','k'))
@@ -41,7 +42,7 @@ def main_multiorbit(start_time,end_time,
             table['ZSC'] = table['ZSC']/6051.8
             table['RSC'] = table['RSC']/6051.8
             #table = table.where((table['XSC']<-1)&(table['XSC']>-2))
-            print(table)
+            #print(table)
             table1 = table.where((table['XSC']<-1)&(table['XSC']>-2))
             ax1.scatter(table1['YSC'],table1['ZSC'],c=table1['Bx'],cmap='seismic',vmin=-20,vmax=20)
             
@@ -97,5 +98,5 @@ def orbit_delta_list(start_time,end_time):
         
     return orbits
 
-main_multiorbit('2013-05-07 00:00:00','2013-06-07 00:00:00')
+main_multiorbit('2013-05-07 00:00:00','2013-05-10 00:00:00')
 #main_multiorbit('2006-04-24 00:00:00','2014-11-25 00:00:00')
