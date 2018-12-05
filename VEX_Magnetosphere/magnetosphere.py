@@ -61,11 +61,11 @@ def magnetosphere(table):
     L = 1.303
     epsilon = 1.056
     x0 = 0.788
-    x = table['XSC'].values/6051.8
+    x = table['XSC'].values
     
     #print(table.iloc[11653])
 
-    rho = np.sqrt((table['YSC'].values/6051.8)**2 + (table['ZSC'].values/6051.8)**2)
+    rho = np.sqrt((table['YSC'].values)**2 + (table['ZSC'].values)**2)
     BS = 1.1*np.sqrt(L**2 - 2*epsilon*(x-x0)*L - (epsilon**2 - 1)*(x-x0)**2) #10% safety buffer
     
     a = BS - rho

@@ -41,7 +41,7 @@ def main_multiorbit(start_time,end_time,
             table['ZSC'] = table['ZSC']/6051.8
             table['RSC'] = table['RSC']/6051.8
             #table = table.where((table['XSC']<-1)&(table['XSC']>-2))
-
+            print(table)
             table1 = table.where((table['XSC']<-1)&(table['XSC']>-2))
             ax1.scatter(table1['YSC'],table1['ZSC'],c=table1['Bx'],cmap='seismic',vmin=-20,vmax=20)
             
