@@ -9,6 +9,9 @@ import numpy as np
 from matplotlib import ticker
 from pydivide import bin
 from scipy import stats
+import _pickle as cPickle
+
+
  
 def bin_multiorbit(start_time,end_time):
      
@@ -93,6 +96,10 @@ def bin_multiorbit(start_time,end_time):
     cb.update_ticks()
     
     final_stat = final_stat.T
+    
+    ### PROBLEM: NEED TO STORE AVERAGED VSE_BINAVG_X (3D), NOT FINAL_STAT (2D)
+    cPickle.dump(final_stat, open("VEX_bin_nightside.pkl", "wb" ))
+
 #     ymesh = ymesh.T
 #     zmesh = zmesh.T
     
@@ -107,7 +114,8 @@ def bin_multiorbit(start_time,end_time):
     plt.show()
     #ax1.axis('equal')
     #ax2.axis('equal')
-         
+       
+  
          
 def orbit_delta_list(start_time,end_time):
     orbits=[]
@@ -119,5 +127,5 @@ def orbit_delta_list(start_time,end_time):
          
     return orbits
  
-bin_multiorbit('2013-05-21 00:00:00','2014-05-21 00:00:00')
+bin_multiorbit('2013-05-07 00:00:00','2013-07-07 00:00:00')
 #main_multiorbit('2006-04-24 00:00:00','2014-11-25 00:00:00')
