@@ -32,7 +32,7 @@ def code_test(start_time,end_time):
     CA_select_in,CA_select_out = magnetosphere(table)
     
     VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
-    VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
+    #VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
     #print(VSE_table)
     #print(len(VSE_table.index))
     #pytplot.store_data('vexmag',data={'x':list(str(VSE_table.index)),'y':[VSE_table['XSC'].values,VSE_table['YSC'].values,
