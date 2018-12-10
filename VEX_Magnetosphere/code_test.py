@@ -11,9 +11,22 @@ import _pickle as cPickle
 
 def code_test(start_time,end_time):
     
-    VEXbin3d = cPickle.load(open("VEX_bin_nightside.pkl","rb"))
+#     VEXbin3d = cPickle.load(open("VEX_binx_nightside3D.pkl","rb"))
+#     VEXbin2d = cPickle.load(open("VEX_binx_nightside2D.pkl","rb"))
+    VEXbin3d = cPickle.load(open("VEX_binx_3D.pkl","rb"))
+    VEXbin2d = cPickle.load(open("VEX_binx_2D.pkl","rb"))
+    #VEXbin3d = cPickle.load(open("VEX_biny_3D.pkl","rb"))
+    #VEXbin2d = cPickle.load(open("VEX_biny_2D.pkl","rb"))
+    #VEXbin3d = cPickle.load(open("VEX_binz_3D.pkl","rb"))
+    #VEXbin2d = cPickle.load(open("VEX_binz_2D.pkl","rb"))
+
     print(VEXbin3d)
-    print(np.shape(VEXbin3d))
+    print(np.shape(VEXbin3d))                             
+    
+    print(VEXbin2d)
+    print(np.shape(VEXbin2d))
+    
+    bin_3d(VEXbin2d,dim='x',v_toggle='on')
     #GRAB RELEVANT FILES IN DATE RANGE
 #     dates_file = mag_concat(start_time,end_time)
 #     
