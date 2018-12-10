@@ -64,7 +64,7 @@ def bin_3d(final_stat,dim='x',v_toggle='off'):
         elif dim == 'z':
             add_venus_2D((0,0), 1, 90, ax, colors=('k','w'))
         
-
+    #ax.set_facecolor('k')
     #ax.set(title='VEX Orbit MAG Data: ' + start_time + ' TO ' + end_time)
     #ax.axis('equal')
     plt.show()

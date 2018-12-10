@@ -150,7 +150,7 @@ def bin_multiorbit_y(start_time,end_time):
  
         try:
             VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
-            VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
+            #VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
             insitu = {}
             insitu['VEX'] = VSE_table
             VSE_binavg_y = bin(insitu,'VEX.By',['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
@@ -171,8 +171,8 @@ def bin_multiorbit_y(start_time,end_time):
     
     final_stat = final_stat.T
     
-    cPickle.dump(VSE_binavg_y, open("VEX_biny_nightside3D.pkl", "wb" ))
-    cPickle.dump(final_stat, open("VEX_biny_nightside2D.pkl","wb"))
+    cPickle.dump(VSE_binavg_y, open("VEX_biny_01073D.pkl", "wb" ))
+    cPickle.dump(final_stat, open("VEX_biny_01072D.pkl","wb"))
     print('Data dumped to .pkl file')
     
     
@@ -208,7 +208,7 @@ def bin_multiorbit_z(start_time,end_time):
  
         try:
             VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
-            VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
+            #VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
             insitu = {}
             insitu['VEX'] = VSE_table
             VSE_binavg_z = bin(insitu,'VEX.Bz',['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
@@ -244,11 +244,11 @@ def orbit_delta_list(start_time,end_time):
     return orbits
  
 #bin_multiorbit_x('2013-05-07 00:00:00','2013-08-07 00:00:00')
-#bin_multiorbit_y('2013-05-07 00:00:00','2013-08-07 00:00:00')
+bin_multiorbit_y('2013-01-01 00:00:00','2013-07-01 00:00:00')
 #bin_multiorbit_z('2013-05-07 00:00:00','2013-08-07 00:00:00')
 
 #bin_multiorbit_x('2006-04-24 00:00:00','2014-11-25 00:00:00')
-bin_multiorbit_y('2006-04-24 00:00:00','2014-11-25 00:00:00')
+#bin_multiorbit_y('2006-04-24 00:00:00','2014-11-25 00:00:00')
 #bin_multiorbit_z('2006-04-24 00:00:00','2014-11-25 00:00:00')
 
 #main_multiorbit('2006-04-24 00:00:00','2014-11-25 00:00:00')
