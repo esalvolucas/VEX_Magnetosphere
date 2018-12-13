@@ -215,7 +215,7 @@ def bin_multiorbit_z(start_time,end_time):
                                binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],maxs=[3,3,3])
             VSE_binavg_z = VSE_binavg_z[0]
             np.set_printoptions(threshold=np.nan)
-            xy_arr = np.nanmean(VSE_binavg_z,axis=1)
+            xy_arr = np.nanmean(VSE_binavg_z,axis=2)
             xy_nan = np.logical_not(np.isnan(xy_arr))*1
             xy_arr[np.isnan(xy_arr)] = 0
             final_stat += xy_arr
@@ -229,8 +229,8 @@ def bin_multiorbit_z(start_time,end_time):
     
     final_stat = final_stat.T
     
-    cPickle.dump(VSE_binavg_z, open("VEX_binz_nightside3D.pkl", "wb" ))
-    cPickle.dump(final_stat, open("VEX_binz_nightside2D.pkl","wb"))
+    cPickle.dump(VSE_binavg_z, open("VEX_binz_pmhalf3D.pkl", "wb" ))
+    cPickle.dump(final_stat, open("VEX_binz_pmhalf2D.pkl","wb"))
     print('Data dumped to .pkl file')
          
 def orbit_delta_list(start_time,end_time):
@@ -244,8 +244,8 @@ def orbit_delta_list(start_time,end_time):
     return orbits
  
 #bin_multiorbit_x('2013-05-07 00:00:00','2013-08-07 00:00:00')
-bin_multiorbit_y('2013-01-01 00:00:00','2013-07-01 00:00:00')
-#bin_multiorbit_z('2013-05-07 00:00:00','2013-08-07 00:00:00')
+#bin_multiorbit_y('2013-01-01 00:00:00','2013-07-01 00:00:00')
+bin_multiorbit_z('2013-05-07 00:00:00','2014-05-07 00:00:00')
 
 #bin_multiorbit_x('2006-04-24 00:00:00','2014-11-25 00:00:00')
 #bin_multiorbit_y('2006-04-24 00:00:00','2014-11-25 00:00:00')

@@ -11,7 +11,7 @@ from pydivide import bin
 from scipy import stats
 import _pickle as cPickle
 
-def bin_3d(final_stat,dim='x',v_toggle='off'):
+def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off'):
     
     bindim = r'$B_{' + dim + r'}$ Strength (nT)'
     print(bindim)
@@ -64,6 +64,22 @@ def bin_3d(final_stat,dim='x',v_toggle='off'):
         elif dim == 'z':
             add_venus_2D((0,0), 1, 90, ax, colors=('k','w'))
         
+        
+    #yedges = np.arange(-2.95,2.95,0.1)
+    #zedges = np.arange(-2.95,2.95,0.1)
+    #ymesh,zmesh = np.meshgrid(yedges,zedges)
+    #U = yedges
+    #V = zedges
+    X = ymesh
+    Y = zmesh
+    #U = np.cos(X)
+    #V = np.sin(Y)
+    U = final_x
+    V = final_y
+    
+    ax.quiver(X, Y, U, V)
+    #ax.quiverkey(q, X=0.3, Y=1.1, U=10,
+             #label='Quiver key, length = 10', labelpos='E')
     #ax.set_facecolor('k')
     #ax.set(title='VEX Orbit MAG Data: ' + start_time + ' TO ' + end_time)
     #ax.axis('equal')

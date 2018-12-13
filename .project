@@ -3,6 +3,8 @@
 	<name>VEX_Magnetosphere</name>
 	<comment></comment>
 	<projects>
+		<project>PyDivide</project>
+		<project>PyTplot</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
