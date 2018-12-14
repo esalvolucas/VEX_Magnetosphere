@@ -105,4 +105,5 @@ venv.bak/
 *.tab
 VEX_Magnetosphere/dog
 *.pkl
-VEX_Magnetosphere/VEX_bin_nightside.pkl
+*.pkl
+*.pkl

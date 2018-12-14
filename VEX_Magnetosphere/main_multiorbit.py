@@ -55,7 +55,7 @@ def main_multiorbit(start_time,end_time,
             try:
                 VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
                 VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
-                #print(VSE_tab                                                                         le.loc[(VSE_table['XSC'] > -2) & VSE_table['XSC'] < -1])
+                #print(VSE_table.loc[(VSE_table['XSC'] > -2) & VSE_table['XSC'] < -1])
                 #print(VSE_table.where(VSE_table['XSC'].values<=-1 and VSE_table['XSC'].values>-2))
                 ax2.scatter(VSE_table['YSC'],VSE_table['ZSC'],c=VSE_table['Bx'],cmap='seismic',vmin=-20,vmax=20)
                 ax1.set_xlabel('YSC')

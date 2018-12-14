@@ -83,6 +83,22 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off'):
     #ax.set_facecolor('k')
     #ax.set(title='VEX Orbit MAG Data: ' + start_time + ' TO ' + end_time)
     #ax.axis('equal')
+    
+    
+    #axis1 = np.arange(-2.95,2.95,0.1)
+    #axis2 = np.arange(-2.95,2.95,0.1)
+    
+    axis1 = yedges
+    axis2 = zedges
+    scale = 0.01 #one bin length (0.1) per 10 nT
+    for i,vali in enumerate(axis1):
+        for j,valj in enumerate(axis2):
+            p1a = vali
+            p1b = valj
+            p2a = vali + scale*final_x[i][j]
+            p2b = valj + scale*final_y[i][j]
+            #ax.plot([p1a,p2a],[p1b,p2b],color='k')
+            #ax.arrow(vali,valj,scale*final_x[i][j],scale*final_y[i][j],color='k')
     plt.show()
 
     
