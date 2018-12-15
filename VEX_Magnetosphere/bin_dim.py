@@ -6,13 +6,16 @@ import _pickle as cPickle
 
 
 
-def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],pkl_name=None):
+def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=None):
     if pkl_name == None:
         pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_'+mag+'_'+dim[0]+'_'+dim[1]
         print(pkl_name)
-    pkl_name3D = "./VEX_data_files/VEX_bin_" + pkl_name + "_3D.pkl"
-    pkl_name2D = "./VEX_data_files/VEX_bin_" + pkl_name + "_2D.pkl"
-     
+    if ns == False:
+        pkl_name3D = "./VEX_data_files/VEX_bin_" + pkl_name + "_3D.pkl"
+        pkl_name2D = "./VEX_data_files/VEX_bin_" + pkl_name + "_2D.pkl"
+    if ns == True:
+        pkl_name3D = "./VEX_data_files/VEX_bin_" + pkl_name + "_3DNS.pkl"
+        pkl_name2D = "./VEX_data_files/VEX_bin_" + pkl_name + "_2DNS.pkl"
     mag = 'VEX.'+mag
     
     #print(mag,dim)
@@ -24,7 +27,7 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],pkl_name=None):
     elif 'ZSC' not in dim:
         collapse = 2
         
-    print(collapse)
+    #print(collapse)
     
     fig,ax = plt.subplots(nrows=1, ncols=1)
  
@@ -56,7 +59,9 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],pkl_name=None):
  
         try:
             VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
-            #VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
+            if ns == True:
+                VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
+                
             insitu = {}
             insitu['VEX'] = VSE_table
             VSE_binavg = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
@@ -85,7 +90,7 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],pkl_name=None):
     
     return pkl_name2D,pkl_name3D,final_stat
 
-# bin_dim('2013-05-07 00:00:00','2014-05-07 00:00:00',mag='Bx',dim=['YSC','ZSC'])
+#bin_dim('2013-05-07 00:00:00','2013-05-07 00:00:00',mag='Bx',dim=['YSC','ZSC'],ns=True)
 # bin_dim('2013-05-07 00:00:00','2014-05-07 00:00:00',mag='By',dim=['YSC','ZSC'])
 # bin_dim('2013-05-07 00:00:00','2014-05-07 00:00:00',mag='Bz',dim=['YSC','ZSC'])
 # 
@@ -98,16 +103,14 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],pkl_name=None):
 # bin_dim('2013-05-07 00:00:00','2014-05-07 00:00:00',mag='Bz',dim=['XSC','YSC'])
 
 
-# bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'])
-# bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'])
-# bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'])
-# 
-# bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'])
-# bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'])
-
-######## RESTART FROM HERE #########
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'])
-
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'])
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'])
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'])
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],ns=True)
+  
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],ns=True)
+ 
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],ns=True)

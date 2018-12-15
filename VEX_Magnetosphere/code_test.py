@@ -43,7 +43,7 @@ def code_test(start_time,end_time):
     Y = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_YSC_ZSC_2D.pkl","rb"))
     #VEXbin3d = cPickle.load(open("VEX_biny_nightside3D.pkl","rb"))
     #VEXbin2d = cPickle.load(open("VEX_biny_nightside2D.pkl","rb"))
-    Z = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_YSC_zSC_2D.pkl","rb"))
+    Z = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_YSC_ZSC_2D.pkl","rb"))
 #     print(VEXbin3d)
 #     print(np.shape(VEXbin3d))                             
 #     
@@ -52,7 +52,7 @@ def code_test(start_time,end_time):
     
     #bin_3d(VEXbin2d,dim='y',v_toggle='on')
     #bin_3d(Z,X,Y,dim='z',v_toggle='on')
-    print(len(np.arange(-3,3,0.1)))
+    #print(len(np.arange(-3,3,0.1)))
     #bin_3d(Y,X,Z,dim='y',v_toggle='on')
     bin_3d(X,Y,Z,dim='x',v_toggle='on')
     #GRAB RELEVANT FILES IN DATE RANGE
