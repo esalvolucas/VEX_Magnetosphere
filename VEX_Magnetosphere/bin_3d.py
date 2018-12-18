@@ -65,11 +65,13 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off'):
             add_venus_2D((0,0), 1, 90, ax, colors=('k','w'))
         
         
-    #yedges = np.arange(-2.95,2.95,0.1)
-    #zedges = np.arange(-2.95,2.95,0.1)
-    #ymesh,zmesh = np.meshgrid(yedges,zedges)
+    yedges = np.arange(-2.95,3.05,0.1)
+    zedges = np.arange(-2.95,3.05,0.1)
+    #yedges = np.linspace(-3,3,60)
+    #zedges = np.linspace(-3,3,60)
+    ymesh,zmesh = np.meshgrid(yedges,zedges)
     #U = yedges
-    #V = zedges
+    #V = zedges                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
     X = ymesh
     Y = zmesh
     #U = np.cos(X)

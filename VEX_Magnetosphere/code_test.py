@@ -11,25 +11,46 @@ import _pickle as cPickle
 
 def code_test(start_time,end_time):
     
-    #VEXbin3d = cPickle.load(open("VEX_binx_nightside3D.pkl","rb"))
-    #VEXbin2d = cPickle.load(open("VEX_binx_nightside2D.pkl","rb"))
-    #VEXbin3d = cPickle.load(open("VEX_binx_3D.pkl","rb"))
-    #VEXbin2d = cPickle.load(open("VEX_binx_2D.pkl","rb"))
-    #VEXbin3d = cPickle.load(open("VEX_biny_3D.pkl","rb"))
-    #VEXbin2d = cPickle.load(open("VEX_biny_2D.pkl","rb"))
-    #VEXbin3d = cPickle.load(open("VEX_biny_nightside3D.pkl","rb"))
-    #VEXbin2d = cPickle.load(open("VEX_biny_nightside2D.pkl","rb"))
-    #VEXbin3d = cPickle.load(open("VEX_binz_3D.pkl","rb"))
-    #VEXbin2d = cPickle.load(open("VEX_binz_2D.pkl","rb"))
-    #VEXbin3d = cPickle.load(open("VEX_binz_nightside3D.pkl","rb"))
-    #VEXbin2d = cPickle.load(open("VEX_binz_nightside2D.pkl","rb"))
+    Xxy = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_XSC_YSC_2D.pkl","rb"))
+    Yxy = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_XSC_YSC_2D.pkl","rb"))
+    Zxy = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_XSC_YSC_2D.pkl","rb"))
+    #Bxy = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_XSC_YSC_2D.pkl","rb"))
     
-    #VEX_bin3d = cPickle.dump(open("VEX_binz_pmhalf3D.pkl", "wb" ))
-    #VEX_bin3d = cPickle.dump(open("VEX_binz_pmhalf2D.pkl","wb"))
-    #VEXbin3d = cPickle.load(open("./VEX_data_files/VEX_bin_y_2013-05_3D.pkl","rb"))
-    #VEXbin2d = cPickle.load(open("./VEX_data_files/VEX_bin_y_2013-05_2D.pkl","rb"))
-    #VEXbin3d = cPickle.load(open("VEX_biny_01073D.pkl","rb"))
-    #VEXbin2d = cPickle.load(open("VEX_biny_01072D.pkl","rb"))
+    Xxz = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_XSC_ZSC_2D.pkl","rb"))
+    Yxz = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_XSC_ZSC_2D.pkl","rb"))
+    Zxz = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_XSC_ZSC_2D.pkl","rb"))
+    #Bxz = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_XSC_ZSC_2D.pkl","rb"))
+    
+    Xyz = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_YSC_ZSC_2D.pkl","rb"))
+    Yyz = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_YSC_ZSC_2D.pkl","rb"))
+    Zyz = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_YSC_ZSC_2D.pkl","rb"))
+    #Byz = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_YSC_ZSC_2D.pkl","rb"))
+    
+    
+    ### NIGHTSIDE ###
+    Xxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_XSC_YSC_2Dns.pkl","rb"))
+    Yxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_XSC_YSC_2Dns.pkl","rb"))
+    Zxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_XSC_YSC_2Dns.pkl","rb"))
+    #Bxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_XSC_YSC_2Dns.pkl","rb"))
+    
+    Xxzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_XSC_ZSC_2Dns.pkl","rb"))
+    Yxzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_XSC_ZSC_2Dns.pkl","rb"))
+    Zxzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_XSC_ZSC_2Dns.pkl","rb"))
+    #Bxzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_XSC_ZSC_2Dns.pkl","rb"))
+    
+    Xyzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_YSC_ZSC_2Dns.pkl","rb"))
+    Yyzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_YSC_ZSC_2Dns.pkl","rb"))
+    Zyzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_YSC_ZSC_2Dns.pkl","rb"))
+    #Byzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_YSC_ZSC_2Dns.pkl","rb"))
+    
+    
+    
+    bin_3d(Zxy,Xxy,Yxy,dim='z',v_toggle='on')
+    #bin_3d(B,X,Y,dim='z',v_toggle='on')
+    #print(len(np.arange(-3,3,0.1)))
+    bin_3d(Yxz,Xxz,Zxz,dim='y',v_toggle='on')
+    bin_3d(Xyz,Yyz,Zyz,dim='x',v_toggle='on')
+
     
     
     # = cPickle.load(open("VEX_binx_3D.pkl","rb"))
@@ -39,11 +60,12 @@ def code_test(start_time,end_time):
     #VEXbin2d = cPickle.load(open("VEX_biny_nightside2D.pkl","rb"))
     #Z = cPickle.load(open("./VEX_data_files/VEX_bin_2013-05_2014-05_Bz_XSC_YSC_2D.pkl","rb"))
     
-    X = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_YSC_ZSC_2D.pkl","rb"))
-    Y = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_YSC_ZSC_2D.pkl","rb"))
+    #X = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_XSC_YSC_2Dns.pkl","rb"))
+    #Y = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_XSC_YSC_2Dns.pkl","rb"))
     #VEXbin3d = cPickle.load(open("VEX_biny_nightside3D.pkl","rb"))
     #VEXbin2d = cPickle.load(open("VEX_biny_nightside2D.pkl","rb"))
-    Z = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_YSC_ZSC_2D.pkl","rb"))
+    #Z = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_XSC_YSC_2Dns.pkl","rb"))
+    #B = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_XSC_YSC_2Dns.pkl","rb"))
 #     print(VEXbin3d)
 #     print(np.shape(VEXbin3d))                             
 #     
@@ -52,9 +74,10 @@ def code_test(start_time,end_time):
     
     #bin_3d(VEXbin2d,dim='y',v_toggle='on')
     #bin_3d(Z,X,Y,dim='z',v_toggle='on')
+    #bin_3d(B,X,Y,dim='z',v_toggle='on')
     #print(len(np.arange(-3,3,0.1)))
     #bin_3d(Y,X,Z,dim='y',v_toggle='on')
-    bin_3d(X,Y,Z,dim='x',v_toggle='on')
+    #bin_3d(X,Y,Z,dim='x',v_toggle='on')
     #GRAB RELEVANT FILES IN DATE RANGE
 #     dates_file = mag_concat(start_time,end_time)
 #     
