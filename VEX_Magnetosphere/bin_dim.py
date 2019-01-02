@@ -108,15 +108,15 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=Non
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],ns=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['YSC','ZSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['YSC','ZSC'])
 
 #   
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],ns=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'])
 
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],ns=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'],ns=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'])

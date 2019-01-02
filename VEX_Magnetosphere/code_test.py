@@ -31,7 +31,7 @@ def code_test(start_time,end_time):
     Xxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_XSC_YSC_2Dns.pkl","rb"))
     Yxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_XSC_YSC_2Dns.pkl","rb"))
     Zxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bz_XSC_YSC_2Dns.pkl","rb"))
-    #Bxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_XSC_YSC_2Dns.pkl","rb"))
+    Bxyn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_B_XSC_YSC_2Dns.pkl","rb"))
     
     Xxzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_Bx_XSC_ZSC_2Dns.pkl","rb"))
     Yxzn = cPickle.load(open("./VEX_data_files/VEX_bin_2006-04_2014-11_By_XSC_ZSC_2Dns.pkl","rb"))
@@ -45,12 +45,17 @@ def code_test(start_time,end_time):
     
     
     
-    bin_3d(Zxy,Xxy,Yxy,dim='z',v_toggle='on')
+    #bin_3d(Zxy,Xxy,Yxy,dim='z',v_toggle='on')
     #bin_3d(B,X,Y,dim='z',v_toggle='on')
     #print(len(np.arange(-3,3,0.1)))
-    bin_3d(Yxz,Xxz,Zxz,dim='y',v_toggle='on')
-    bin_3d(Xyz,Yyz,Zyz,dim='x',v_toggle='on')
-
+    #bin_3d(Yxz,Xxz,Zxz,dim='y',v_toggle='on')
+    bin_3d(Xyz,Yyz,Zyz,dim='x',v_toggle='off')
+    
+    #bin_3d(Zxyn,Xxyn,Yxyn,dim='z',v_toggle='on')
+    #bin_3d(Bxyn,Xxyn,Yxyn,dim='z',v_toggle='off')
+    #print(len(np.arange(-3,3,0.1)))
+    #bin_3d(Yxzn,Xxzn,Zxzn,dim='y',v_toggle='on')
+    bin_3d(Xyzn,Yyzn,Zyzn,dim='x',v_toggle='off')
     
     
     # = cPickle.load(open("VEX_binx_3D.pkl","rb"))
