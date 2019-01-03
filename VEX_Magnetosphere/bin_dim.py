@@ -42,17 +42,21 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=Non
     final_nan = np.zeros((60,60))
     for orbit in orbits:
         print(orbit)
+#         try:
+#             dates_file = mag_concat(orbit,orbit)
+#         except:
+#             continue
         try:
-            dates_file = mag_concat(orbit,orbit)
+            dates_file = './VEX_data_files/' + orbit[0:10] + '_TO_' + orbit[0:10] + '.tab'
+            table = vex_load_data(dates_file,disp=False)
+            table = table.resample('T').mean()
+            table = clock_cone_angle(table)
+            table['XSC'] = table['XSC']/6051.8
+            table['YSC'] = table['YSC']/6051.8
+            table['ZSC'] = table['ZSC']/6051.8
+            table['RSC'] = table['RSC']/6051.8
         except:
-            continue
-        table = vex_load_data(dates_file,disp=False)
-        table = table.resample('T').mean()
-        table = clock_cone_angle(table)
-        table['XSC'] = table['XSC']/6051.8
-        table['YSC'] = table['YSC']/6051.8
-        table['ZSC'] = table['ZSC']/6051.8
-        table['RSC'] = table['RSC']/6051.8
+            pass
          
         try:
             CA_select_in,CA_select_out = magnetosphere_mmo(table)
