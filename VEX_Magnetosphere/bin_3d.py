@@ -11,7 +11,7 @@ from pydivide import bin
 from scipy import stats
 import _pickle as cPickle
 
-def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off'):
+def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=None,title=None):
     
     bindim = r'$B_{' + dim + r'}$ Strength (nT)'
     print(bindim)
@@ -101,6 +101,12 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off'):
             p2b = valj + scale*final_y[i][j]
             #ax.plot([p1a,p2a],[p1b,p2b],color='k')
             #ax.arrow(vali,valj,scale*final_x[i][j],scale*final_y[i][j],color='k')
-    plt.show()
+            
+    if title != None:
+        ax.set_title(title)
+    if save == False: 
+        plt.show()
+    if save == True:
+        plt.savefig(name+'.png')
 
     

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pydivide import bin
 import _pickle as cPickle
-
+import pandas as pd
 
 
 def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=None):
@@ -56,20 +56,23 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=Non
             table['ZSC'] = table['ZSC']/6051.8
             table['RSC'] = table['RSC']/6051.8
         except:
+            print('table fail')
             pass
          
         try:
             CA_select_in,CA_select_out = magnetosphere_mmo(table)
         except:
+            print('CA fail')
             continue
  
         try:
             VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
             if ns == True:
                 VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
-                
+            #print(VSE_table)
             insitu = {}
             insitu['VEX'] = VSE_table
+            #print(insitu)
             VSE_binavg = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
                                binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],maxs=[3,3,3])
             VSE_binavg = VSE_binavg[0]
@@ -81,6 +84,7 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=Non
             final_nan += xy_nan
 
         except:
+            print('bin fail')
             continue
  
     final_nan[np.where(final_nan==0)] = 1
@@ -109,18 +113,39 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=Non
 # bin_dim('2013-05-07 00:00:00','2014-05-07 00:00:00',mag='Bz',dim=['XSC','YSC'])
 
 
-# bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],ns=True)
+# bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'])
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],ns=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['YSC','ZSC'])
+# bin_dim('2006-04-24','2014-11-25',mag='|B|',dim=['YSC','ZSC'])
 
 #   
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],ns=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'])
+#bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'])
 
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],ns=True)
 # bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],ns=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'])
+#bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'])
+# bin_dim('2006-11-24','2007-01-01',mag='Bx',dim=['YSC','ZSC'])
+
+
+years = pd.date_range('2006-04-24 00:00:00','2014-11-25 00:00:00',freq='YS').astype(str).tolist()
+years = ['2006-04-24'] + years + ['2014-11-25']
+print(years)
+l = len(years)
+for i,val in enumerate(years):
+    if i != l-1:
+        print(years[i] + '   TO   ' + years[i+1])
+        bin_dim(years[i],years[i+1],mag='Bx',dim=['YSC','ZSC'])
+        bin_dim(years[i],years[i+1],mag='By',dim=['YSC','ZSC'])
+        bin_dim(years[i],years[i+1],mag='Bz',dim=['YSC','ZSC'])
+
+        bin_dim(years[i],years[i+1],mag='Bx',dim=['XSC','ZSC'])
+        bin_dim(years[i],years[i+1],mag='By',dim=['XSC','ZSC'])
+        bin_dim(years[i],years[i+1],mag='Bz',dim=['XSC','ZSC'])
+        
+        bin_dim(years[i],years[i+1],mag='Bx',dim=['XSC','YSC'])
+        bin_dim(years[i],years[i+1],mag='By',dim=['XSC','YSC'])
+        bin_dim(years[i],years[i+1],mag='Bz',dim=['XSC','YSC'])
