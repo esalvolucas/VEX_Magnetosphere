@@ -138,14 +138,14 @@ l = len(years)
 for i,val in enumerate(years):
     if i != l-1:
         print(years[i] + '   TO   ' + years[i+1])
-        bin_dim(years[i],years[i+1],mag='Bx',dim=['YSC','ZSC'])
-        bin_dim(years[i],years[i+1],mag='By',dim=['YSC','ZSC'])
-        bin_dim(years[i],years[i+1],mag='Bz',dim=['YSC','ZSC'])
+        bin_dim(years[i],years[i+1],mag='Bx',dim=['YSC','ZSC'],ns=True)
+        bin_dim(years[i],years[i+1],mag='By',dim=['YSC','ZSC'],ns=True)
+        bin_dim(years[i],years[i+1],mag='Bz',dim=['YSC','ZSC'],ns=True)
 
-        bin_dim(years[i],years[i+1],mag='Bx',dim=['XSC','ZSC'])
-        bin_dim(years[i],years[i+1],mag='By',dim=['XSC','ZSC'])
-        bin_dim(years[i],years[i+1],mag='Bz',dim=['XSC','ZSC'])
+        bin_dim(years[i],years[i+1],mag='Bx',dim=['XSC','ZSC'],ns=True)
+        bin_dim(years[i],years[i+1],mag='By',dim=['XSC','ZSC'],ns=True)
+        bin_dim(years[i],years[i+1],mag='Bz',dim=['XSC','ZSC'],ns=True)
         
-        bin_dim(years[i],years[i+1],mag='Bx',dim=['XSC','YSC'])
-        bin_dim(years[i],years[i+1],mag='By',dim=['XSC','YSC'])
-        bin_dim(years[i],years[i+1],mag='Bz',dim=['XSC','YSC'])
+        bin_dim(years[i],years[i+1],mag='Bx',dim=['XSC','YSC'],ns=True)
+        bin_dim(years[i],years[i+1],mag='By',dim=['XSC','YSC'],ns=True)
+        bin_dim(years[i],years[i+1],mag='Bz',dim=['XSC','YSC'],ns=True)
