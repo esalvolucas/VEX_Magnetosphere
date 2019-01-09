@@ -6,12 +6,14 @@ import _pickle as cPickle
 import pandas as pd
 
 
-def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=None):
+def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,pkl_name=None):
     if pkl_name == None:
         pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_'+mag+'_'+dim[0]+'_'+dim[1]
         if mag == '|B|':
             pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_B_'+dim[0]+'_'+dim[1]
-        print(pkl_name)
+    if counts == True:
+        pkl_name = pkl_name + "_C"
+    print(pkl_name)
     if ns == False:
         pkl_name3D = "./VEX_data_files/VEX_bin_" + pkl_name + "_3D.pkl"
         pkl_name2D = "./VEX_data_files/VEX_bin_" + pkl_name + "_2D.pkl"
@@ -73,13 +75,22 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=Non
             insitu = {}
             insitu['VEX'] = VSE_table
             #print(insitu)
-            VSE_binavg = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
-                               binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],maxs=[3,3,3])
-            VSE_binavg = VSE_binavg[0]
+            VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
+                                        density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
+                                        maxs=[3,3,3])
+            #print(np.shape(VSE_binavg))
+            #VSE_binavg = VSE_binavg[0]
+            #print(np.shape(VSE_counts))
+            #VSE_counts = VSE_counts[0]
             np.set_printoptions(threshold=np.nan)
             xy_arr = np.nanmean(VSE_binavg,axis=collapse)
-            xy_nan = np.logical_not(np.isnan(xy_arr))*1
-            xy_arr[np.isnan(xy_arr)] = 0
+            
+            if counts == False:
+                xy_nan = np.logical_not(np.isnan(xy_arr))*1
+                xy_arr[np.isnan(xy_arr)] = 0
+            if counts == True:
+                xy_nan = np.nanmean(VSE_counts,axis=collapse)
+                xy_nan[np.isnan(xy_nan)] = 0
             final_stat += xy_arr
             final_nan += xy_nan
 
@@ -92,11 +103,16 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,pkl_name=Non
     
     final_stat = final_stat.T
     
-    cPickle.dump(VSE_binavg, open(pkl_name3D, "wb" ))
-    cPickle.dump(final_stat, open(pkl_name2D,"wb"))
+    output3D = open(pkl_name3D, "wb" )
+    output2D = open(pkl_name2D,"wb")
+    cPickle.dump(VSE_binavg, output3D)
+    cPickle.dump(final_stat, output2D)
     print('Data dumped to:')
     print(pkl_name2D)
     print(pkl_name3D)
+    
+    output3D.close()
+    output2D.close()
     
     return pkl_name2D,pkl_name3D,final_stat
 
