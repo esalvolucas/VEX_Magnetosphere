@@ -12,11 +12,6 @@ from .vex_plot_data import vex_plot_data
 
 from .date_vetting import date_vetting
 
-from .orbit_mag_plot_xy import orbit_mag_plot_xy
-from .orbit_mag_plot_xz import orbit_mag_plot_xz
-from .orbit_mag_plot_yz import orbit_mag_plot_yz
-
-from .VSO_xyz_mag import VSO_xyz_mag
 from .VSO_avg import VSO_avg
 
 from .plot_3D import plot_3D
@@ -31,5 +26,3 @@ from .VSO_to_VSE import VSO_to_VSE
 
 from .bin_3d import bin_3d
 from .orbit_delta_list import orbit_delta_list
-
-from .load_data import load_data
