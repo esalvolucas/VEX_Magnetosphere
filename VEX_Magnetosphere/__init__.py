@@ -8,6 +8,7 @@
 from .mag_concat import mag_concat
 
 from .vex_load_data import vex_load_data
+from .read_sw import read_sw
 from .vex_plot_data import vex_plot_data
 
 from .date_vetting import date_vetting

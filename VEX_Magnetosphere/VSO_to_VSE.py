@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from pandas.tslib import Timestamp
-
+import matplotlib.pyplot as plt
 def VSO_to_VSE(table,CA_select_in,CA_select_out):
     
     z_mean = np.nanmean(CA_select_in['Bz'].values)
@@ -15,6 +15,8 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     BS_in_t = CA_select_in.index[0]
     BS_out_t = CA_select_out.index[-1]
     
+    plt.scatter(BS_in_t,4)
+    plt.scatter(BS_out_t,4)
     #print(BS_in_t, BS_out_t)
     avg_BS = Timestamp((BS_in_t.value + BS_out_t.value)/2.0)
     
