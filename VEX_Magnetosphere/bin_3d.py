@@ -66,10 +66,10 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     ymesh,zmesh = np.meshgrid(yedges,zedges)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     X = ymesh
     Y = zmesh
-    U = final_x
-    V = final_y
+    U = final_x/np.sqrt(final_x**2 + final_y**2)
+    V = final_y/np.sqrt(final_x**2 + final_y**2)
     #add magnetic field direction vectors, autoscale length
-    ax.quiver(X, Y, U, V)
+    ax.quiver(X, Y, U, V,scale=50)
 
     #set title, either show/save figure            
     if title != None:

@@ -47,7 +47,7 @@ def main_multiorbit(start_time,end_time,
             ax1.scatter(table1['YSC'],table1['ZSC'],c=table1['Bx'],cmap='seismic',vmin=-20,vmax=20)
             
             try:
-                CA_select_in,CA_select_out = magnetosphere_mmo(table)
+                CA_select_in,CA_select_out = magnetosphere(table)
             except:
                 continue
                 #CA_select_in,CA_select_out = magnetosphere(table)

@@ -61,7 +61,7 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
          
         try:
             #get CA selections based on BS entry/exit
-            CA_select_in,CA_select_out = magnetosphere_mmo(table)
+            CA_select_in,CA_select_out = magnetosphere(table)
         except:
             print('CA fail')
             continue
