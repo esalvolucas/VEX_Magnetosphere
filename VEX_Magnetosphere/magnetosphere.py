@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from scipy.signal import argrelextrema
 from VEX_Magnetosphere import *
 
-
 def magnetosphere(table):
     #model bow shock
     L = 1.303
@@ -12,6 +11,7 @@ def magnetosphere(table):
     x0 = 0.788
     x = table['XSC'].values
     
+
     rho = np.sqrt((table['YSC'].values)**2 + (table['ZSC'].values)**2)
     BS = 1.1*np.sqrt(L**2 - 2*epsilon*(x-x0)*L - (epsilon**2 - 1)*(x-x0)**2) #10% safety buffer
     
@@ -20,7 +20,7 @@ def magnetosphere(table):
 
     
     for i in minInd[0]:
-        if a[i+1] <= 0:
+        if a[i-1] <= 0:
             dir = 'out'
             CA_select_out = table.iloc[i:i+60]
             #plt.plot(x[i:i+60],rho[i:i+60],'*')

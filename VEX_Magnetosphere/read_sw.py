@@ -11,8 +11,8 @@ def read_sw(flag=None,density=None,speed=None,temp=None):
     #if specific flags selected
     if flag is not None:
             if isinstance(flag,int):
-                select = [flag]
-            data = data[data['flag'].isin(select)]
+                flag = [flag]
+            data = data[data['flag'].isin(flag)]
     #pick density within range
     if density is not None:
         dmin,dmax = density[0],density[1]

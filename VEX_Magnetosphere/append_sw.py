@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from pandas.tslib import Timestamp
+from datetime import datetime,timedelta
 
 
 def append_sw(table,data,CA_select_in,CA_select_out):
@@ -11,10 +12,22 @@ def append_sw(table,data,CA_select_in,CA_select_out):
     BS_out_t = CA_select_out.index[-1]
     BS_out_t2 = CA_select_out.index[0]
     
+    d = BS_in_t - timedelta(hours=3)
+    d = datetime.today() - timedelta(hours=0, minutes=50)
+    #print(BS_in_t,BS_out_t)
+    #print(BS_in_t2,BS_out_t2)
+    print(CA_select_in)
+    print(CA_select_out)
+    #print(BS_in_t2,BS_out_t)
+    #print(data.loc[(data.index<BS_in_t2)])
+    #print(data.loc[(data.index>BS_in_t)])
+    
+    #print(BS_in_t,BS_in_t2)
     #separate inbound/outbound BS data
-    data_in = data[(data.index > BS_in_t) & (data.index < BS_in_t2)]
+    data_in = data.loc[((data.index > BS_in_t) & (data.index < BS_in_t2))]
     data_out = data[(data.index > BS_out_t2) & (data.index < BS_out_t)]
     
+    print(data_in)
     #take means of columns within in/outbound data
     density_in = np.nanmean(data_in['density'].values)
     speed_in = np.nanmean(data_in['speed'].values)
