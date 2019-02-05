@@ -6,7 +6,7 @@ import _pickle as cPickle
 import pandas as pd
 
 
-def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,pkl_name=None):
+def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,pkl_name=None,append=None):
     #if custom file name not given, create one
     if pkl_name == None:
         pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_'+mag+'_'+dim[0]+'_'+dim[1]
@@ -15,6 +15,9 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
     #indicate binning scheme
     if counts == True:
         pkl_name = pkl_name + "_C"
+    #add suffix if needed
+    if append is not None:
+        pkl_name = pkl_name + "_" + append
     print(pkl_name)
     #changes filename based on if binning nightside data only or not
     if ns == False:
@@ -69,6 +72,11 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
         try:
             #perform coordinate rotation
             VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
+        except:
+            print('rotation fail')
+            pass
+        
+        try:
             #choose just nightside data if keyword implemented
             if ns == True:
                 VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
@@ -130,20 +138,20 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
 # bin_dim('2013-05-07 00:00:00','2014-05-07 00:00:00',mag='Bz',dim=['XSC','YSC'])
 
 
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],counts=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],counts=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],counts=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],counts=True,append="fix")
 #bin_dim('2006-04-24','2014-11-25',mag='|B|',dim=['YSC','ZSC'])
 
   
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],counts=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],counts=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],counts=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],counts=True,append="fix")
 #bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'])
 
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],counts=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],counts=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],counts=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],counts=True,append="fix")
 #bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'])
 # bin_dim('2006-11-24','2007-01-01',mag='Bx',dim=['YSC','ZSC'])
 

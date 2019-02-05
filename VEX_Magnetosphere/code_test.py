@@ -14,38 +14,38 @@ def code_test(orbit):
 #     #years = pd.date_range('2006-04-24 00:00:00','2014-11-25 00:00:00',freq='YS').astype(str).tolist()
 #     #years = ['2006-04-24'] + years + ['2014-11-25']
 #     years = ['2006-04-24','2014-11-25']
-#   
+#    
 #     print(years)
 #     l = len(years)
-#        
+#         
 #     for i,val in enumerate(years):
 #         if i != l-1:
 #             print(years[i] + ' TO ' + years[i+1])
 #             title_yr = str(years[i]) + ' TO ' + str(years[i+1])
 #             dimtick = 0
 #             for dim in [['YSC','ZSC'],['XSC','ZSC'],['XSC','YSC']]:
-#                 x_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bx_'+dim[0]+'_'+dim[1]
-#                 y_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_By_'+dim[0]+'_'+dim[1]
-#                 z_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bz_'+dim[0]+'_'+dim[1]
+#                 x_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bx_'+dim[0]+'_'+dim[1]+"_C"
+#                 y_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_By_'+dim[0]+'_'+dim[1]+"_C"
+#                 z_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bz_'+dim[0]+'_'+dim[1]+"_C"
 #                 print(x_pkl_name,y_pkl_name,z_pkl_name)
-#                 x_pkl_name2D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_2D.pkl"
-#                 y_pkl_name2D = "./VEX_data_files/VEX_bin_" + y_pkl_name + "_2D.pkl"
-#                 z_pkl_name2D = "./VEX_data_files/VEX_bin_" + z_pkl_name + "_2D.pkl"
-#                    
+#                 x_pkl_name2D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_2DNS.pkl"
+#                 y_pkl_name2D = "./VEX_data_files/VEX_bin_" + y_pkl_name + "_2DNS.pkl"
+#                 z_pkl_name2D = "./VEX_data_files/VEX_bin_" + z_pkl_name + "_2DNS.pkl"
+#                     
 #                 X = cPickle.load(open(x_pkl_name2D,"rb"))
 #                 Y = cPickle.load(open(y_pkl_name2D,"rb"))
 #                 Z = cPickle.load(open(z_pkl_name2D,"rb"))
-#                    
+#                     
 #                 #plot_dir = r'C:/Users/Elysia/Pictures/VEX Plots/gif/'
 #                 plot_dir = r'C:/Users/Elysia/Pictures/VEX Plots/'
-#                    
+#                     
 #                 if dimtick == 0:
 #                     bin_3d(X,Y,Z,dim='x',v_toggle='off',save=True,name=plot_dir+x_pkl_name,title=title_yr)
 #                 elif dimtick == 1:
 #                     bin_3d(Y,X,Z,dim='y',v_toggle='off',save=True,name=plot_dir+y_pkl_name,title=title_yr)
 #                 elif dimtick == 2:
 #                     bin_3d(Z,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+z_pkl_name,title=title_yr)
-#                    
+#                     
 #                 dimtick += 1
 #                 print(dimtick)
                 
@@ -129,26 +129,27 @@ def code_test(orbit):
     table = table.resample('T').mean()
     table = clock_cone_angle(table)
     plt.plot(table['Clock'])
-    
-    
+     
+     
     table['XSC'] = table['XSC']/6051.8
     table['YSC'] = table['YSC']/6051.8
     table['ZSC'] = table['ZSC']/6051.8
     table['RSC'] = table['RSC']/6051.8
-    
-    
-    
+     
+     
+     
     #table = table.where((table['YSC']<=2)&(table['YSC']>=-2))
     #table = table.where((table['ZSC']<=2)&(table['ZSC']>=-2))
     #print(table)
     #vex_plot_data(table)
-    
-    data = read_sw(flag=[0,1])
-    
+     
+    #data = read_sw(flag=[0,1])
+     
     CA_select_in,CA_select_out = magnetosphere(table)
-    
+     
     VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
     #VSE_table = append_sw(VSE_table,data,CA_select_in,CA_select_out)
+    #pd.set_option('display.max_rows', 10000)
     print(VSE_table)
     #plt.plot(table['Clock'])
     #plt.show()
@@ -187,5 +188,5 @@ def code_test(orbit):
     #vex_plot_data(VSE_table)
     #plt.scatter(VSE_table['Bx'],VSE_table['By'],c=VSE_table['Bz'],cmap='jet')
     #plt.show()
-code_test('2012-11-14 00:00:00')
+code_test('2014-11-14 00:00:00')
 #code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')

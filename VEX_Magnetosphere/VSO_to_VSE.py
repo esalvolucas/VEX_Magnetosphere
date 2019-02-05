@@ -26,9 +26,9 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     #print(Timestamp(BS_out_t.value), Timestamp(BS_in_t.value))
     #print((str((timedelta(hours=24) - avg_BS)/2))[7:15])
     avg_BS = Timestamp(str(BS_in_t)[0:11] + (str((timedelta(hours=24) - avg_BS)/2))[7:15])
-    print(avg_BS)
+    #print(avg_BS)
     halfway_BS = timedelta(hours=12) + avg_BS
-    print(halfway_BS)
+    #print(halfway_BS)
     for time in table.index:        
         if (time < halfway_BS) and (time >= avg_BS):
             table['Clock'][time] = clk_in
