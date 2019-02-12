@@ -25,7 +25,7 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     #pick r/w/b divergent colormap
     cmap = plt.get_cmap('seismic')
     #pick bounds for colorbar to be -20 to 20 with 60 distinct colors
-    bounds = np.linspace(-20, 20, 60)
+    bounds = np.linspace(-10, 10, 60)
     #set colorbar norm and other settings
     norm = matplotlib.colors.BoundaryNorm(bounds, cmap.N)
     cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
@@ -34,7 +34,7 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     cb.locator = tick_locator
     cb.update_ticks()
     #plot bins
-    ax.pcolormesh(ymesh,zmesh,final_stat,cmap=cmap,vmin=-20,vmax=20)
+    ax.pcolormesh(ymesh,zmesh,final_stat,cmap=cmap,vmin=-10, vmax=10)
 
     #set axis limits     
     ax.set_xlim(-3,3)

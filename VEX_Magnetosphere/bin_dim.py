@@ -6,7 +6,7 @@ import _pickle as cPickle
 import pandas as pd
 
 
-def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,pkl_name=None,append=None):
+def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,pkl_name=None,append=None,slice=None):
     #if custom file name not given, create one
     if pkl_name == None:
         pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_'+mag+'_'+dim[0]+'_'+dim[1]
@@ -80,6 +80,8 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
             #choose just nightside data if keyword implemented
             if ns == True:
                 VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
+            if slice == True:
+                VSE_table = VSE_table.where((VSE_table['ZSC']<0.25)&(VSE_table['ZSC']>-0.25))
             #initialize insitu structre for pydivide.bin
             insitu = {}
             insitu['VEX'] = VSE_table
@@ -90,19 +92,22 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
             np.set_printoptions(threshold=np.nan)
             #take mean of binned data on axis to collapse
             xy_arr = np.nanmean(VSE_binavg,axis=collapse)
-            
+            #print(xy_arr)
             #counts bases binning off of data points/bin/orbit, instead of logical 1 or 0 for (data or no data)/orbit
             if counts == False:
                 xy_nan = np.logical_not(np.isnan(xy_arr))*1
                 xy_arr[np.isnan(xy_arr)] = 0
             if counts == True:
-                xy_nan = np.nanmean(VSE_counts,axis=collapse)
+                xy_nan = np.nansum(VSE_counts,axis=collapse)
                 xy_nan[np.isnan(xy_nan)] = 0
             #add data to final arrays
-            final_stat += xy_arr
+            final_stat = np.nansum(np.dstack((final_stat,xy_arr)),2)
+            #final_nan = 
+            #final_stat += xy_arr
+            #print(final_stat)
             final_nan += xy_nan
         except:
-            print('bin fail')
+            print('bin fail')  
             continue
     #replace any instances of 0 with 1 to not break np.divide
     final_nan[np.where(final_nan==0)] = 1
@@ -138,20 +143,20 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
 # bin_dim('2013-05-07 00:00:00','2014-05-07 00:00:00',mag='Bz',dim=['XSC','YSC'])
 
 
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],counts=True,append="fix")
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],counts=True,append="fix")
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],counts=True,append="slice",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],counts=True,append="slice",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],counts=True,append="slice",slice=True)
 #bin_dim('2006-04-24','2014-11-25',mag='|B|',dim=['YSC','ZSC'])
 
   
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],counts=True,append="fix")
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],counts=True,append="fix")
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],counts=True,append="slice",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],counts=True,append="slice",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],counts=True,append="slice",slice=True)
 #bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'])
 
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],counts=True,append="fix")
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],counts=True,append="fix")
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],counts=True,append="fix")
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],counts=True,append="slice",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],counts=True,append="slice",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],counts=True,append="slice",slice=True)
 #bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'])
 # bin_dim('2006-11-24','2007-01-01',mag='Bx',dim=['YSC','ZSC'])
 
