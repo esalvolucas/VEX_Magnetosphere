@@ -39,8 +39,10 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
     #get list of orbits between start and end time
     orbits = orbit_delta_list(start_time, end_time)
     #initialize 60x60 binning matrix
-    final_stat = np.zeros((60,60))
-    final_nan = np.zeros((60,60))
+    #final_stat = np.zeros((60,60))
+    #final_nan = np.zeros((60,60))
+    final_stat = np.zeros((30,30))
+    final_nan = np.zeros((30,30))
     #for each orbit
     for orbit in orbits:
         print(orbit)
@@ -71,7 +73,8 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
  
         try:
             #perform coordinate rotation
-            VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
+            ab_table = aberration(table)
+            VSE_table = VSO_to_VSE(ab_table,CA_select_in,CA_select_out)
         except:
             print('rotation fail')
             pass
@@ -86,8 +89,11 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
             insitu = {}
             insitu['VEX'] = VSE_table
             #use pydivide.bin to bin data in 3D, bins of 0.1, between -3 and 3 Rv
+#             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
+#                                         density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
+#                                         maxs=[3,3,3])
             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
-                                        density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
+                                        density=True,binsize=[0.2,0.2,0.2],mins=[-3,-3,-3],
                                         maxs=[3,3,3])
             np.set_printoptions(threshold=np.nan)
             #take mean of binned data on axis to collapse
@@ -143,22 +149,26 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
 # bin_dim('2013-05-07 00:00:00','2014-05-07 00:00:00',mag='Bz',dim=['XSC','YSC'])
 
 
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],counts=True,append="slice",slice=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],counts=True,append="slice",slice=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],counts=True,append="slice",slice=True)
-#bin_dim('2006-04-24','2014-11-25',mag='|B|',dim=['YSC','ZSC'])
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['YSC','ZSC'],counts=True,append="02rva",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['YSC','ZSC'],counts=True,append="02rva",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['YSC','ZSC'],counts=True,append="02rva",slice=True)
+# #bin_dim('2006-04-24','2014-11-25',mag='|B|',dim=['YSC','ZSC'])
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['YSC','ZSC'],counts=True,append="02rva",slice=True)
+#   
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],counts=True,append="02rva",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],counts=True,append="02rva",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],counts=True,append="02rva",slice=True)
+# #bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'])
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'],counts=True,append="02rva",slice=True)
 
-  
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','ZSC'],counts=True,append="slice",slice=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','ZSC'],counts=True,append="slice",slice=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','ZSC'],counts=True,append="slice",slice=True)
-#bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'])
 
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],counts=True,append="slice",slice=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],counts=True,append="slice",slice=True)
-bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],counts=True,append="slice",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bx',dim=['XSC','YSC'],counts=True,append="02rva",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='By',dim=['XSC','YSC'],counts=True,append="02rva",slice=True)
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='Bz',dim=['XSC','YSC'],counts=True,append="02rva",slice=True)
 #bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'])
 # bin_dim('2006-11-24','2007-01-01',mag='Bx',dim=['YSC','ZSC'])
+bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'],counts=True,append="02rva",slice=True)
+
 
 
 #years = pd.date_range('2006-04-24 00:00:00','2014-11-25 00:00:00',freq='YS').astype(str).tolist()

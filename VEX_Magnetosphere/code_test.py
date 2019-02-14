@@ -24,9 +24,9 @@ def code_test(orbit):
             title_yr = str(years[i]) + ' TO ' + str(years[i+1])
             dimtick = 0
             for dim in [['YSC','ZSC'],['XSC','ZSC'],['XSC','YSC']]:
-                x_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bx_'+dim[0]+'_'+dim[1]+"_C_sum"
-                y_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_By_'+dim[0]+'_'+dim[1]+"_C_sum"
-                z_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bz_'+dim[0]+'_'+dim[1]+"_C_sum"
+                x_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bx_'+dim[0]+'_'+dim[1]+"_C_02rv"
+                y_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_By_'+dim[0]+'_'+dim[1]+"_C_02rv"
+                z_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bz_'+dim[0]+'_'+dim[1]+"_C_02rv"
                 print(x_pkl_name,y_pkl_name,z_pkl_name)
                 x_pkl_name2D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_2D.pkl"
                 y_pkl_name2D = "./VEX_data_files/VEX_bin_" + y_pkl_name + "_2D.pkl"
