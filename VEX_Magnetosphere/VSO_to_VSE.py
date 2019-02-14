@@ -30,9 +30,11 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     halfway_BS = timedelta(hours=12) + avg_BS
     #print(halfway_BS)
     for time in table.index:        
-        if (time < halfway_BS) and (time >= avg_BS):
+        #if (time < halfway_BS) and (time >= avg_BS):
+        if (time < BS_in_t) and (time >= avg_BS):
             table['Clock'][time] = clk_in
-        else:
+        #else:
+        elif (time > BS_out_t) or (time <= avg_BS):
             table['Clock'][time] = clk_out
     
     #print(table['Clock'])
