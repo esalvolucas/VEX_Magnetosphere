@@ -48,11 +48,11 @@ def code_test(orbit):
                 plot_dir = r'C:/Users/Elysia/Pictures/VEX Plots/'
                      
                 if dimtick == 0:
-                    bin_3d(X,Y,Z,dim='x',v_toggle='off',save=True,name=plot_dir+x_pkl_name,title=title_yr)
+                    bin_3d(X,Y,Z,dim='x',v_toggle='off',save=True,name=plot_dir+x_pkl_name,title=title_yr,bs='on')
                 elif dimtick == 1:
-                    bin_3d(Y,X,Z,dim='y',v_toggle='off',save=True,name=plot_dir+y_pkl_name,title=title_yr)
+                    bin_3d(Y,X,Z,dim='y',v_toggle='off',save=True,name=plot_dir+y_pkl_name,title=title_yr,bs='on')
                 elif dimtick == 2:
-                    bin_3d(Z,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+z_pkl_name,title=title_yr)
+                    bin_3d(Z,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+z_pkl_name,title=title_yr,bs='on')
                      
                 dimtick += 1
                 print(dimtick)
