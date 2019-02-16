@@ -24,13 +24,17 @@ def code_test(orbit):
             title_yr = str(years[i]) + ' TO ' + str(years[i+1])
             dimtick = 0
             for dim in [['YSC','ZSC'],['XSC','ZSC'],['XSC','YSC']]:
-                x_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bx_'+dim[0]+'_'+dim[1]+"_C_02rv"
-                y_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_By_'+dim[0]+'_'+dim[1]+"_C_02rv"
-                z_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bz_'+dim[0]+'_'+dim[1]+"_C_02rv"
+                x_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bx_'+dim[0]+'_'+dim[1]+"_C_02rva"
+                y_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_By_'+dim[0]+'_'+dim[1]+"_C_02rva"
+                z_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bz_'+dim[0]+'_'+dim[1]+"_C_02rva"
+                b_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_B_'+dim[0]+'_'+dim[1]+"_C_02rva"
+
                 print(x_pkl_name,y_pkl_name,z_pkl_name)
                 x_pkl_name2D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_2D.pkl"
                 y_pkl_name2D = "./VEX_data_files/VEX_bin_" + y_pkl_name + "_2D.pkl"
                 z_pkl_name2D = "./VEX_data_files/VEX_bin_" + z_pkl_name + "_2D.pkl"
+                b_pkl_name2D = "./VEX_data_files/VEX_bin_" + b_pkl_name + "_2D.pkl"
+
                 
 #                 x_pkl_name3D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_3D.pkl"
 #                 y_pkl_name3D = "./VEX_data_files/VEX_bin_" + y_pkl_name + "_3D.pkl"
@@ -39,6 +43,7 @@ def code_test(orbit):
                 X = cPickle.load(open(x_pkl_name2D,"rb"))
                 Y = cPickle.load(open(y_pkl_name2D,"rb"))
                 Z = cPickle.load(open(z_pkl_name2D,"rb"))
+                B = cPickle.load(open(b_pkl_name2D,"rb"))
 #                 X = cPickle.load(open(x_pkl_name3D,"rb"))
 #                 Y = cPickle.load(open(y_pkl_name3D,"rb"))
 #                 Z = cPickle.load(open(z_pkl_name3D,"rb"))
@@ -53,7 +58,8 @@ def code_test(orbit):
                     bin_3d(Y,X,Z,dim='y',v_toggle='off',save=True,name=plot_dir+y_pkl_name,title=title_yr,bs='on')
                 elif dimtick == 2:
                     bin_3d(Z,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+z_pkl_name,title=title_yr,bs='on')
-                     
+                    bin_3d(B,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on')
+
                 dimtick += 1
                 print(dimtick)
                 
