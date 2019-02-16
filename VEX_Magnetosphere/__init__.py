@@ -25,6 +25,7 @@ from .clock_cone_angle import clock_cone_angle
 from .magnetosphere import magnetosphere
 from .VSO_to_VSE import VSO_to_VSE
 from .append_sw import append_sw
+from .mean_sw import mean_sw
 from .aberration import aberration
 
 from .bin_3d import bin_3d
