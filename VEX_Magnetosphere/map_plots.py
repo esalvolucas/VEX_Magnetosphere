@@ -1,6 +1,6 @@
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+#import os
+#import sys
+#sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from VEX_Magnetosphere import *
 import pandas as pd
 import numpy as np
@@ -13,10 +13,10 @@ from scipy import stats
 import _pickle as cPickle
 
 def map_plots(ns=False,append=None):
-            
     #years = pd.date_range('2006-04-24 00:00:00','2014-11-25 00:00:00',freq='YS').astype(str).tolist()
     #years = ['2006-04-24'] + years + ['2014-11-25']
-    years = ['2006-04-24','2014-11-25']
+    #years = ['2006-04-24','2014-11-25']
+    years = ['2014-11-14','2014-11-14']
     
     l = len(years)
          
@@ -31,7 +31,7 @@ def map_plots(ns=False,append=None):
                 z_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_Bz_'+dim[0]+'_'+dim[1]+append
                 b_pkl_name = years[i][0:7]+'_'+years[i+1][0:7]+'_B_'+dim[0]+'_'+dim[1]+append
 
-                print(x_pkl_name,y_pkl_name,z_pkl_name)
+                print(x_pkl_name,y_pkl_name,z_pkl_name)       
                 if ns==True:
                     x_pkl_name2D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_2DNS.pkl"
                     y_pkl_name2D = "./VEX_data_files/VEX_bin_" + y_pkl_name + "_2DNS.pkl"
@@ -52,6 +52,8 @@ def map_plots(ns=False,append=None):
                 Y = cPickle.load(open(y_pkl_name2D,"rb"))
                 Z = cPickle.load(open(z_pkl_name2D,"rb"))
                 B = cPickle.load(open(b_pkl_name2D,"rb"))
+                
+                print(Y)
 #                 X = cPickle.load(open(x_pkl_name3D,"rb"))
 #                 Y = cPickle.load(open(y_pkl_name3D,"rb"))
 #                 Z = cPickle.load(open(z_pkl_name3D,"rb"))
@@ -70,4 +72,4 @@ def map_plots(ns=False,append=None):
                 dimtick += 1
                 print(dimtick)
 
-map_plots(append="_C_02rva")
+map_plots(append="_C_orbit")

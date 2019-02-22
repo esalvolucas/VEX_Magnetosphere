@@ -17,6 +17,30 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     BS_in_t = CA_select_in.index[0]
     BS_out_t = CA_select_out.index[-1]
     
+    
+    #########################
+    #model bow shock
+    L = 1.303
+    epsilon = 1.056
+    x0 = 0.788
+    x = table['XSC'].values
+    
+
+    rho = np.sqrt((table['YSC'].values)**2 + (table['ZSC'].values)**2)
+    BS = 1.1*np.sqrt(L**2 - 2*epsilon*(x-x0)*L - (epsilon**2 - 1)*(x-x0)**2) #10% safety buffer
+    #BS = BS.where(
+    a = BS - rho
+    #print(a)
+    #print(type(a))
+    a_table = pd.DataFrame(data={'time':table.index,'BS-rho':list(a)})
+    #print(a_table)
+    a_table = a_table.set_index('time')
+    #table = pd.concat([table, a_table], axis=1)
+
+    table = table.join(a_table)
+    #print(table)
+    ##################################
+    
     #plt.scatter(BS_in_t,4)
     #plt.scatter(BS_out_t,4)
     #print(str(BS_in_t)[0:10], str(BS_out_t)[0:9])
@@ -29,13 +53,18 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     #print(avg_BS)
     halfway_BS = timedelta(hours=12) + avg_BS
     #print(halfway_BS)
-    for time in table.index:        
-        #if (time < halfway_BS) and (time >= avg_BS):
-        if (time < BS_in_t) and (time >= avg_BS):
-            table['Clock'][time] = clk_in
-        #else:
-        elif (time > BS_out_t) or (time <= avg_BS):
-            table['Clock'][time] = clk_out
+#     for time in table.index:        
+# #         #if (time < halfway_BS) and (time >= avg_BS):
+# #         if (time < BS_in_t) and (time >= avg_BS) and (table['BS-rho'][time] > 0):
+# #             table['Clock'][time] = clk_in
+# #         #else:
+# #         elif (time > BS_out_t) or (time <= avg_BS) and (table['BS-rho'][time] > 0):
+# #             table['Clock'][time] = clk_out
+#         if (table['BS-rho'][time]<0):
+#             table['Bx'][time] = 10000
+#             table['By'][time] = 10000
+#             table['Bz'][time] = 10000
+#             table['|B|'][time] = 10000
     
     #print(table['Clock'])
     #print((BS_in_t + BS_out_t)/2)
