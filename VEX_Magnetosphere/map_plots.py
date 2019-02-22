@@ -53,7 +53,6 @@ def map_plots(ns=False,append=None):
                 Z = cPickle.load(open(z_pkl_name2D,"rb"))
                 B = cPickle.load(open(b_pkl_name2D,"rb"))
                 
-                print(Y)
 #                 X = cPickle.load(open(x_pkl_name3D,"rb"))
 #                 Y = cPickle.load(open(y_pkl_name3D,"rb"))
 #                 Z = cPickle.load(open(z_pkl_name3D,"rb"))

@@ -174,25 +174,25 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
 
 
 
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bx',dim=['YSC','ZSC'],counts=True,append="orbit")
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='By',dim=['YSC','ZSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bx',dim=['YSC','ZSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='By',dim=['YSC','ZSC'],counts=True,append="orbit")
 bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bz',dim=['YSC','ZSC'],counts=True,append="orbit")
 # # #bin_dim('2006-04-24','2014-11-25',mag='|B|',dim=['YSC','ZSC'])
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='|B|',dim=['YSC','ZSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='|B|',dim=['YSC','ZSC'],counts=True,append="orbit")
 # #   
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bx',dim=['XSC','ZSC'],counts=True,append="orbit")
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='By',dim=['XSC','ZSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bx',dim=['XSC','ZSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='By',dim=['XSC','ZSC'],counts=True,append="orbit")
 bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bz',dim=['XSC','ZSC'],counts=True,append="orbit")
 # # #bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','ZSC'])
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='|B|',dim=['XSC','ZSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='|B|',dim=['XSC','ZSC'],counts=True,append="orbit")
 # 
 # 
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bx',dim=['XSC','YSC'],counts=True,append="orbit")
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='By',dim=['XSC','YSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bx',dim=['XSC','YSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='By',dim=['XSC','YSC'],counts=True,append="orbit")
 bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='Bz',dim=['XSC','YSC'],counts=True,append="orbit")
 # #bin_dim('2006-04-24 00:00:00','2014-11-25 00:00:00',mag='|B|',dim=['XSC','YSC'])
 # # bin_dim('2006-11-24','2007-01-01',mag='Bx',dim=['YSC','ZSC'])
-# bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='|B|',dim=['XSC','YSC'],counts=True,append="orbit")
+bin_dim('2014-11-14 00:00:00','2014-11-14 00:00:00',mag='|B|',dim=['XSC','YSC'],counts=True,append="orbit")
 
 #years = pd.date_range('2006-04-24 00:00:00','2014-11-25 00:00:00',freq='YS').astype(str).tolist()
 #years = ['2006-04-24'] + years + ['2014-11-25']
