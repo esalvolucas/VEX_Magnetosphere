@@ -85,6 +85,7 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
         x0 = 0.788
         x = np.arange(-3,3,0.001)
         BS = np.sqrt(L**2 - 2*epsilon*(x-x0)*L - (epsilon**2 - 1)*(x-x0)**2)
+
         if dim == 'x':
             BS_YZ = plt.Circle((0,0),1.9727,color='k',linestyle=":",fill=False)
             ax.add_artist(BS_YZ)
