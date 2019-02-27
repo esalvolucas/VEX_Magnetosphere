@@ -30,3 +30,4 @@ from .aberration import aberration
 
 from .bin_3d import bin_3d
 from .orbit_delta_list import orbit_delta_list
+from .bin_dim import bin_dim
