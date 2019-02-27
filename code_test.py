@@ -13,6 +13,7 @@ from scipy import stats
 import _pickle as cPickle
 
 def code_test(orbit):
+    #for i in 
 #     
 # #     #table = pd.DataFrame(data={'time':0,'Bx':0,'By':1,'Bz':1,'|B|':np.sqrt(2),'XSC':0,'YSC':0,'ZSC':0,'RSC':0})
 # #     #table = table.set_index('time')
@@ -58,28 +59,28 @@ def code_test(orbit):
     table = table.resample('T').mean()
     table = clock_cone_angle(table)
     #plt.plot(table['Clock'])
-       
-       
+        
+        
     table['XSC'] = table['XSC']/6051.8
     table['YSC'] = table['YSC']/6051.8
     table['ZSC'] = table['ZSC']/6051.8
     table['RSC'] = table['RSC']/6051.8
-    
+     
     print(table)
-#       
-#       
-#       
-#     #table = table.where((table['YSC']<=2)&(table['YSC']>=-2))
-#     #table = table.where((table['ZSC']<=2)&(table['ZSC']>=-2))
-#     #print(table)
-#     #vex_plot_data(table)
-#       
-#     #pd.set_option('display.max_rows', 10000)
-# 
-#     CA_select_in,CA_select_out = magnetosphere(table)
-#     #table = aberration(table)
-#     #print(table.iloc[0:10])
-#     VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
+       
+       
+       
+    #table = table.where((table['YSC']<=2)&(table['YSC']>=-2))
+    #table = table.where((table['ZSC']<=2)&(table['ZSC']>=-2))
+    #print(table)
+    #vex_plot_data(table)
+       
+    #pd.set_option('display.max_rows', 10000)
+ 
+    CA_select_in,CA_select_out = magnetosphere(table)
+    #table = aberration(table)
+    #print(table.iloc[0:10])
+    VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
 #     for i,val in enumerate(VSE_table.index):
 #         print(VSE_table['By'][val])
 #         if VSE_table['By'][val]<0:
