@@ -16,7 +16,7 @@ def map_plots(ns=False,append=None):
     #years = pd.date_range('2006-04-24 00:00:00','2014-11-25 00:00:00',freq='YS').astype(str).tolist()
     #years = ['2006-04-24'] + years + ['2014-11-25']
     #years = ['2006-04-24','2014-11-25']
-    years = ['2014-11-14','2014-11-14']
+    years = ['2014-01-01','2014-03-01']
     
     l = len(years)
          
@@ -66,9 +66,12 @@ def map_plots(ns=False,append=None):
                     bin_3d(Y,X,Z,dim='y',v_toggle='off',save=True,name=plot_dir+y_pkl_name,title=title_yr,bs='on')
                 elif dimtick == 2:
                     bin_3d(Z,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+z_pkl_name,title=title_yr,bs='on')
-                    bin_3d(B,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on')
+                    bin_3d(B,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on',magB=True)
 
                 dimtick += 1
                 print(dimtick)
 
-map_plots(append="_C_orbit")
+map_plots(append="_C_testBS",ns=True)
+#map_plots(append="_C_testBS")
+#map_plots(append="_C_testBS")
+
