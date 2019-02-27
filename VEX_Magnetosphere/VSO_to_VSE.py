@@ -6,13 +6,18 @@ from datetime import timedelta
 
 def VSO_to_VSE(table,CA_select_in,CA_select_out):
     
-    z_mean = np.nanmean(CA_select_in['Bz'].values)
-    y_mean = np.nanmean(CA_select_in['By'].values)
-    clk_in = -np.arctan2(z_mean,y_mean)
+    #try averaging in/out CA_select, THEN arctan2
+    z_mean1 = np.nanmean(CA_select_in['Bz'].values)
+    y_mean1 = np.nanmean(CA_select_in['By'].values)
+    clk_in = -np.arctan2(z_mean1,y_mean1)
     
-    z_mean = np.nanmean(CA_select_out['Bz'].values)
-    y_mean = np.nanmean(CA_select_out['By'].values)
-    clk_out = -np.arctan2(z_mean,y_mean)
+    z_mean2 = np.nanmean(CA_select_out['Bz'].values)
+    y_mean2 = np.nanmean(CA_select_out['By'].values)
+    clk_out = -np.arctan2(z_mean2,y_mean2)
+    
+    zmean = np.nanmean([z_mean1,z_mean2])
+    ymean = np.nanmean([y_mean1,y_mean2])
+    avg_clk = -np.arctan2(zmean,ymean)
     
     BS_in_t = CA_select_in.index[0]
     BS_out_t = CA_select_out.index[-1]
@@ -27,8 +32,15 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     
 
     rho = np.sqrt((table['YSC'].values)**2 + (table['ZSC'].values)**2)
-    BS = 1.1*np.sqrt(L**2 - 2*epsilon*(x-x0)*L - (epsilon**2 - 1)*(x-x0)**2) #10% safety buffer
-    #BS = BS.where(
+    BS = []
+    for xval in x:
+        #if VEX is outside of the BS (past the subsolar point), BS = 0
+        if xval > 1.39:
+            xx = 0
+        else:
+            xx = 1.1*np.sqrt(L**2 - 2*epsilon*(xval-x0)*L - (epsilon**2 - 1)*(xval-x0)**2) #10% safety buffer
+        BS = BS + [xx]
+    #print(BS)
     a = BS - rho
     #print(a)
     #print(type(a))
@@ -53,18 +65,21 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     #print(avg_BS)
     halfway_BS = timedelta(hours=12) + avg_BS
     #print(halfway_BS)
-#     for time in table.index:        
-# #         #if (time < halfway_BS) and (time >= avg_BS):
-# #         if (time < BS_in_t) and (time >= avg_BS) and (table['BS-rho'][time] > 0):
-# #             table['Clock'][time] = clk_in
-# #         #else:
-# #         elif (time > BS_out_t) or (time <= avg_BS) and (table['BS-rho'][time] > 0):
-# #             table['Clock'][time] = clk_out
-#         if (table['BS-rho'][time]<0):
-#             table['Bx'][time] = 10000
-#             table['By'][time] = 10000
-#             table['Bz'][time] = 10000
-#             table['|B|'][time] = 10000
+    for time in table.index:        
+#         #if (time < halfway_BS) and (time >= avg_BS):
+#         if (time < BS_in_t) and (time >= avg_BS) and (table['BS-rho'][time] > 0):
+#             #table['Clock'][time] = clk_in
+#             table['Clock'][time] = avg_clk
+#         #else:
+#         elif ((time > BS_out_t) or (time <= avg_BS)) and (table['BS-rho'][time] > 0):
+#             #table['Clock'][time] = clk_out
+#             table['Clock'][time] = avg_clk
+            
+        if (table['BS-rho'][time]<0):
+            table['Bx'][time] = 10000
+            table['By'][time] = 10000
+            table['Bz'][time] = 10000
+            table['|B|'][time] = 10000
     
     #print(table['Clock'])
     #print((BS_in_t + BS_out_t)/2)
