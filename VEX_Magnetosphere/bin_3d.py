@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import ticker
 from VEX_Magnetosphere import *
 
-def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=None,title=None,bs='off'):
+def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=None,title=None,bs='off',magB=False):
     #initialize colorbar label
     bindim = r'$B_{' + dim + r'}$ Strength (nT)'
     print(bindim)
@@ -31,7 +31,10 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     #set colorbar norm and other settings
     norm = matplotlib.colors.BoundaryNorm(bounds, cmap.N)
     cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
-    cb.set_label(bindim)
+    if magB==False:
+        cb.set_label(bindim)
+    else:
+        cb.set_label(r'$|B|$ Strength (nT)')
     tick_locator = ticker.MaxNLocator(nbins=11)
     cb.locator = tick_locator
     cb.update_ticks()
