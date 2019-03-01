@@ -6,7 +6,6 @@ from datetime import timedelta
 
 def VSO_to_VSE(table,CA_select_in,CA_select_out):
     
-    #try averaging in/out CA_select, THEN arctan2
     z_mean1 = np.nanmean(CA_select_in['Bz'].values)
     y_mean1 = np.nanmean(CA_select_in['By'].values)
     clk_in = -np.arctan2(z_mean1,y_mean1)
@@ -21,6 +20,7 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     
     BS_in_t = CA_select_in.index[0]
     BS_out_t = CA_select_out.index[-1]
+    print(BS_in_t,BS_out_t)
     
     
     #########################
@@ -30,7 +30,7 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     x0 = 0.788
     x = table['XSC'].values
     
-
+    #spacecraft location sqrt(YSC^2 + ZSC^2)
     rho = np.sqrt((table['YSC'].values)**2 + (table['ZSC'].values)**2)
     BS = []
     for xval in x:
@@ -40,54 +40,45 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
         else:
             xx = 1.1*np.sqrt(L**2 - 2*epsilon*(xval-x0)*L - (epsilon**2 - 1)*(xval-x0)**2) #10% safety buffer
         BS = BS + [xx]
-    #print(BS)
     a = BS - rho
-    #print(a)
-    #print(type(a))
+    #concatenate BS-rho onto existing dataframe
     a_table = pd.DataFrame(data={'time':table.index,'BS-rho':list(a)})
-    #print(a_table)
     a_table = a_table.set_index('time')
-    #table = pd.concat([table, a_table], axis=1)
-
     table = table.join(a_table)
-    #print(table)
     ##################################
     
-    #plt.scatter(BS_in_t,4)
-    #plt.scatter(BS_out_t,4)
-    #print(str(BS_in_t)[0:10], str(BS_out_t)[0:9])
-    
-    #avg_BS = Timestamp((BS_in_t.value + BS_out_t.value)/2.0)
+    #find duration of time outside the BS/inside the IMF
     avg_BS = Timestamp(BS_out_t.value) - Timestamp(BS_in_t.value)
-    #print(Timestamp(BS_out_t.value), Timestamp(BS_in_t.value))
-    #print((str((timedelta(hours=24) - avg_BS)/2))[7:15])
+    #strip date off of original data, modulo 24hrs to find halfway point inside BS
     avg_BS = Timestamp(str(BS_in_t)[0:11] + (str((timedelta(hours=24) - avg_BS)/2))[7:15])
-    #print(avg_BS)
+    #find halfway point outside the BS
     halfway_BS = timedelta(hours=12) + avg_BS
-    #print(halfway_BS)
+    
+    #for each time in the index
     for time in table.index:        
-#         #if (time < halfway_BS) and (time >= avg_BS):
 #         if (time < BS_in_t) and (time >= avg_BS) and (table['BS-rho'][time] > 0):
 #             #table['Clock'][time] = clk_in
 #             table['Clock'][time] = avg_clk
-#         #else:
 #         elif ((time > BS_out_t) or (time <= avg_BS)) and (table['BS-rho'][time] > 0):
 #             #table['Clock'][time] = clk_out
 #             table['Clock'][time] = avg_clk
             
-        if (table['BS-rho'][time]<0):
-            table['Bx'][time] = 10000
-            table['By'][time] = 10000
-            table['Bz'][time] = 10000
-            table['|B|'][time] = 10000
+        if table['BS-rho'][time] > 0:
+            table['Clock'][time] = avg_clk
+            
+#         if (table['BS-rho'][time]<0):
+#             table['Bx'][time] = 10000
+#             table['By'][time] = 10000
+#             table['Bz'][time] = 10000
+#             table['|B|'][time] = 10000
     
-    #print(table['Clock'])
-    #print((BS_in_t + BS_out_t)/2)
-    
+
+    #copy VSO table to VSE table
     VSE_table = table
+    #for each time, get clock angle
     for time in table.index:
         theta = table['Clock'][time]
-        
+        #perform 3D coordinate rotation about x-axis
         c,s = np.cos(theta), np.sin(theta)
         rot_VSE = np.array(((1,0,0),
                             (0,c,-s),
@@ -121,4 +112,3 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
         VSE_table['RSC'][time] = np.sqrt(sc_VSE[0]**2 + sc_VSE[1]**2 + sc_VSE[2]**2)
        
     return VSE_table 
-    #print(clk_in,clk_out)
