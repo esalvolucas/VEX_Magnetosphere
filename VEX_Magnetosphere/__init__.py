@@ -10,9 +10,6 @@ from .mag_concat import mag_concat
 from .vex_load_data import vex_load_data
 from .read_sw import read_sw
 from .vex_plot_data import vex_plot_data
-
-from .date_vetting import date_vetting
-
 from .VSO_avg import VSO_avg
 
 from .plot_3D import plot_3D
@@ -31,3 +28,8 @@ from .aberration import aberration
 from .bin_3d import bin_3d
 from .orbit_delta_list import orbit_delta_list
 from .bin_dim import bin_dim
+
+from .orbit_load import orbit_load
+from .orbit_bin import orbit_bin
+from .rotate_to_VSE import rotate_to_VSE
+from .date_to_orbit import date_to_orbit

@@ -109,3 +109,8 @@ VEX_Magnetosphere/dog
 *.pkl
 VEX_Magnetosphere/VEX_data_files/MomentsScan.ascii
 .settings/org.eclipse.core.resources.prefs
+.pydevproject
+VEX_Magnetosphere/.DS_Store
+VEX_Magnetosphere/.DS_Store
+*.tab
+*.tab
