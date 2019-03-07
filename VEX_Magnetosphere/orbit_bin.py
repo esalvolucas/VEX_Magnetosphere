@@ -10,10 +10,9 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
     rotation_fail = 0
     bin_fail = 0
     
-    
-    pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_'+mag+'_'+dim[0]+'_'+dim[1]
+    pkl_name = start_time[0:10]+'_'+end_time[0:10]+'_'+mag+'_'+dim[0]+'_'+dim[1]
     if mag == '|B|':
-        pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_B_'+dim[0]+'_'+dim[1]
+        pkl_name = start_time[0:10]+'_'+end_time[0:10]+'_B_'+dim[0]+'_'+dim[1]
 
     #add suffix if needed
     if append is not None:
@@ -64,6 +63,7 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
             #perform coordinate rotation
             #ab_table = aberration(table)
             VSE_table = rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out)
+            #print(VSE_table)
         except:
             print('rotation fail')
             rotation_fail += 1
@@ -84,7 +84,6 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
         #             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
         #                                         density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
         #                                         maxs=[3,3,3])
-            #print('wtf')
             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
                                         density=True,binsize=[0.2,0.2,0.2],mins=[-3,-3,-3],
                                         maxs=[3,3,3])
