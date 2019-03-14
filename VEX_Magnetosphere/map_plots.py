@@ -16,7 +16,7 @@ def map_plots(ns=False,append=None):
     #years = pd.date_range('2006-04-24 00:00:00','2014-11-25 00:00:00',freq='YS').astype(str).tolist()
     #years = ['2006-04-24'] + years + ['2014-11-25']
     #years = ['2006-04-24','2014-11-25']
-    years = ['2014-01-01','2014-03-01']
+    years = ['2014-01-01','2014-01-01']
     
     l = len(years)
          
@@ -71,7 +71,7 @@ def map_plots(ns=False,append=None):
                 dimtick += 1
                 print(dimtick)
 
-map_plots(append="_C_testBS",ns=True)
-#map_plots(append="_C_testBS")
-#map_plots(append="_C_testBS")
-
+#map_plots(append="_C_avg3",ns=True)
+#map_plots(append="_C_avg025z3")
+#map_plots(append="_C_avg025y3")
+map_plots(append='_C_20140101')
