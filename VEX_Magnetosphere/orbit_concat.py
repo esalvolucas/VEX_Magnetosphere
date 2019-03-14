@@ -95,4 +95,7 @@ def orbit_concat():
         with open('./VEX_data_files/orbit_ref.tab', 'a') as f:
             orbit_ref.to_csv(f,header=False,sep='\t',index=False)
         orbit_number += 1
+        f1.close()
+        f2.close()
+    f.close()
 orbit_concat()

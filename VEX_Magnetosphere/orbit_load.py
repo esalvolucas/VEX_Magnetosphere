@@ -16,5 +16,5 @@ def orbit_load(orbit_num):
             table = pd.read_csv(f,sep='\t',index_col=0,header=None,names = ['UTC','Bx','By','Bz','|B|','XSC','YSC','ZSC','RSC','Clock','Cone','BS-rho'])
             #set UTC column to datetimeindex
             table = table.set_index(pd.DatetimeIndex(table.index))
-    
+    f.close()
     return table,BS_in,BS_out
