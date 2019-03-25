@@ -10,10 +10,9 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
     rotation_fail = 0
     bin_fail = 0
     
-    
-    pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_'+mag+'_'+dim[0]+'_'+dim[1]
+    pkl_name = start_time[0:10]+'_'+end_time[0:10]+'_'+mag+'_'+dim[0]+'_'+dim[1]
     if mag == '|B|':
-        pkl_name = start_time[0:7]+'_'+end_time[0:7]+'_B_'+dim[0]+'_'+dim[1]
+        pkl_name = start_time[0:10]+'_'+end_time[0:10]+'_B_'+dim[0]+'_'+dim[1]
 
     #add suffix if needed
     if append is not None:
@@ -22,11 +21,11 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
     print(pkl_name)
     #changes filename based on if binning nightside data only or not
     if ns == False:
-        pkl_name3D = "./VEX_data_files/VEX_bin_" + pkl_name + "_3D.pkl"
-        pkl_name2D = "./VEX_data_files/VEX_bin_" + pkl_name + "_2D.pkl"
+        pkl_name3D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_3D.pkl"
+        pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2D.pkl"
     if ns == True:
-        pkl_name3D = "./VEX_data_files/VEX_bin_" + pkl_name + "_3DNS.pkl"
-        pkl_name2D = "./VEX_data_files/VEX_bin_" + pkl_name + "_2DNS.pkl"
+        pkl_name3D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_3DNS.pkl"
+        pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2DNS.pkl"
     mag = 'VEX.'+mag
         
     #based on provided dimensions, set collapse axis to 3rd dimension
@@ -51,23 +50,24 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
         print(orbit)
         try:
             #load data into dataframe
-            table,BS_in,BS_out = orbit_load(orbit)
+            VSE_table = orbit_load(orbit)
             #select hour of data outside BS crossings
-            CA_select_in = table.iloc[BS_in-60:BS_in]
-            CA_select_out = table.iloc[BS_out:BS_out+60]
+            #CA_select_in = table.iloc[BS_in-60:BS_in]
+            #CA_select_out = table.iloc[BS_out:BS_out+60]
         except:
             print('table load fail')
             table_fail += 1
             pass
  
-        try:
-            #perform coordinate rotation
-            #ab_table = aberration(table)
-            VSE_table = rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out)
-        except:
-            print('rotation fail')
-            rotation_fail += 1
-            pass
+#         try:
+#             #perform coordinate rotation
+#             #ab_table = aberration(table)
+#             VSE_table = rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out)
+#             #print(VSE_table)
+#         except:
+#             print('rotation fail')
+#             rotation_fail += 1
+#             pass
         
         try:
             #choose just nightside data if keyword implemented
@@ -84,7 +84,6 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
         #             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
         #                                         density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
         #                                         maxs=[3,3,3])
-            #print('wtf')
             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
                                         density=True,binsize=[0.2,0.2,0.2],mins=[-3,-3,-3],
                                         maxs=[3,3,3])

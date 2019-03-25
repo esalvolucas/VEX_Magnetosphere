@@ -41,11 +41,7 @@ def rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out):
 #         if table['BS-rho'][time] > 0:
 #             table['Clock'][time] = avg_clk
             
-#         if (table['BS-rho'][time]<0):
-#             table['Bx'][time] = 10000
-#             table['By'][time] = 10000
-#             table['Bz'][time] = 10000
-#             table['|B|'][time] = 10000
+
     
 
     #copy VSO table to VSE table
@@ -86,4 +82,10 @@ def rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out):
         VSE_table['ZSC'][time] = sc_VSE[2]
         VSE_table['RSC'][time] = np.sqrt(sc_VSE[0]**2 + sc_VSE[1]**2 + sc_VSE[2]**2)
        
+#         if (table['BS-rho'][time]<0):
+#             table['Bx'][time] = 10000
+#             table['By'][time] = 10000
+#             table['Bz'][time] = 10000
+#             table['|B|'][time] = 10000
+            
     return VSE_table 

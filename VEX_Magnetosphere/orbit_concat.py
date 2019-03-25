@@ -2,16 +2,18 @@ import numpy as np
 import pandas as pd
 from scipy.signal import argrelextrema
 from VEX_Magnetosphere import *
-
+from VEX_Magnetosphere.date_to_orbit import *
 
 def orbit_concat():
     
     pd.set_option('display.width', None)
-    
+    #days = pd.date_range('2014-02-01 00:00:00','2014-11-25 00:00:00',freq='D').astype(str).tolist()
+    #days_shift = pd.date_range('2014-02-02 00:00:00','2014-11-26 00:00:00',freq='D').astype(str).tolist()
     days = pd.date_range('2006-04-24 00:00:00','2014-11-25 00:00:00',freq='D').astype(str).tolist()
     days_shift = pd.date_range('2006-04-25 00:00:00','2014-11-26 00:00:00',freq='D').astype(str).tolist()
     #days = ['2006-04-24 00:00:00','2006-04-25 00:00:00']
     #days_shift = ['2006-04-25 00:00:00','2006-04-26 00:00:00']
+    
     orbit_number = 0
 
     for d,val in enumerate(days):
@@ -43,10 +45,11 @@ def orbit_concat():
             full_table['RSC'] = full_table['RSC']/6051.8
             
             maxInd = list(argrelextrema(full_table['RSC'].values, np.greater))
+            #print(np.arange(maxInd[0][0],maxInd[0][1],1))
             indlist = np.arange(maxInd[0][0],maxInd[0][1],1)
             orbit_table = full_table.iloc[indlist]
             orbit_table = clock_cone_angle(orbit_table)
-            
+            #print(orbit_table)
             #########################
             #model bow shock
             L = 1.303
@@ -69,6 +72,7 @@ def orbit_concat():
             a_table = pd.DataFrame(data={'time':orbit_table.index,'BS-rho':list(a)})
             a_table = a_table.set_index('time')
             orbit_table = orbit_table.join(a_table)
+            
             #print(orbit_table)
             
             ###BS Crossing
@@ -85,14 +89,20 @@ def orbit_concat():
             BS_crossings = potential_crossings.iloc[[0,1]]
             BS_i = np.sort(BS_crossings['i'].values)
             
-            outfile = "./VEX_data_files/ORBIT_" + orbit_str + "_BS_" + str(BS_i[0]) + "_" + str(BS_i[1]) + ".tab"
+            outfile = "./VEX_data_files/VSE/ORBIT_" + orbit_str + "_BS_" + str(BS_i[0]) + "_" + str(BS_i[1]) + ".tab"
             print(outfile)
-            orbit_table.to_csv(outfile,header=None,sep='\t')
+            CA_select_in = orbit_table.iloc[BS_i[0]-60:BS_i[0]]
+            CA_select_out = orbit_table.iloc[BS_i[1]:BS_i[1]+60]
+            VSE_table = rotate_to_VSE(orbit_table,BS_i[0],BS_i[1],CA_select_in,CA_select_out)
+            VSE_table.to_csv(outfile,header=None,sep='\t')
         except:
             print('table fail')
             
-        orbit_ref = pd.DataFrame(data={'orbit':[orbit_str],'start':[orbit_table.index[0]],'end':[orbit_table.index[-1]],'BS_in':BS_i[0],'BS_out':BS_i[1]})
-        with open('./VEX_data_files/orbit_ref.tab', 'a') as f:
-            orbit_ref.to_csv(f,header=False,sep='\t',index=False)
+        #orbit_ref = pd.DataFrame(data={'orbit':[orbit_str],'start':[orbit_table.index[0]],'end':[orbit_table.index[-1]],'BS_in':BS_i[0],'BS_out':BS_i[1]})
+        #with open('./VEX_data_files/orbit_ref.tab', 'a') as f:
+        #   orbit_ref.to_csv(f,header=False,sep='\t',index=False)
         orbit_number += 1
+        f1.close()
+        f2.close()
+    #f.close()
 orbit_concat()

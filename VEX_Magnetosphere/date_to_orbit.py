@@ -14,4 +14,5 @@ def date_to_orbit(date):
         if (date >= orbit_ref['start'][i]) and (date <= orbit_ref['end'][i]):
             orbit_num = orbit_ref['orbit'][i]
             break
+    f.close()
     return orbit_num
