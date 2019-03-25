@@ -33,15 +33,15 @@ def map_plots(start_date,end_date,ns=False,append=None):
 
                 print(x_pkl_name,y_pkl_name,z_pkl_name)       
                 if ns==True:
-                    x_pkl_name2D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_2DNS.pkl"
-                    y_pkl_name2D = "./VEX_data_files/VEX_bin_" + y_pkl_name + "_2DNS.pkl"
-                    z_pkl_name2D = "./VEX_data_files/VEX_bin_" + z_pkl_name + "_2DNS.pkl"
-                    b_pkl_name2D = "./VEX_data_files/VEX_bin_" + b_pkl_name + "_2DNS.pkl"
+                    x_pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + x_pkl_name + "_2DNS.pkl"
+                    y_pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + y_pkl_name + "_2DNS.pkl"
+                    z_pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + z_pkl_name + "_2DNS.pkl"
+                    b_pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + b_pkl_name + "_2DNS.pkl"
                 else:
-                    x_pkl_name2D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_2D.pkl"
-                    y_pkl_name2D = "./VEX_data_files/VEX_bin_" + y_pkl_name + "_2D.pkl"
-                    z_pkl_name2D = "./VEX_data_files/VEX_bin_" + z_pkl_name + "_2D.pkl"
-                    b_pkl_name2D = "./VEX_data_files/VEX_bin_" + b_pkl_name + "_2D.pkl"
+                    x_pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + x_pkl_name + "_2D.pkl"
+                    y_pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + y_pkl_name + "_2D.pkl"
+                    z_pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + z_pkl_name + "_2D.pkl"
+                    b_pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + b_pkl_name + "_2D.pkl"
 
                 
 #                 x_pkl_name3D = "./VEX_data_files/VEX_bin_" + x_pkl_name + "_3D.pkl"
