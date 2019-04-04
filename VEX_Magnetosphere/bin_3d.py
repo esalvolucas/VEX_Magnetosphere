@@ -17,8 +17,8 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     #create edges between -3 and 3 Rv
 #     yedges = np.arange(-3,3,0.1)
 #     zedges = np.arange(-3,3,0.1)
-    yedges = np.arange(-3,3,0.2)
-    zedges = np.arange(-3,3,0.2)
+    yedges = np.arange(-3,3.2,0.2)
+    zedges = np.arange(-3,3.2,0.2)
     #make meshgrid to plot bins
     ymesh,zmesh = np.meshgrid(yedges,zedges)
     #add venus as black circle
@@ -68,8 +68,8 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     #create mesh to plot vectors in middle of each bin    
 #     yedges = np.arange(-2.95,3.05,0.1)
 #     zedges = np.arange(-2.95,3.05,0.1)
-    yedges = np.arange(-2.9,3.1,0.2)
-    zedges = np.arange(-2.9,3.1,0.2)
+    yedges = np.arange(-2.9,3.3,0.2)
+    zedges = np.arange(-2.9,3.3,0.2)
     ymesh,zmesh = np.meshgrid(yedges,zedges)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
     X = ymesh
     Y = zmesh
