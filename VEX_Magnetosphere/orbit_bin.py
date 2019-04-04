@@ -5,7 +5,7 @@ import _pickle as cPickle
 from VEX_Magnetosphere.date_to_orbit import *
 from VEX_Magnetosphere.rotate_to_VSE import *
 
-def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=None,slice=None,slice2=None):
+def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=None,slice=None):
     table_fail = 0
     rotation_fail = 0
     bin_fail = 0
@@ -43,8 +43,8 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
     #initialize 60x60 binning matrix
     #final_stat = np.zeros((60,60))
     #final_nan = np.zeros((60,60))
-    final_stat = np.zeros((30,30))
-    final_nan = np.zeros((30,30))
+    final_stat = np.zeros((31,31))
+    final_nan = np.zeros((31,31))
     #for each orbit
     for orbit in orbits:
         print(orbit)
@@ -69,46 +69,52 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
 #             rotation_fail += 1
 #             pass
         
-        try:
+        #try:
             #choose just nightside data if keyword implemented
-            if ns == True:
-                VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
-            if slice == True:
-                VSE_table = VSE_table.where((VSE_table['ZSC']<0.25)&(VSE_table['ZSC']>-0.25))
-            if slice2 == True:
-                VSE_table = VSE_table.where((VSE_table['YSC']<0.25)&(VSE_table['YSC']>-0.25))
-            #initialize insitu structre for pydivide.bin
-            insitu = {}
-            insitu['VEX'] = VSE_table
-            #use pydivide.bin to bin data in 3D, bins of 0.1, between -3 and 3 Rv
-        #             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
-        #                                         density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
-        #                                         maxs=[3,3,3])
-            VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
-                                        density=True,binsize=[0.2,0.2,0.2],mins=[-3,-3,-3],
-                                        maxs=[3,3,3])
-            #print(VSE_binavg)
-            #np.set_printoptions(threshold=np.nan)
-            #take mean of binned data on axis to collapse
-            xy_arr = np.nanmean(VSE_binavg,axis=collapse)
-            #print(xy_arr)
-            #print(xy_arr[np.where(xy_arr<0)])
-            #print(xy_arr)
-            #counts bases binning off of data points/bin/orbit, instead of logical 1 or 0 for (data or no data)/orbit
-
-            xy_nan = np.nansum(VSE_counts,axis=collapse)
-            xy_nan[np.isnan(xy_nan)] = 0
-            #add data to final arrays
-            final_stat = np.nansum(np.dstack((final_stat,xy_arr)),2)
-            #final_nan = 
-            #final_stat += xy_arr
-            #print(final_stat)
-            final_nan += xy_nan
+        if ns == True:
+            VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
+        if slice is not None:
+            plane = slice[0]
+            minus_delta = slice[1]
+            plus_delta = slice[2]
+            VSE_table = VSE_table.where((VSE_table[plane]<plus_delta)&(VSE_table[plane]>minus_delta))
         
-        except:
-            print('bin fail')  
-            bin_fail += 1
-            continue
+        #initialize insitu structre for pydivide.bin
+        insitu = {}
+        insitu['VEX'] = VSE_table
+        #use pydivide.bin to bin data in 3D, bins of 0.1, between -3 and 3 Rv
+    #             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
+    #                                         density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
+    #                                         maxs=[3,3,3])
+        VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
+                                    density=True,binsize=[0.2,0.2,0.2],mins=[-3,-3,-3],
+                                    maxs=[3.2,3.2,3.2])
+        VSE_binavg = VSE_binavg*VSE_counts
+        #print((np.isnan(VSE_binavg)).all())
+
+        #print(VSE_binavg)
+        #np.set_printoptions(threshold=np.nan)
+        #take mean of binned data on axis to collapse
+        xy_arr = np.nansum(VSE_binavg,axis=collapse)
+        #print(xy_arr)
+        #print(xy_arr[np.where(xy_arr<0)])
+        #print(xy_arr)
+        #counts bases binning off of data points/bin/orbit, instead of logical 1 or 0 for (data or no data)/orbit
+
+        xy_nan = np.nansum(VSE_counts,axis=collapse)
+        xy_nan[np.isnan(xy_nan)] = 0
+        #add data to final arrays
+        final_stat = np.nansum(np.dstack((final_stat,xy_arr)),2)
+        #print(final_stat)
+        #final_nan = 
+        #final_stat += xy_arr
+        #print(final_stat)
+        final_nan += xy_nan
+        
+        #except:
+        #    print('bin fail')  
+        #    bin_fail += 1
+        #    continue
     #replace any instances of 0 with 1 to not break np.divide
     final_nan[np.where(final_nan==0)] = 1
     #divide final data by final number of points per bin
