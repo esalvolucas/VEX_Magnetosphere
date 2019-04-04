@@ -13,13 +13,13 @@ def vex_plot_data(table):
     #initialize subplotting
     fig, (ax1,ax2) = plt.subplots(nrows=2, ncols=1,sharex=True, sharey=False)
     #plot B x/y/z on same plot, remove xaxis labels, add plot title
-    table[['Bx','By','Bz']].plot(ax=ax1,style=['b','g','r'],linewidth=0.25)
+    table[['Bx','By','Bz']].plot(ax=ax1,style=['b','g','r'],linewidth=1)
     ax1.axhline(y=0, linestyle='--', color='k')
     ax1.set(title=plot_title, xlabel='UTC', ylabel='B field (nT)')
     ax1.legend(loc=1)
     ax1.get_xaxis().set_visible(False)
     #plot |B| on subplot
-    table[['|B|']].plot(ax=ax2,subplots=True,style=['k'],linewidth=0.25)
+    table[['|B|']].plot(ax=ax2,subplots=True,style=['k'],linewidth=1)
     ax2.set(xlabel='UTC', ylabel='|B| field (nT)')
     ax2.legend(loc=1)
     #show plot
