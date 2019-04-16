@@ -15,10 +15,6 @@ def rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out):
     z_mean2 = np.nanmean(CA_select_out['Bz'].values)
     y_mean2 = np.nanmean(CA_select_out['By'].values)
     clk_out = -np.arctan2(z_mean2,y_mean2)
-    
-#     zmean = np.nanmean([z_mean1,z_mean2])
-#     ymean = np.nanmean([y_mean1,y_mean2])
-#     avg_clk = -np.arctan2(zmean,ymean)
 
     BS_in_t = str(table.index.values[BS_in])
     BS_out_t = str(table.index.values[BS_out])
@@ -30,16 +26,23 @@ def rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out):
     #find duration of time outside the BS/inside the IMF
     avg_BS = BS_in_t + (BS_out_t - BS_in_t)/2
 
+#     #LOCAL CA OUTSIDE BS
+#     #for each time in the index
+#     for time in table.index:
+#         if table['BS-rho'][time] > 0: #if inside BS
+#             if (time >= BS_in_t) and (time <= avg_BS):
+#                 table['Clock'][time] = clk_in
+#             elif (time > avg_BS) and (time <= BS_out_t):
+#                 table['Clock'][time] = clk_out
+                
+    #INTERPOLATED CA OUTSIDE BS
     #for each time in the index
     for time in table.index:
         if table['BS-rho'][time] > 0: #if inside BS
-            if (time >= BS_in_t) and (time <= avg_BS):
+            if time <= avg_BS:
                 table['Clock'][time] = clk_in
-            elif (time > avg_BS) and (time <= BS_out_t):
+            elif time > avg_BS:
                 table['Clock'][time] = clk_out
-            
-#         if table['BS-rho'][time] > 0:
-#             table['Clock'][time] = avg_clk
             
 
     
@@ -81,11 +84,5 @@ def rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out):
         VSE_table['YSC'][time] = sc_VSE[1]
         VSE_table['ZSC'][time] = sc_VSE[2]
         VSE_table['RSC'][time] = np.sqrt(sc_VSE[0]**2 + sc_VSE[1]**2 + sc_VSE[2]**2)
-       
-#         if (table['BS-rho'][time]<0):
-#             table['Bx'][time] = 10000
-#             table['By'][time] = 10000
-#             table['Bz'][time] = 10000
-#             table['|B|'][time] = 10000
             
     return VSE_table 
