@@ -1,7 +1,5 @@
-import numpy as np
 import pandas as pd
 import glob
-from VEX_Magnetosphere import *
 
 def orbit_load(orbit_num):
     #remove column wrapping output
@@ -10,7 +8,7 @@ def orbit_load(orbit_num):
     #open file, read into pandas dataframe
     path = "./VEX_data_files/VSE/ORBIT_"+orbit_num+"_BS_*"
     for filename in glob.glob(path):
-        print=(filename)
+        print(filename)
         #BS_in = int(filename[31:34])
         #BS_out = int(filename[35:38])
         with open(filename) as f:
@@ -18,5 +16,5 @@ def orbit_load(orbit_num):
             #set UTC column to datetimeindex
             table = table.set_index(pd.DatetimeIndex(table.index))
         f.close()
-    return table#,BS_in,BS_out
-#print(orbit_load(2890))
+    return table
+#print(orbit_load(2932))
