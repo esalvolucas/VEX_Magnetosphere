@@ -5,7 +5,7 @@ import _pickle as cPickle
 from VEX_Magnetosphere.date_to_orbit import *
 from VEX_Magnetosphere.rotate_to_VSE import *
 
-def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=None,slice=None):
+def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,slice=None):
     table_fail = 0
     rotation_fail = 0
     bin_fail = 0
@@ -19,13 +19,9 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
         pkl_name = pkl_name + "_" + append
         
     print(pkl_name)
-    #changes filename based on if binning nightside data only or not
-    if ns == False:
-        pkl_name3D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_3D.pkl"
-        pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2D.pkl"
-    if ns == True:
-        pkl_name3D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_3DNS.pkl"
-        pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2DNS.pkl"
+
+    pkl_name3D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_3D.pkl"
+    pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2D.pkl"
     mag = 'VEX.'+mag
         
     #based on provided dimensions, set collapse axis to 3rd dimension
@@ -71,8 +67,6 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
         
         #try:
             #choose just nightside data if keyword implemented
-        if ns == True:
-            VSE_table = VSE_table.where((VSE_table['XSC']<-1)&(VSE_table['XSC']>-2))
         if slice is not None:
             plane = slice[0]
             minus_delta = slice[1]
