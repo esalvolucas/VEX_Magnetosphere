@@ -87,10 +87,11 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,append=Non
             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
                                         density=True,binsize=[0.2,0.2,0.2],mins=[-3,-3,-3],
                                         maxs=[3,3,3])
+            VSE_binavg = np.dot(VSE_binavg,VSE_counts)
             #print(VSE_binavg)
             #np.set_printoptions(threshold=np.nan)
             #take mean of binned data on axis to collapse
-            xy_arr = np.nanmean(VSE_binavg,axis=collapse)
+            xy_arr = np.nansum(VSE_binavg,axis=collapse)
             #print(xy_arr)
             #print(xy_arr[np.where(xy_arr<0)])
             #print(xy_arr)
