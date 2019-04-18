@@ -12,7 +12,29 @@ from pydivide import bin
 from scipy import stats
 import _pickle as cPickle
 
-def code_test(orbit):
+def code_test():
+    
+    
+    table = orbit_load(2932)
+    print(table)
+# theta = -0.104719755
+#  
+# c,s = np.cos(theta), np.sin(theta)
+#  
+# rot_ab = np.array(((c,-s,0),
+#                    (s,c,0),
+#                    (0,0,1)))
+# print(table)
+# ab_table = np.matmul(rot_ab,table)
+# print(ab_table)
+# CA = np.arctan2(ab_table[2],ab_table[1])
+# print(CA)
+# c,s = np.cos(-CA), np.sin(-CA)
+# rot_VSE = np.array(((1,0,0),
+#                     (0,c,-s),
+#                     (0,s,c)))
+# mag_VSE = np.matmul(rot_VSE,ab_table)
+# print(mag_VSE) 
     #for i in 
 #     
 # #     #table = pd.DataFrame(data={'time':0,'Bx':0,'By':1,'Bz':1,'|B|':np.sqrt(2),'XSC':0,'YSC':0,'ZSC':0,'RSC':0})
@@ -53,34 +75,35 @@ def code_test(orbit):
 # #     print(new_table)
     #GRAB RELEVANT FILES IN DATE RANGE
     #dates_file = mag_concat(start_time,end_time)
-    dates_file = './VEX_Magnetosphere/VEX_data_files/' + orbit[0:10] + '_TO_' + orbit[0:10] + '.tab' 
-    #LOAD DATA INTO PANDAS DATAFRAME
-    table = vex_load_data(dates_file,disp=False)
-    table = table.resample('T').mean()
-    table = clock_cone_angle(table)
-    #plt.plot(table['Clock'])
+#     orbit = '2013-05-21'
+#     dates_file = './VEX_Magnetosphere/VEX_data_files/' + orbit[0:10] + '_TO_' + orbit[0:10] + '.tab' 
+#     #LOAD DATA INTO PANDAS DATAFRAME
+#     table = vex_load_data(dates_file,disp=False)
+#     table = table.resample('T').mean()
+#     table = clock_cone_angle(table)
+#     #plt.plot(table['Clock'])
+#          
+#          
+#     table['XSC'] = table['XSC']/6051.8
+#     table['YSC'] = table['YSC']/6051.8
+#     table['ZSC'] = table['ZSC']/6051.8
+#     table['RSC'] = table['RSC']/6051.8
+#       
+#     print(table)
+#         
+#         
+#         
+#     #table = table.where((table['YSC']<=2)&(table['YSC']>=-2))
+#     #table = table.where((table['ZSC']<=2)&(table['ZSC']>=-2))
+#     #print(table)
+#     vex_plot_data(table)
         
-        
-    table['XSC'] = table['XSC']/6051.8
-    table['YSC'] = table['YSC']/6051.8
-    table['ZSC'] = table['ZSC']/6051.8
-    table['RSC'] = table['RSC']/6051.8
-     
-    print(table)
-       
-       
-       
-    #table = table.where((table['YSC']<=2)&(table['YSC']>=-2))
-    #table = table.where((table['ZSC']<=2)&(table['ZSC']>=-2))
-    #print(table)
-    #vex_plot_data(table)
-       
     #pd.set_option('display.max_rows', 10000)
- 
-    CA_select_in,CA_select_out = magnetosphere(table)
+  
+    #CA_select_in,CA_select_out = magnetosphere(table)
     #table = aberration(table)
     #print(table.iloc[0:10])
-    VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
+    #VSE_table = VSO_to_VSE(table,CA_select_in,CA_select_out)
 #     for i,val in enumerate(VSE_table.index):
 #         print(VSE_table['By'][val])
 #         if VSE_table['By'][val]<0:
@@ -186,5 +209,4 @@ def code_test(orbit):
     #vex_plot_data(VSE_table)
     #plt.scatter(VSE_table['Bx'],VSE_table['By'],c=VSE_table['Bz'],cmap='jet')
     #plt.show()
-code_test('2014-11-14 00:00:00')
-#code_test('2014-10-02 00:00:00','2014-10-02 00:00:00')
+#code_test()

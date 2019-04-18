@@ -4,9 +4,9 @@ from mpl_toolkits.mplot3d import proj3d
 import matplotlib.colors
 import matplotlib.colorbar
 from colormap import rgb2hex
-import cv2
-from cv2 import ellipse
-import matplotlib.patches
+#import cv2
+#from cv2 import ellipse
+#import matplotlib.patches
 from matplotlib.patches import Arc
 from VEX_Magnetosphere.add_venus_2D import add_venus_2D
 from matplotlib import ticker

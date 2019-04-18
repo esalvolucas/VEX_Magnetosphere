@@ -2,25 +2,26 @@ import pandas as pd
 import numpy as np
 
 def aberration(table):
-    ab_table = table
+    ab_table = table.copy()
     for time in table.index:
+        #correct for aberration (6 degrees)
         theta = -0.104719755
         
         c,s = np.cos(theta), np.sin(theta)
 
         rot_ab = np.array(((c,-s,0),
-                            (s,c,0),
-                            (0,0,1)))
+                           (s,c,0),
+                           (0,0,1)))
         
         
-        Bx = table['Bx'][time]
-        By = table['By'][time]
-        Bz = table['Bz'][time]
-        B = table['|B|'][time]
-        XSC = table['XSC'][time]
-        YSC = table['YSC'][time]
-        ZSC = table['ZSC'][time]
-        RSC = table['RSC'][time]
+        Bx = ab_table['Bx'][time]
+        By = ab_table['By'][time]
+        Bz = ab_table['Bz'][time]
+        B = ab_table['|B|'][time]
+        XSC = ab_table['XSC'][time]
+        YSC = ab_table['YSC'][time]
+        ZSC = ab_table['ZSC'][time]
+        RSC = ab_table['RSC'][time]
         
 
         mag_VSO = np.array(((Bx),(By),(Bz)))
@@ -39,5 +40,4 @@ def aberration(table):
         ab_table['ZSC'][time] = sc_ab[2]
         ab_table['RSC'][time] = np.sqrt(sc_ab[0]**2 + sc_ab[1]**2 + sc_ab[2]**2)
        
-    return ab_table 
-    #print(clk_in,clk_out)
+    return ab_table

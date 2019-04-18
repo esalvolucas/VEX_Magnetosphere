@@ -91,13 +91,14 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
             insitu = {}
             insitu['VEX'] = VSE_table
             #use pydivide.bin to bin data in 3D, bins of 0.1, between -3 and 3 Rv
-#             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
-#                                         density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
-#                                         maxs=[3,3,3])
+        #             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
+        #                                         density=True,binsize=[0.1,0.1,0.1],mins=[-3,-3,-3],
+        #                                         maxs=[3,3,3])
+            #print('wtf')
             VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
                                         density=True,binsize=[0.2,0.2,0.2],mins=[-3,-3,-3],
                                         maxs=[3,3,3])
-
+            #print(VSE_binavg)
             #np.set_printoptions(threshold=np.nan)
             #take mean of binned data on axis to collapse
             xy_arr = np.nanmean(VSE_binavg,axis=collapse)
@@ -117,6 +118,7 @@ def bin_dim(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],ns=False,counts=True,
             #final_stat += xy_arr
             #print(final_stat)
             final_nan += xy_nan
+        
         except:
             print('bin fail')  
             continue

@@ -48,7 +48,9 @@ def orbit_concat():
             #print(np.arange(maxInd[0][0],maxInd[0][1],1))
             indlist = np.arange(maxInd[0][0],maxInd[0][1],1)
             orbit_table = full_table.iloc[indlist]
-            orbit_table = clock_cone_angle(orbit_table)
+            #correct for aberration
+            ab_table = aberration(orbit_table)
+            orbit_table = clock_cone_angle(ab_table)
             #print(orbit_table)
             #########################
             #model bow shock
@@ -93,6 +95,8 @@ def orbit_concat():
             print(outfile)
             CA_select_in = orbit_table.iloc[BS_i[0]-60:BS_i[0]]
             CA_select_out = orbit_table.iloc[BS_i[1]:BS_i[1]+60]
+            
+            
             VSE_table = rotate_to_VSE(orbit_table,BS_i[0],BS_i[1],CA_select_in,CA_select_out)
             VSE_table.to_csv(outfile,header=None,sep='\t')
         except:
@@ -105,4 +109,3 @@ def orbit_concat():
         f1.close()
         f2.close()
     #f.close()
-orbit_concat()

@@ -55,16 +55,21 @@ def VSO_to_VSE(table,CA_select_in,CA_select_out):
     halfway_BS = timedelta(hours=12) + avg_BS
     
     #for each time in the index
-    for time in table.index:        
+    for time in table.index:
+        if table['BS-rho'][time] > 0: #if inside BS
+            dt1 = abs((time - BS_out_t).total_seconds())
+            dt2 = abs((time - BS_in_t).total_seconds())
+            if dt1 > dt2:
+                pass
 #         if (time < BS_in_t) and (time >= avg_BS) and (table['BS-rho'][time] > 0):
-#             #table['Clock'][time] = clk_in
-#             table['Clock'][time] = avg_clk
+#             table['Clock'][time] = clk_in
+#             #table['Clock'][time] = avg_clk
 #         elif ((time > BS_out_t) or (time <= avg_BS)) and (table['BS-rho'][time] > 0):
-#             #table['Clock'][time] = clk_out
-#             table['Clock'][time] = avg_clk
+#             table['Clock'][time] = clk_out
+#             #table['Clock'][time] = avg_clk
             
-        if table['BS-rho'][time] > 0:
-            table['Clock'][time] = avg_clk
+#         if table['BS-rho'][time] > 0:
+#             table['Clock'][time] = avg_clk
             
 #         if (table['BS-rho'][time]<0):
 #             table['Bx'][time] = 10000
