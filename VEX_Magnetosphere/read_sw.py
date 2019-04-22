@@ -8,6 +8,15 @@ def read_sw(flag=None,density=None,speed=None,temp=None):
                        index_col=0,names=["UTC","density", "speed", "temperature","flag"])
     #set datetime index
     data = data.set_index(pd.DatetimeIndex(data.index))
+    #append dynamic pressure
+    #pdyn = mass_proton * conversion to m * 1/2 * rho * v^2
+    pressure = 1.67*10**(-27)*(100**3)*(1000**2)*0.5*data['density']*data['speed']**2
+    swpressure = pd.DataFrame(index=data.index,data={'pressure':pressure})
+    print(swpressure)
+    data = data.join(swpressure)
+    
+    
+    
     #if specific flags selected
     if flag is not None:
             if isinstance(flag,int):
