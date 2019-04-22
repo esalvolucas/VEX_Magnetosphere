@@ -45,7 +45,6 @@ def orbit_concat():
             full_table['RSC'] = full_table['RSC']/6051.8
             
             maxInd = list(argrelextrema(full_table['RSC'].values, np.greater))
-            #print(np.arange(maxInd[0][0],maxInd[0][1],1))
             indlist = np.arange(maxInd[0][0],maxInd[0][1],1)
             orbit_table = full_table.iloc[indlist]
             #correct for aberration
