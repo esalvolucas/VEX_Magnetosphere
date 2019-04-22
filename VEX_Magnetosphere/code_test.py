@@ -206,8 +206,8 @@ def code_test():
     #plot_3D(table)
     
     #PLOT 1-MINUTE CADENCE VSO DATA (2D)
-    #VSO_avg(table)
-    #VSO_avg(VSE_table,VSE=True)
+    VSO_avg(table)
+    VSO_avg(VSE_table,VSE=True)
     #PLOT 1-MINUTE CADENCE VSO DATA (3D)
     #VSO_3D_avg(table)
 

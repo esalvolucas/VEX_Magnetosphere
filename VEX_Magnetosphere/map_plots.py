@@ -72,6 +72,6 @@ def map_plots(start_date,end_date,ns=False,append=None):
                 print(dimtick)
 
 #map_plots('2010-12-20','2010-12-21',append="orbit2")
-#map_plots(append="_C_testBS")
-#map_plots(append="_C_testBS")
-
+#map_plots(append="_C_avg025z3")
+#map_plots(append="_C_avg025y3")
+map_plots(append='_C_20140101')
