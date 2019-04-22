@@ -15,8 +15,14 @@ import _pickle as cPickle
 def code_test():
     
     
-    table = orbit_load(2932)
-    print(table)
+    swdata = read_sw(flag=[0,1])
+    
+    #swpressure = 0.5*swdata['density']*swdata['speed']**2
+    print(swdata)
+    
+    plt.hist(swdata['pressure'],bins=20)
+    plt.show()
+
 # theta = -0.104719755
 #  
 # c,s = np.cos(theta), np.sin(theta)
@@ -209,4 +215,4 @@ def code_test():
     #vex_plot_data(VSE_table)
     #plt.scatter(VSE_table['Bx'],VSE_table['By'],c=VSE_table['Bz'],cmap='jet')
     #plt.show()
-#code_test()
+code_test()
