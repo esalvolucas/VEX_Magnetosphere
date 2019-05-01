@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def read_sw(flag=None,density=None,speed=None,temp=None):
+def read_sw(flag=None):
     #read in data from MomentsScan.ascii, skip header
     data = pd.read_csv('./VEX_data_files/MomentsScan.ascii', header=None, 
                        skiprows=np.arange(0,23), delim_whitespace=True,
@@ -10,34 +10,19 @@ def read_sw(flag=None,density=None,speed=None,temp=None):
     data = data.set_index(pd.DatetimeIndex(data.index))
     #append dynamic pressure
     #pdyn = mass_proton * conversion to m * 1/2 * rho * v^2
-    pressure = 1.67*10**(-27)*(100**3)*(1000**2)*0.5*data['density']*data['speed']**2
+    pressure = 1.67*10**(-27)*(100**3)*(1000**2)*0.5*data['density']*data['speed']**2 #in Pa
     swpressure = pd.DataFrame(index=data.index,data={'pressure':pressure})
-    print(swpressure)
     data = data.join(swpressure)
-    
-    
-    
+    #resample to 1m cadence with average
+    data = data.resample('T').mean()
+    #nearest neighbor interpolate between pressures and data validity flags
+    data['pressure'] = data['pressure'].interpolate(method='nearest')
+    data['flag'] = data['flag'].interpolate(method='nearest')
+
     #if specific flags selected
     if flag is not None:
             if isinstance(flag,int):
                 flag = [flag]
             data = data[data['flag'].isin(flag)]
-    #pick density within range
-    if density is not None:
-        dmin,dmax = density[0],density[1]
-        print(dmin,dmax)
-        data = data[(data['density']>=dmin)&(data['density']<=dmax)]
-    #pick speed within range  
-    if speed is not None:
-        vmin,vmax = speed[0],speed[1]
-        print(vmin,vmax)
-        data = data[(data['speed']>=vmin)&(data['speed']<=vmax)]
-    #pick temperature within range
-    if temp is not None:
-        tmin,tmax = temp[0],temp[1]
-        print(tmin,tmax)
-        data = data[(data['temperature']>=tmin)&(data['temperature']<=tmax)]
         
     return data
-
-#print(read_sw(flag=4,density=[30,50]))
