@@ -3,11 +3,10 @@ import numpy as np
 from pandas.tslib import Timestamp
 import matplotlib.pyplot as plt
 from datetime import datetime
-#from datetime import timedelta
 
 def rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out):
     
-    ### Calculate negative clock angle within BS
+    #calculate negative clock angle for hours outside BS
     z_mean1 = np.nanmean(CA_select_in['Bz'].values)
     y_mean1 = np.nanmean(CA_select_in['By'].values)
     clk_in = -np.arctan2(z_mean1,y_mean1)
@@ -69,6 +68,9 @@ def rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out):
         RSC = table['RSC'][time]
         
 
+        #[Bx VSE] = [1  0    0 ][Bx VSO]
+        #[By VSE] = [0 cos -sin][By VSO]
+        #[Bz VSE] = [0 sin  cos][Bz VSO]
         mag_VSO = np.array(((Bx),(By),(Bz)))
         mag_VSE = np.matmul(rot_VSE,mag_VSO)
         
@@ -77,6 +79,9 @@ def rotate_to_VSE(table,BS_in,BS_out,CA_select_in,CA_select_out):
         VSE_table['Bz'][time] = mag_VSE[2]
         VSE_table['|B|'][time] = np.sqrt(mag_VSE[0]**2 + mag_VSE[1]**2 + mag_VSE[2]**2)
 
+        #[XSC VSE] = [1  0    0 ][XSC VSO]
+        #[YSC VSE] = [0 cos -sin][YSC VSO]
+        #[ZSC VSE] = [0 sin  cos][ZSC VSO]
         sc_VSO = np.array(((XSC),(YSC),(ZSC)))
         sc_VSE = np.matmul(rot_VSE,sc_VSO)
     
