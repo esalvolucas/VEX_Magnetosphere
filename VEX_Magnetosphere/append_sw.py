@@ -5,15 +5,8 @@ from datetime import datetime,timedelta
 
     
 def append_sw(table,swdata):
-    #table['Density'] = np.nan
-    #table['Speed'] = np.nan
-    #table['Temperature'] = np.nan
-    
-    indices = swdata.index.values
-    
-    table['Density'] = swdata['density'][indices]
-    table['Speed'] = swdata['speed'][indices]
-    table['Temperature'] = swdata['temperature'][indices]
+    #append solar wind pressure data onto table using table's indices
+    indices = table.index.values
     table['Pressure'] = swdata['pressure'][indices]
     
     return table
