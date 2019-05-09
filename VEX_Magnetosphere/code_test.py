@@ -14,26 +14,26 @@ import _pickle as cPickle
 
 def code_test():
     
-    VSE_table = orbit_load(3136)
+    #VSE_table = orbit_load(3136)
     swdata = read_sw(flag=[0,1])
     
-    print(append_sw(VSE_table,swdata))
+    #print(append_sw(VSE_table,swdata))
     #fig,ax = plt.subplots(111)
     #swpressure = 0.5*swdata['density']*swdata['speed']**2
     #print(swdata)
     #plt.yscale('log', nonposy='clip')
-#     hmean = np.mean(np.log(swdata['pressure']))
-#     hstd = (np.std(np.log(swdata['pressure']))*np.arange(-3,3,0.5)) + hmean
-#     print(hstd)
-#     for i in hstd:
-#         plt.axvline(x=i,color='r')
-#     
-#     plt.axvline(x=hmean,color='g')
-# 
-#     plt.hist(np.log(swdata['pressure']),bins=200)
-#     plt.show()
-#     print(np.mean(np.log(swdata['pressure'])))
-#     print(np.std(np.log(swdata['pressure'])))
+    hmean = np.mean(np.log(swdata['pressure']))
+    hstd = (np.std(np.log(swdata['pressure']))*np.arange(-3,3,0.5)) + hmean
+    print(hstd)
+    for i in hstd:
+        plt.axvline(x=i,color='r')
+    
+    plt.axvline(x=hmean,color='g')
+    
+    plt.hist(np.log(swdata['pressure']),bins=500)
+    plt.show()
+    print(np.mean(np.log(swdata['pressure'])))
+    print(np.std(np.log(swdata['pressure'])))
 #     
 # # theta = -0.104719755
 #  
