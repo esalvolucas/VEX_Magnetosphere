@@ -73,11 +73,11 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
             
         #sort data by low/med/high solar wind pressure
         if pres=='low':
-            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])<=-20.83))
+            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])<=-20.09))
         elif pres=='med':
-            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])<-19.58)&(np.log(VSE_table['Pressure'])>-20.83))
+            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])<-19.25)&(np.log(VSE_table['Pressure'])>-20.09))
         elif pres=='high':
-            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])>=-19.58))
+            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])>=-19.25))
             
         #initialize insitu structre for pydivide.bin
         insitu = {}
