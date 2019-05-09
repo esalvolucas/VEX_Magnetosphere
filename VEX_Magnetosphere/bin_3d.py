@@ -21,25 +21,38 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     #add venus as black circle
     venus1=plt.Circle((0,0),1,color='k',fill=False)
     ax.add_artist(venus1)
-    #pick r/w/b divergent colormap
-    cmap = plt.get_cmap('seismic')
-    #pick bounds for colorbar to be -10 to 10 with 60 distinct colors
-    bounds = np.linspace(-10, 10, 60)
-    #set colorbar norm and other settings
-    norm = matplotlib.colors.BoundaryNorm(bounds, cmap.N)
-    cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
+    if magB==True:
+        #pick r/w/b divergent colormap
+        cmap = plt.get_cmap('RdPu')
+        #pick bounds for colorbar to be 0 to 30 with 90 distinct colors
+        bounds = np.linspace(0, 30, 90)
+        #set colorbar norm and other settings
+        norm = matplotlib.colors.BoundaryNorm(bounds, cmap.N)
+        cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
+    else:
+        #pick r/w/b divergent colormap
+        cmap = plt.get_cmap('seismic')
+        #pick bounds for colorbar to be -10 to 10 with 60 distinct colors
+        bounds = np.linspace(-10, 10, 60)
+        #set colorbar norm and other settings
+        norm = matplotlib.colors.BoundaryNorm(bounds, cmap.N)
+        cb = matplotlib.colorbar.ColorbarBase(cax, cmap=cmap, norm=norm, ticks=bounds, orientation='vertical')
     
     #set colorbar label
-    if magB==False:
-        cb.set_label(r'$B_{' + dim + r'}$ Strength (nT)')
-    else:
+    if magB==True:
         cb.set_label(r'$|B|$ Strength (nT)')
+    else:
+        cb.set_label(r'$B_{' + dim + r'}$ Strength (nT)')
     #set colorbar ticks
     tick_locator = ticker.MaxNLocator(nbins=11)
     cb.locator = tick_locator
     cb.update_ticks()
-    #plot bins with -10 to 10 nT range
-    ax.pcolormesh(ymesh,zmesh,final_stat,cmap=cmap,vmin=-10, vmax=10)
+    if magB==True:
+        #plot bins with 0 to 30 nT range
+        ax.pcolormesh(ymesh,zmesh,final_stat,cmap=cmap,vmin=0, vmax=30)
+    else:
+        #plot bins with -10 to 10 nT range
+        ax.pcolormesh(ymesh,zmesh,final_stat,cmap=cmap,vmin=-10, vmax=10)
 
     #set axis limits     
     ax.set_xlim(-3,3)
