@@ -115,5 +115,7 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
         plt.show()
     if save == True:
         plt.savefig(name+'.png')
+        plt.clf()
+        plt.cla()
 
     
