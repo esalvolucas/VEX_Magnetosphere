@@ -5,7 +5,7 @@ import _pickle as cPickle
 from VEX_Magnetosphere.date_to_orbit import *
 from VEX_Magnetosphere.rotate_to_VSE import *
 
-def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=None,slice=None):
+def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=None,v=None,E=None,slice=None):
     #initialize fail statistics
     table_fail = 0
     rotation_fail = 0
@@ -23,7 +23,7 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
     print(pkl_name)
     
     #create file names for 3D/2D binning structures
-    pkl_name3D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_3D.pkl"
+    pkl_name_c = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_counts.pkl"
     pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2D.pkl"
     mag = 'VEX.'+mag
         
@@ -73,11 +73,19 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
             
         #sort data by low/med/high solar wind pressure
         if pres=='low':
-            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])<=-20.09))
+            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])<=-20.1625))
         elif pres=='med':
-            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])<-19.25)&(np.log(VSE_table['Pressure'])>-20.09))
+            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])<-19.5118)&(np.log(VSE_table['Pressure'])>-20.1625))
         elif pres=='high':
-            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])>=-19.25))
+            VSE_table = VSE_table.where((np.log(VSE_table['Pressure'])>=-19.5118))
+            
+        #sort data by low/med/high solar wind velocity
+        if v=='low':
+            VSE_table = VSE_table.where((np.log(VSE_table['Speed'])<=5.8503))
+        elif v=='med':
+            VSE_table = VSE_table.where((np.log(VSE_table['Speed'])<6.0695)&(np.log(VSE_table['Pressure'])>5.8503))
+        elif v=='high':
+            VSE_table = VSE_table.where((np.log(VSE_table['Speed'])>6.0695))
             
         #initialize insitu structre for pydivide.bin
         insitu = {}
@@ -104,17 +112,18 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
     final_stat = np.divide(final_stat,final_nan)
     #transpose 2D data matrix
     final_stat = final_stat.T
+    final_nan = final_nan.T
     
     #open pkl files, dump final data
-    output3D = open(pkl_name3D, "wb" )
+    outputc = open(pkl_name_c, "wb" )
     output2D = open(pkl_name2D,"wb")
-    cPickle.dump(VSE_binavg, output3D)
+    cPickle.dump(final_nan, outputc)
     cPickle.dump(final_stat, output2D)
     print('Data dumped to:')
     print(pkl_name2D)
-    print(pkl_name3D)
+    print(pkl_name_c)
     #close files
-    output3D.close()
+    outputc.close()
     output2D.close()
     
     #print bin statistics to more easily diagnose errors
@@ -123,4 +132,4 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
     print('Rotation Failures:',100*rotation_fail/len(orbits),'%')
     print('Bin Failures:',100*bin_fail/len(orbits),'%')
     
-    return pkl_name2D,pkl_name3D,final_stat
+    return pkl_name2D,pkl_name_c,final_stat

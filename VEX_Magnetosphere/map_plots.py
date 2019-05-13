@@ -1,7 +1,7 @@
 from VEX_Magnetosphere import *
 import _pickle as cPickle
 
-def map_plots(start_date,end_date,append=None,slicedir=None):
+def map_plots(start_date,end_date,append=None,slicedir=None,pres='off',v='off',E='off'):
     #print time range plotted
     print(start_date + ' TO ' + end_date)
     #create title string for date range
@@ -37,7 +37,13 @@ def map_plots(start_date,end_date,append=None,slicedir=None):
         #set plot directory path
         #plot_dir = r'C:/Users/Elysia/Pictures/VEX Plots/gif/'
         plot_dir = r'/Users/ellu2839/Pictures/VEX_Plots/'
-        
+        if pres!='off':
+            plot_dir += r'Pressure/'
+        if v!='off':
+            plot_dir += r'Velocity/'
+        if E!='off':
+            plot_dir += r'Electric/'
+            
         #depending on projection, plot the binned data
         if dimtick == 0:
             bin_3d(X,Y,Z,dim='x',v_toggle='off',save=True,name=plot_dir+x_pkl_name,title=title_yr,bs='on')

@@ -17,6 +17,7 @@ def read_sw(flag=None):
     data = data.resample('T').mean()
     #nearest neighbor interpolate between pressures and data validity flags
     data['pressure'] = data['pressure'].interpolate(method='nearest')
+    data['speed'] = data['speed'].interpolate(method='nearest')
     data['flag'] = data['flag'].interpolate(method='nearest')
 
     #if specific flags selected

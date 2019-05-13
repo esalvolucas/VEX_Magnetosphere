@@ -8,5 +8,5 @@ def append_sw(table,swdata):
     #append solar wind pressure data onto table using table's indices
     indices = table.index.values
     table['Pressure'] = swdata['pressure'][indices]
-    
+    table['Speed'] = swdata['speed'][indices]
     return table
