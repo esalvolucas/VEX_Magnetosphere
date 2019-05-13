@@ -34,3 +34,4 @@ from .orbit_bin import orbit_bin
 from .rotate_to_VSE import rotate_to_VSE
 from .date_to_orbit import date_to_orbit
 from .map_plots import map_plots
+from .bin_main import bin_main
