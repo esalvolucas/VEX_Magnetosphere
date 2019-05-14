@@ -83,7 +83,7 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
         if v=='low':
             VSE_table = VSE_table.where((np.log(VSE_table['Speed'])<=5.8503))
         elif v=='med':
-            VSE_table = VSE_table.where((np.log(VSE_table['Speed'])<6.0695)&(np.log(VSE_table['Pressure'])>5.8503))
+            VSE_table = VSE_table.where((np.log(VSE_table['Speed'])<6.0695)&(np.log(VSE_table['Speed'])>5.8503))
         elif v=='high':
             VSE_table = VSE_table.where((np.log(VSE_table['Speed'])>6.0695))
             
