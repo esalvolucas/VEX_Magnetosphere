@@ -16,6 +16,22 @@ def map_plots(start_date,end_date,append=None,slicedir=None,pres='off',v='off',E
         y_pkl_name = start_date[0:10]+'_'+end_date[0:10]+'_By_'+dim[0]+'_'+dim[1]+"_"+append
         z_pkl_name = start_date[0:10]+'_'+end_date[0:10]+'_Bz_'+dim[0]+'_'+dim[1]+"_"+append
         b_pkl_name = start_date[0:10]+'_'+end_date[0:10]+'_B_'+dim[0]+'_'+dim[1]+"_"+append
+        
+        if pres!='off':
+            x_pkl_name += '_p'
+            y_pkl_name += '_p'
+            z_pkl_name += '_p'
+            b_pkl_name += '_p'
+        if v!='off':
+            x_pkl_name += '_v'
+            y_pkl_name += '_v'
+            z_pkl_name += '_v'
+            b_pkl_name += '_v'
+        if E!='off':
+            x_pkl_name += '_E'
+            y_pkl_name += '_E'
+            z_pkl_name += '_E'
+            b_pkl_name += '_E'
 
         print(x_pkl_name,y_pkl_name,z_pkl_name)       
         #grab full file paths
