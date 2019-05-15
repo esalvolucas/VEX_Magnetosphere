@@ -6,10 +6,6 @@ from VEX_Magnetosphere.date_to_orbit import *
 from VEX_Magnetosphere.rotate_to_VSE import *
 
 def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=None,v=None,E=None,slice=None):
-    #initialize fail statistics
-    table_fail = 0
-    rotation_fail = 0
-    bin_fail = 0
     
     #create filenames to write binned data to
     pkl_name = start_time[0:10]+'_'+end_time[0:10]+'_'+mag+'_'+dim[0]+'_'+dim[1]
@@ -19,12 +15,19 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
     #add suffix if needed
     if append is not None:
         pkl_name = pkl_name + "_" + append
+    if pres!=None:
+        pkl_name += '_p'
+    if v!=None:
+        pkl_name += '_v'
+    if E!=None:
+        pkl_name += '_E'
         
-    print(pkl_name)
-    
     #create file names for 3D/2D binning structures
     pkl_name_c = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_counts.pkl"
-    pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2D.pkl"
+    pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2D.pkl"    
+    print(pkl_name)
+    
+    
     mag = 'VEX.'+mag
         
     #based on provided dimensions, set collapse axis to 3rd dimension
@@ -48,7 +51,7 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
     
     #for each orbit
     for orbit in orbits:
-        print(orbit)
+        #print(orbit)
         try:
             #load data into dataframe
             VSE_table = orbit_load(orbit)
@@ -56,8 +59,6 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
             VSE_table = append_sw(VSE_table,swdata)
 
         except:
-            print('table load fail')
-            table_fail += 1
             pass
  
         #pick spatial slice of 3D cube
@@ -113,6 +114,9 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
     #transpose 2D data matrix
     final_stat = final_stat.T
     final_nan = final_nan.T
+
+        
+        
     
     #open pkl files, dump final data
     outputc = open(pkl_name_c, "wb" )
@@ -125,11 +129,6 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
     #close files
     outputc.close()
     output2D.close()
-    
-    #print bin statistics to more easily diagnose errors
-    print('******* ORBIT BIN STATISTICS *******')
-    print('Table Failures:',100*table_fail/len(orbits),'%')
-    print('Rotation Failures:',100*rotation_fail/len(orbits),'%')
-    print('Bin Failures:',100*bin_fail/len(orbits),'%')
+
     
     return pkl_name2D,pkl_name_c,final_stat
