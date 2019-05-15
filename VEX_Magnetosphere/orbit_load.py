@@ -9,7 +9,7 @@ def orbit_load(orbit_num):
     #open file, read into pandas dataframe
     path = "./VEX_data_files/VSE/ORBIT_"+orbit_num+"_BS_*"
     for filename in glob.glob(path):
-        print(filename)
+        #print(filename)
         with open(filename) as f:
             table = pd.read_csv(f,sep='\t',index_col=0,header=None,names = ['UTC','Bx','By','Bz','|B|','XSC','YSC','ZSC','RSC','Clock','Cone','BS-rho'])
             #set UTC column to datetimeindex
