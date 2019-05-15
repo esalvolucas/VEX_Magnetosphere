@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from scipy.signal import argrelextrema
 from VEX_Magnetosphere import *
-from VEX_Magnetosphere.date_to_orbit import *
 
 def orbit_concat():
     #if need to print dataframe, don't wrap
