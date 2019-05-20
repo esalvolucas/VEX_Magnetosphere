@@ -21,7 +21,7 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
         pkl_name += '_v'
     if E!=None:
         pkl_name += '_E'
-        
+    print(pres,v,E)   
     #create file names for 3D/2D binning structures
     pkl_name_c = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_counts.pkl"
     pkl_name2D = "./VEX_data_files/VSE/VEX_bin_" + pkl_name + "_2D.pkl"    
@@ -94,7 +94,7 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
         #use pydivide.bin to bin data in 3D, bins of 0.2, between -3 and 3 Rv
         VSE_binavg,VSE_counts = bin(insitu,mag,['VEX.XSC','VEX.YSC','VEX.ZSC'],avg=True,
                                     density=True,binsize=[0.2,0.2,0.2],mins=[-3,-3,-3],
-                                    maxs=[3.2,3.2,3.2])
+                                    maxs=[3.2,3.2,3.2],verbose=False)
         VSE_binavg = VSE_binavg*VSE_counts
 
         #take sum of binned data on collapse axis
