@@ -21,6 +21,15 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     #add venus as black circle
     venus1=plt.Circle((0,0),1,color='k',fill=False)
     ax.add_artist(venus1)
+    if dim=='y':
+        ax.plot([-1,1],[0,0],color='k',linestyle='-')
+        ax.plot([-0.707,0.707],[0.707,0.707],color='k',linestyle='-')
+        ax.plot([-0.707,0.707],[-0.707,-0.707],color='k',linestyle='-')
+    if dim=='z':
+        venustop=plt.Circle((0,0),0.25,color='k',fill=False)
+        ax.add_artist(venustop)
+        venustop=plt.Circle((0,0),0.707,color='k',fill=False)
+        ax.add_artist(venustop)
     if magB==True:
         #pick r/w/b divergent colormap
         cmap = plt.get_cmap('RdPu')
