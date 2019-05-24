@@ -19,16 +19,16 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     #make meshgrid to plot bins
     ymesh,zmesh = np.meshgrid(yedges,zedges)
     #add venus as black circle
-    venus1=plt.Circle((0,0),1,color='k',fill=False)
+    venus1=plt.Circle((0,0),1,color='k',fill=False,linewidth=1)
     ax.add_artist(venus1)
-    if dim=='y':
-        ax.plot([-1,1],[0,0],color='k',linestyle='-')
-        ax.plot([-0.707,0.707],[0.707,0.707],color='k',linestyle='-')
-        ax.plot([-0.707,0.707],[-0.707,-0.707],color='k',linestyle='-')
+    if dim=='y' or dim=='x':
+        ax.plot([-1,1],[0,0],color='k',linestyle='-',linewidth=1)
+        ax.plot([-0.866,0.866],[0.5,0.5],color='k',linestyle='-',linewidth=0.5)
+        ax.plot([-0.866,0.866],[-0.5,-0.5],color='k',linestyle='-',linewidth=0.5)
     if dim=='z':
-        venustop=plt.Circle((0,0),0.25,color='k',fill=False)
+        venustop=plt.Circle((0,0),0.1,color='k',fill=False,linestyle='-',linewidth=0.5)
         ax.add_artist(venustop)
-        venustop=plt.Circle((0,0),0.707,color='k',fill=False)
+        venustop=plt.Circle((0,0),0.5,color='k',fill=False,linestyle='-',linewidth=0.5)
         ax.add_artist(venustop)
     if magB==True:
         #pick r/w/b divergent colormap
@@ -81,7 +81,8 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
     #toggle 2D black and white venus on/off
     if v_toggle == 'on':
         if dim == 'x':
-            add_venus_2D((0,0), 1, 90, ax, colors=('w','w'))
+            pass
+            #add_venus_2D((0,0), 1, 90, ax, colors=('w','w'))
         elif dim == 'y':
             add_venus_2D((0,0), 1, 90, ax, colors=('k','w'))
         elif dim == 'z':
@@ -124,7 +125,6 @@ def bin_3d(final_stat,final_x,final_y,dim='x',v_toggle='off',save=False,name=Non
         plt.show()
     if save == True:
         plt.savefig(name+'.png')
-        plt.clf()
-        plt.cla()
+        plt.close(fig)
 
     
