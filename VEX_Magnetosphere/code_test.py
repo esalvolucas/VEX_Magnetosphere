@@ -14,26 +14,69 @@ import _pickle as cPickle
 
 def code_test():
     
-    #VSE_table = orbit_load(3136)
+    #get list of orbits between start and end time
+    start_o = date_to_orbit('2006-04-25')
+    end_o = date_to_orbit('2014-11-24')
+    orbits = np.arange(start_o,end_o,1)
+    #initialize 31x31 binning matrix
+    final_stat = np.zeros((31,31))
+    final_nan = np.zeros((31,31))
+    
+    #read in all solar wind data
     swdata = read_sw(flag=[0,1])
     
-    #print(append_sw(VSE_table,swdata))
-    #fig,ax = plt.subplots(111)
-    #swpressure = 0.5*swdata['density']*swdata['speed']**2
-    #print(swdata)
-    #plt.yscale('log', nonposy='clip')
-    hmean = np.mean(np.log(swdata['pressure']))
-    hstd = (np.std(np.log(swdata['pressure']))*np.arange(-3,3,0.5)) + hmean
-    print(hstd)
-    for i in hstd:
-        plt.axvline(x=i,color='r')
+    #for each orbit
+    for orbit in orbits:
+        #print(orbit)
+        try:
+            #load data into dataframe
+            VSE_table = orbit_load(orbit)
+            #append specific orbit of solar wind data to table
+            VSE_table = append_sw(VSE_table,swdata)
+            
+            
+    #VSE_table = orbit_load(3136)
+    #swdata = read_sw(flag=[0,1])
     
-    plt.axvline(x=hmean,color='g')
-    
-    plt.hist(np.log(swdata['pressure']),bins=500)
-    plt.show()
-    print(np.mean(np.log(swdata['pressure'])))
-    print(np.std(np.log(swdata['pressure'])))
+#     #print(append_sw(VSE_table,swdata))
+#     #fig,ax = plt.subplots(111)
+#     #swpressure = 0.5*swdata['density']*swdata['speed']**2
+#     #print(swdata)
+#     #plt.yscale('log', nonposy='clip')
+#     hmean = np.mean(np.log(swdata['speed']))
+#     hstd = (np.std(np.log(swdata['speed']))*np.arange(-3,3,0.5)) + hmean
+#     print(hstd)
+#     for i in hstd:
+#         plt.axvline(x=i,color='r')
+#     
+#     plt.axvline(x=hmean,color='g')
+#     
+#     a = plt.hist(np.log(swdata['pressure']),bins=500)
+#     #print(a[1])
+# #     plt.show()
+# #     #print(np.mean(np.log(swdata['speed'])))
+# #     #print(np.std(np.log(swdata['speed'])))
+# #     print(a[0])
+#     
+#     l = np.sum(a[0])
+#     print(l,len(swdata['pressure']))
+#     #print(l)
+#     x,x1,x2 = 0,0,0
+#     for i,val in enumerate(a[0]):
+#         x += val
+#         print(x,l/3.)
+#         if x >= l/3.0 and x1==0:
+#             x1 = a[1][i]
+#         if x >= 2.*l/3. and x2==0:
+#             x2 = a[1][i]
+#             break
+#     print(x1,x2)
+#     
+#     plt.axvline(x=x1,color='g')
+#     plt.axvline(x=x2,color='g')
+#     plt.hist(np.log(swdata['pressure']),bins=500)
+#     plt.show()
+#     print(swdata['pressure'])
 #     
 # # theta = -0.104719755
 #  
