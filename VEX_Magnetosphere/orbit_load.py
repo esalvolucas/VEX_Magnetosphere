@@ -11,7 +11,7 @@ def orbit_load(orbit_num):
     for filename in glob.glob(path):
         #print(filename)
         with open(filename) as f:
-            table = pd.read_csv(f,sep='\t',index_col=0,header=None,names = ['UTC','Bx','By','Bz','|B|','XSC','YSC','ZSC','RSC','Clock','Cone','BS-rho'])
+            table = pd.read_csv(f,sep='\t',index_col=0,header=None,names = ['UTC','Bx','By','Bz','|B|','XSC','YSC','ZSC','RSC','Clock','Cone','BS-rho'])#,'Pressure','Speed','vx','vy','vz','|E|'])
             #set UTC column to datetimeindex
             table = table.set_index(pd.DatetimeIndex(table.index))
         f.close()
