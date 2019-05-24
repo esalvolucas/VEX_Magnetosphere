@@ -13,9 +13,9 @@ def mag_concat(start_date,end_date):
         end_day = end_date[0:10]
         #for each file in MAG data directory path
         #MAC
-        #dir_path = "/Volumes/Venus_Express/calibrated_level_3/**/DATA/**/*.TAB"
+        dir_path = "/Volumes/VEX_Data/calibrated_level_3/**/DATA/**/*.TAB"
         #WINDOWS
-        dir_path = "D:/calibrated_level_3/**/DATA/**/*.TAB"
+        #dir_path = "D:/calibrated_level_3/**/DATA/**/*.TAB"
         for filename in glob.iglob(dir_path,recursive=True):
             #remove hyphens
             reg_start = start_day.replace('-','')
@@ -37,7 +37,7 @@ def mag_concat(start_date,end_date):
             print('OS: Windows')
             flag = 1
         else:
-            dir_path = "/Volumes/Venus_Express/calibrated_level_3/**/DATA/**/*.TAB"
+            dir_path = "/Volumes/VEX_Data/calibrated_level_3/**/DATA/**/*.TAB"
             for filename in glob.iglob(dir_path,recursive=True):
                 #remove hyphens
                 reg_start = start_day.replace('-','')
