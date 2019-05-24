@@ -52,7 +52,8 @@ def map_plots(start_date,end_date,append=None,slicedir=None,pres='off',v='off',E
         
         #set plot directory path
         #plot_dir = r'C:/Users/Elysia/Pictures/VEX Plots/gif/'
-        plot_dir = r'/Users/ellu2839/Pictures/VEX_Plots/'
+        #plot_dir = r'/Users/ellu2839/Pictures/VEX_Plots/'
+        plot_dir = "/Volumes/VEX_Data/VEX_Plots/"
         if pres!='off':
             plot_dir += r'Pressure/'
         if v!='off':
@@ -62,19 +63,19 @@ def map_plots(start_date,end_date,append=None,slicedir=None,pres='off',v='off',E
             
         #depending on projection, plot the binned data
         if dimtick == 0:
-            bin_3d(X,Y,Z,dim='x',v_toggle='off',save=True,name=plot_dir+x_pkl_name,title=title_yr,bs='on')
+            bin_3d(X,Y,Z,dim='x',v_toggle='on',save=True,name=plot_dir+x_pkl_name,title=title_yr,bs='on')
         elif dimtick == 1:
-            bin_3d(Y,X,Z,dim='y',v_toggle='off',save=True,name=plot_dir+y_pkl_name,title=title_yr,bs='on')
+            bin_3d(Y,X,Z,dim='y',v_toggle='on',save=True,name=plot_dir+y_pkl_name,title=title_yr,bs='on')
         elif dimtick == 2:
-            bin_3d(Z,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+z_pkl_name,title=title_yr,bs='on')
+            bin_3d(Z,X,Y,dim='z',v_toggle='on',save=True,name=plot_dir+z_pkl_name,title=title_yr,bs='on')
         
         #pick projection of slice
         if slicedir=='XSC' and dimtick==0:
-            bin_3d(B,Y,Z,dim='x',v_toggle='off',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on',magB=True)
+            bin_3d(B,Y,Z,dim='x',v_toggle='on',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on',magB=True)
         elif slicedir=='YSC' and dimtick==1:
-            bin_3d(B,X,Z,dim='y',v_toggle='off',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on',magB=True)
+            bin_3d(B,X,Z,dim='y',v_toggle='on',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on',magB=True)
         if slicedir=='ZSC' and dimtick==2:
-            bin_3d(B,X,Y,dim='z',v_toggle='off',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on',magB=True)
+            bin_3d(B,X,Y,dim='z',v_toggle='on',save=True,name=plot_dir+b_pkl_name,title=title_yr,bs='on',magB=True)
 
         dimtick += 1
 
