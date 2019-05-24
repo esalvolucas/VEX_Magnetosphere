@@ -57,7 +57,7 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
             VSE_table = orbit_load(orbit)
             #append specific orbit of solar wind data to table
             VSE_table = append_sw(VSE_table,swdata)
-
+            
         except:
             pass
  
@@ -87,6 +87,14 @@ def orbit_bin(start_time,end_time,mag='Bx',dim=['YSC','ZSC'],append=None,pres=No
             VSE_table = VSE_table.where((np.log(VSE_table['Speed'])<6.0695)&(np.log(VSE_table['Speed'])>5.8503))
         elif v=='high':
             VSE_table = VSE_table.where((np.log(VSE_table['Speed'])>6.0695))
+            
+        #sort data by low/med/high solar wind electric field strength
+#         if E=='low':
+#             VSE_table = VSE_table.where((np.log(VSE_table['|E|'])<=5.8503))
+#         elif E=='med':
+#             VSE_table = VSE_table.where((np.log(VSE_table['|E|'])<6.0695)&(np.log(VSE_table['|E|'])>5.8503))
+#         elif E=='high':
+#             VSE_table = VSE_table.where((np.log(VSE_table['|E|'])>6.0695))
             
         #initialize insitu structre for pydivide.bin
         insitu = {}
